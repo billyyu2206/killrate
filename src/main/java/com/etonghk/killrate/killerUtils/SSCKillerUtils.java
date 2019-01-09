@@ -1455,7 +1455,7 @@ public class SSCKillerUtils {
 			rowcols[i] = rows[i].split(BetItemSplit);
 		}
 
-		List<String> resultList = AwardNumberGenerateUtils.getRenXuanZhiXuan(rowcols, 4);
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanZhiXuan(rowcols, 4); // 任四三二 修改傳入 digit即可
 		return resultList;
 	}
 	
