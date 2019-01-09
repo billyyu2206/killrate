@@ -8,13 +8,13 @@ import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
 /**
- * 后二星_直选单式-h
- * 前二星_直选单式-q
+ * 后二星_直选复式-h
+ * 前二星_直选复式-q
  * @author Ami
  *
  */
-@AwardComponent(name={"exzhixfsh,exzhixfsq"})
-public class ExzhixfsAwardNumber implements AwardNumber{
+@AwardComponent(name={"exzhixdsh,exzhixdsq"})
+public class ExzhixdsAwardNumber implements AwardNumber{
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {

@@ -1,5 +1,9 @@
 package com.etonghk.killrate.awardNmber.ssc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 时时彩工具类别
  * @author Ami
@@ -40,5 +44,20 @@ public class SSCAwardUtils {
 		}
 		return -1;
 	}
+	
+	/**
+	 * 阵列转化ArrayList
+	 * @param array
+	 * @return
+	 */
+	public static <T>List<T> arrayToList(T[] array) {
+		List<T> result = new ArrayList<T>();
+		Arrays.stream(array).forEach(item->{
+			result.add(item);
+			}
+		);
+		return result;
+	}
+
 	
 }
