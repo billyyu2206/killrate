@@ -13,7 +13,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  *
  */
 @AwardComponent(name={"sxzhixfsh","sxzhixfsz","sxzhixfsq"})
-public class SxzhixfAwardNumber extends Sxzhi implements AwardNumber {
+public class SxzhixfAwardNumber extends SxzhiBase implements AwardNumber {
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
