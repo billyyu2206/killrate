@@ -1,12 +1,12 @@
-package com.etonghk.killrate.awardNmber.ssc;
+package com.etonghk.killrate.awardNmber.ssc.wuxi;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 
+import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
@@ -16,7 +16,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  * @author Ami
  *
  */
-@Component("wxzux120")
+@AwardComponent(name={"wxzux120"})
 public class Wxzux120AwardNumber implements AwardNumber{
 
 	@Override

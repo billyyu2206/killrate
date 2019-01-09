@@ -1,4 +1,4 @@
-package com.etonghk.killrate.awardNmber.ssc;
+package com.etonghk.killrate.awardNmber.ssc.wuxi;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,25 +12,25 @@ import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
 /**
- * 五星_组选10
+ * 五星_组选30
  * @author Ami
  *
  */
-@Component("wxzux10")
-public class Wxzux10AwardNumber implements AwardNumber{
+@Component("wxzux30")
+public class Wxzux30AwardNumber implements AwardNumber{
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
 		String[] rows = betOrder.getBetItem().split(BetLineSplit);
 		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
-		betDataMap.put(3, StringUtils.join(rows[0].split(BetItemSplit), ","));
-		betDataMap.put(2, StringUtils.join(rows[1].split(BetItemSplit), ","));
+		betDataMap.put(2, StringUtils.join(rows[0].split(BetItemSplit), ","));
+		betDataMap.put(1, StringUtils.join(rows[1].split(BetItemSplit), ","));
 
 		Map<Integer, Integer> dataCountMap = new HashMap<Integer, Integer>();
-		dataCountMap.put(3, 1);
-		dataCountMap.put(2, 1);
+		dataCountMap.put(2, 2);
+		dataCountMap.put(1, 1);
 
-		List<String> resultList = AwardNumberGenerateUtils.getTzuShiuanNumber(betDataMap, dataCountMap, 2);
+		List<String> resultList = AwardNumberGenerateUtils.getTzuShiuanNumber(betDataMap, dataCountMap, 3);
 		resultList = AwardNumberGenerateUtils.getCompleteAwardList(resultList, 0, 0);
 		return resultList;
 	}
