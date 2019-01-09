@@ -17,7 +17,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  * @author Ami
  *
  */
-@AwardComponent(name={"sixzux12h,sixzux12q"})
+@AwardComponent(name={"sixzux12h","sixzux12q"})
 public class Sixzux12AwardNumber extends SixiBase implements AwardNumber{
 
 	@Override

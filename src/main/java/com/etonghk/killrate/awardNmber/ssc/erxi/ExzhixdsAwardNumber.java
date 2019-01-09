@@ -13,7 +13,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  * @author Ami
  *
  */
-@AwardComponent(name={"exzhixdsh,exzhixdsq"})
+@AwardComponent(name={"exzhixdsh","exzhixdsq"})
 public class ExzhixdsAwardNumber extends ErxiBase implements AwardNumber{
 
 	@Override
