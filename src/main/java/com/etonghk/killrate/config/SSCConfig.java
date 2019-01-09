@@ -22,6 +22,7 @@ public class SSCConfig {
 	public static final Map<String, String> SSC2HG = new HashMap<String, String>();
 	public static final Map<String, String> SSC3KuaDu = new HashMap<String, String>();
 	public static final Map<String, String> SSC2KuaDu = new HashMap<String, String>();
+	public static final Map<String, List<Integer[]>> SSCLongHuDou = new HashMap<String, List<Integer[]>>();
 	public static final List<String> allDataList = new ArrayList<String>();
 
 	static {
@@ -51,6 +52,27 @@ public class SSCConfig {
 		SSCConfig.SSC2HGPAIR.put("14", "77");
 		SSCConfig.SSC2HGPAIR.put("16", "88");
 		SSCConfig.SSC2HGPAIR.put("18", "99");
+		
+		
+		List<Integer[]> longList = new ArrayList<Integer[]>();
+		List<Integer[]> huList = new ArrayList<Integer[]>();
+		List<Integer[]> herList = new ArrayList<Integer[]>();
+		for(int i = 0; i <= 9; i++) {
+			for(int j = 0; j <= 9; j++) {
+				if(i > j) {
+					longList.add(new Integer[]{i,j});
+				}else if(i == j) {
+					herList.add(new Integer[]{i,j});
+				}else { // i < j
+					huList.add(new Integer[]{i,j});
+				}
+			}
+		}
+		SSCConfig.SSCLongHuDou.put("龙", longList);
+		SSCConfig.SSCLongHuDou.put("虎", huList);
+		SSCConfig.SSCLongHuDou.put("和", herList);
+		
+		
 		
 		for (int sum = 0; sum <= 27; ++sum) {
 			for (int i = 0; i <= 9 && i <= sum; ++i) {

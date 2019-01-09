@@ -75,6 +75,21 @@ public class AwardNumberGenerateUtils {
 			resultList.add(item);
 		}
 	}
+	
+	public static void addPreAndAfterForLongHuDou(String item, String huItem, int leftLength, int midLength, int rightLength, List<String> resultList) {
+		if (leftLength > 0) {
+			for (int i = 0; i < 10; i++) {
+				addPreAndAfterForLongHuDou(i + item, huItem, leftLength - 1, midLength, rightLength, resultList);
+			}
+		} else if (midLength > 0) {
+			for (int i = 0; i < 10; i++) {
+				addPreAndAfterForLongHuDou(item + i, huItem, leftLength, midLength - 1, rightLength, resultList);
+			}
+		} else {
+			addPreAndAfter(item + huItem, 0, rightLength, resultList);
+		}
+	}
+	
 
 	public static List<String> getTzuShiuanNumber(Map<Integer, String> betDataMap, Map<Integer, Integer> dataCountMap,
 			int totalCount) {
@@ -209,6 +224,24 @@ public class AwardNumberGenerateUtils {
 			for (String tempItem : tempList) {
 				resultList.addAll(getCombinationPermutation(tempItem.split("")));
 			}
+		}
+		return resultList;
+	}
+	
+	/**
+	 * longPos	龙位数 
+	 * nuPos	虎位数
+	 * 万: 1, 千: 2, 百: 3, 十: 4, 个: 5
+	 */
+	public static List<String> getLongHuDou(String betItem, int longPos, int huPos) {
+		List<String> resultList = new ArrayList<String>();
+		List<Integer[]> numbersList = SSCConfig.SSCLongHuDou.get(betItem);
+		int digitLeft = longPos - 1; // 龙左边的位数
+		int digitRight = 5 - huPos; // 虎右边的位数
+		int midDigit = 3 - (digitLeft + digitRight); // 龙虎中间夹的位数
+		
+		for(Integer[] longHuNumbers : numbersList) {
+			addPreAndAfterForLongHuDou(longHuNumbers[0].toString(), longHuNumbers[1].toString(), digitLeft, midDigit, digitRight, resultList);
 		}
 		return resultList;
 	}
