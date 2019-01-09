@@ -2,7 +2,12 @@ package com.etonghk.killrate.awardNmber.ssc.sxzhi;
 
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
 
-public class Sxzhi {
+/**
+ * 三星基础类别
+ * @author Peter
+ *
+ */
+public abstract class SxzhiBase {
 
 		
 	/**
