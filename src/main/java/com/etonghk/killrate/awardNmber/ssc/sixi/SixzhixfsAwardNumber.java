@@ -15,7 +15,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  *
  */
 @AwardComponent(name={"sixzhixfsh,sixzhixfsq"})
-public class SixzhixfsAwardNumber implements AwardNumber{
+public class SixzhixfsAwardNumber extends SixiBase implements AwardNumber{
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
@@ -26,8 +26,8 @@ public class SixzhixfsAwardNumber implements AwardNumber{
 		}
 		List<String> itemlist = new ArrayList<String>();
 		AwardNumberGenerateUtils.betItemPermutation(rowcols, 0, "", itemlist);
-		//FIXME 須根據前四 或後四 針對
-		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(itemlist, 1, 0);
+		int[] pos = getSixiPos(betOrder.getGamePlayId());
+		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(itemlist, pos[0], pos[1]);
 		return resultList;
 	}
 

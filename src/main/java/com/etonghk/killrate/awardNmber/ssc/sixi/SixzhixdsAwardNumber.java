@@ -14,12 +14,13 @@ import com.etonghk.killrate.vo.BetRecordBean;
  *
  */
 @AwardComponent(name={"sixzhixdsh,sixzhixdsq"})
-public class SixzhixdsAwardNumber implements AwardNumber{
+public class SixzhixdsAwardNumber extends SixiBase implements AwardNumber{
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
 		String[] items = betOrder.getBetItem().split(BetItemSplit);
-		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(items, 1, 0);
+		int[] pos = getSixiPos(betOrder.getGamePlayId());
+		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(items, pos[0], pos[1]);
 		return resultList;
 	}
 
