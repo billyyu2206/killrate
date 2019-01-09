@@ -246,6 +246,45 @@ public class AwardNumberGenerateUtils {
 		return resultList;
 	}
 
+	/**
+	 * betItems 投注內容
+	 * digit	任選位數
+	 * nuPos	虎位数
+	 */
+	public static List<String> getRenXuanZhiXuan(String[][] betItems, int digit){
+		List<String> result = new ArrayList<String>();
+		
+		// 整理那些位數有被投注
+		String betPos = ""; 
+		for(int i = 1; i <= 5; i++) {
+			if(!"-".equals(betItems[i - 1][0])) { // FIXME 暫時先假定未投注的位數會傳"-"過來
+				betPos += i;
+			}
+		}
+		String[] betPosArray = betPos.split("");
+		List<String> temp = new ArrayList<String>();
+		List<String[]> posConbineResult = new ArrayList<String[]>();
+		
+		// 取得下注位數的組合
+		AwardNumberGenerateUtils.combination(betPosArray, 0, temp, digit, posConbineResult);
+		
+		String source = "0123456789";
+		String[][] betData = new String[5][];
+		for(String[] posCombine : posConbineResult) {
+			for(int i = 0; i <= 4; i++) {
+				if(Arrays.asList(posCombine).contains(i + 1 + "")) {
+					betData[i] = betItems[i];
+				}else {
+					betData[i] = source.split("");
+				}
+			}
+			AwardNumberGenerateUtils.betItemPermutation(betData, 0, "", result);
+		}
+		
+		
+		return result;
+	}
+	
 	public static List<String> getCombinationPermutation(String[] data) {
 		return getCombinationPermutation(data, "");
 	}

@@ -1445,6 +1445,19 @@ public class SSCKillerUtils {
 		return resultList;
 	}
 	
+	/**
+	 * 任四 直选复式
+	 */
+	private static List<String> SSC012001001(BetRecordBean betOrder){
+		String[][] rowcols = new String[5][];
+		String[] rows = betOrder.getBetItem().split(BetLineSplit, -1);
+		for (int i = 0; i < rows.length; i++) {
+			rowcols[i] = rows[i].split(BetItemSplit);
+		}
+
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanZhiXuan(rowcols, 4); // 任四三二 修改傳入 digit即可
+		return resultList;
+	}
 	
 //	/**
 //	 * 五星组合
