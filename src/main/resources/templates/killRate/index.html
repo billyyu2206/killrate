@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script th:src="@{jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+
+
+<p th:text="${msg}">Hello World</p>
+
+<div class="container">
+    <h1>Customer Table</h1>
+    <div class="row col-md-7 table-responsive">
+        <table id="customerTable" class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.name}">Jack</td>
+                <td th:text="${user.age}">23</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
