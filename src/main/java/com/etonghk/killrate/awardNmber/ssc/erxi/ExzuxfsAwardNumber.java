@@ -18,7 +18,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  *
  */
 @AwardComponent(name={"exzuxfsh,exzuxfsq"})
-public class ExzuxfsAwardNumber implements AwardNumber{
+public class ExzuxfsAwardNumber extends ErxiBase implements AwardNumber{
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
@@ -30,7 +30,8 @@ public class ExzuxfsAwardNumber implements AwardNumber{
 		dataCountMap.put(1, 2);
 
 		List<String> resultList = AwardNumberGenerateUtils.getTzuShiuanNumber(betDataMap, dataCountMap, 2);
-		resultList = AwardNumberGenerateUtils.getCompleteAwardList(resultList, 3, 0);
+		int[] pos = getErxiPos(betOrder.getGamePlayId());
+		resultList = AwardNumberGenerateUtils.getCompleteAwardList(resultList, pos[0], pos[1]);
 		return resultList;
 	}
 
