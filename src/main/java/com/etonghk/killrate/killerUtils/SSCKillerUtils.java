@@ -26,12 +26,14 @@ public class SSCKillerUtils {
 	private static final String[] checkRepeatPlayId = { "004003006", "013003006", "003003006", "004003004", "013003004",
 			"003003004", "004003005", "013003005", "003003005" };
 
-	public static HashMap<String, String> getSSCAwardMap(HashMap<String, String> sscAwardMap,
+	public static Map<String, String> getSSCAwardMap(Map<String, String> sscAwardMap,
 			List<BetRecordBean> betList) {
 		for (BetRecordBean betOrder : betList) {
 			// 取得會中獎的號碼
 			List<String> needAwardNumberList = getNeedAwardNumber(betOrder);
-
+			Set<String> needAwardNumberSet = new HashSet<String>();
+			needAwardNumberSet.addAll(needAwardNumberList);
+			
 			BigDecimal award = null;
 			String gamePlayId = betOrder.getGamePlayId();
 			List<String> checkRepeatPlayIdList = Arrays.asList(checkRepeatPlayId);
@@ -233,7 +235,7 @@ public class SSCKillerUtils {
 		case "005002007": // 前二组选和值
 			resultList = SSC005002007(betOrder);
 			break;
-		case "006001002": // 不定胆
+		case "006001002": // 定位胆
 			resultList = SSC006001002(betOrder);
 			break;
 		case "007001001": // 后三一码不定胆
@@ -397,7 +399,11 @@ public class SSCKillerUtils {
 			break;
 		case "008001005": // 前三大小单双
 			resultList = SSC008001005(betOrder);
-		}
+			break;
+		case "LongHuDouWQ":
+			resultList = LongHuDouWQ(betOrder);
+			break;
+		}	
 		return resultList;
 	}
 
@@ -1178,7 +1184,7 @@ public class SSCKillerUtils {
 		return resultList;
 	}
 
-	// 不定胆
+	// 定位胆
 	private static List<String> SSC006001002(BetRecordBean betOrder) {
 		String[] rows = betOrder.getBetItem().split(BetLineSplit, -1);
 		List<String> resultList = new ArrayList<String>();
@@ -1328,7 +1334,7 @@ public class SSCKillerUtils {
 		resultList = AwardNumberGenerateUtils.getCompleteAwardList(resultList, 0, 2);
 		return resultList;
 	}
-
+	
 	// 一帆风顺
 	private static List<String> SSC009001001(BetRecordBean betOrder) {
 		String[] cols = betOrder.getBetItem().split(BetItemSplit);
@@ -1426,6 +1432,79 @@ public class SSCKillerUtils {
 		}
 		return resultList;
 	}
+	
+	// 龍虎鬥-萬千
+	private static List<String> LongHuDouWQ(BetRecordBean betOrder) {
+		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		List<String> resultList = new ArrayList<String>();
+		for(String betItems : rows) {
+			List<String> tempList = AwardNumberGenerateUtils.getLongHuDou(betItems, 1, 2);// 其餘龍虎鬥只需修改後面兩個參數
+			resultList.addAll(tempList);
+		}
+		
+		return resultList;
+	}
+	
+	
+//	/**
+//	 * 五星组合
+//	 */
+//	private static List<String> SSC001001003(BetRecordBean betOrder) {
+//		String[][] rowcols = new String[5][];
+//		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+//		List<String> itemlist = new ArrayList<String>();
+//		for (int i = 0; i < rows.length; i++) {
+//			rowcols[i] = rows[i].split(BetItemSplit);
+//		}
+//		AwardNumberGenerateUtils.betItemPermutation(rowcols, 0, "", itemlist);
+//
+//		int subindex = 0;
+//		for (String bet : itemlist) {
+//			if (bet.substring(subindex).equals(award.replaceAll(",", "").substring(subindex))) {// 中奖
+//				betAward = betAward.add(new BigDecimal(odds[0]).multiply(new BigDecimal(record.getBetMultiplier()))
+//						.multiply(new BigDecimal(AmodeType.getValue(record.getAmode()))));
+//				setWin();
+//				//return;
+//			}
+//		}
+//		subindex++;
+//		for (String bet : itemlist) {
+//			if (bet.substring(subindex).equals(award.replaceAll(",", "").substring(subindex))) {// 中奖
+//				betAward = betAward.add(new BigDecimal(odds[1]).multiply(new BigDecimal(record.getBetMultiplier()))
+//						.multiply(new BigDecimal(AmodeType.getValue(record.getAmode()))));
+//				setWin();
+//				//return;
+//			}
+//		}
+//		subindex++;
+//		for (String bet : itemlist) {
+//			if (bet.substring(subindex).equals(award.replaceAll(",", "").substring(subindex))) {// 中奖
+//				betAward = betAward.add(new BigDecimal(odds[2]).multiply(new BigDecimal(record.getBetMultiplier()))
+//						.multiply(new BigDecimal(AmodeType.getValue(record.getAmode()))));
+//				setWin();
+//				//return;
+//			}
+//		}
+//		subindex++;
+//		for (String bet : itemlist) {
+//			if (bet.substring(subindex).equals(award.replaceAll(",", "").substring(subindex))) {// 中奖
+//				betAward = betAward.add(new BigDecimal(odds[3]).multiply(new BigDecimal(record.getBetMultiplier()))
+//						.multiply(new BigDecimal(AmodeType.getValue(record.getAmode()))));
+//				setWin();
+//				//return;
+//			}
+//		}
+//		subindex++;
+//		for (String bet : itemlist) {
+//			if (bet.substring(subindex).equals(award.replaceAll(",", "").substring(subindex))) {// 中奖
+//				betAward = betAward.add(new BigDecimal(odds[4]).multiply(new BigDecimal(record.getBetMultiplier()))
+//						.multiply(new BigDecimal(AmodeType.getValue(record.getAmode()))));
+//				setWin();
+//				//return;
+//			}
+//		}
+//		
+//	}
 
 	private static List<String> getAwardList(String[] itemList, int start, int end) {
 		List<String> resultList = arrayToList(itemList);
