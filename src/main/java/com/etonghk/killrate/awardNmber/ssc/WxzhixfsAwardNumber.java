@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
