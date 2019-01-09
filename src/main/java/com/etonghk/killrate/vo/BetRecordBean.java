@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@SuppressWarnings("serial")
 public class BetRecordBean implements Serializable {
 	private String gameId;
 	private Integer betMultiplier;
