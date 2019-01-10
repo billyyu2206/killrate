@@ -27,4 +27,22 @@ public abstract class ErxiBase {
 		}
 		return result;
 	}
+	
+	/**
+	 * 判斷跨度位數
+	 * @param pos 0前 1中 2后
+	 * @return [0]:pre [1]:suf
+	 */
+	public int[] getErxiKdPos(String playId) {
+		int pos = SSCAwardUtils.getKDFrontOrMiddleOrBack(playId);
+		int[] result = new int[2];
+		if(pos==0) {
+			result[0] = 0;
+			result[1] = 3;
+		}else {
+			result[0] = 3;
+			result[1] = 0;			
+		}
+		return result;
+	}
 }
