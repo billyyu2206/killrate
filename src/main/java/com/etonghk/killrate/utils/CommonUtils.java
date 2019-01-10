@@ -18,5 +18,15 @@ public class CommonUtils {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 	}
 	
+	public static <T>String[] arrayToStringArray(T[] data) {
+		if(data == null || data.length == 0) {
+			return null;
+		}
+		String[] result = new String[data.length];
+		for(int i = 0; i < result.length; i ++) {
+			result[i] = data[i].toString();
+		}
+		return result;
+	}
 	
 }

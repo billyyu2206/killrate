@@ -52,7 +52,7 @@ public class AwardNumberGenerateUtils {
 
 	public static List<String> getCompleteAwardList(List<String> itemList, int preLength, int afterLength) {
 		List<String> resultList = new ArrayList<String>();
-		if ((preLength == 0) && (afterLength == 0)) {
+		if (preLength == 0 && afterLength == 0) {
 			resultList = itemList;
 		} else {
 			for (String item : itemList) {
@@ -98,10 +98,10 @@ public class AwardNumberGenerateUtils {
 		int index = 0;
 		int totalLength = 0;
 		for (Integer key : betDataMap.keySet()) {
-			int count = ((Integer) dataCountMap.get(key)).intValue();
+			int count = dataCountMap.get(key).intValue();
 			totalLength += count;
 			for (int i = 0; i < count; i++) {
-				rowCols[index] = ((String) betDataMap.get(key)).split(",");
+				rowCols[index] = betDataMap.get(key).split(",");
 				for (int j = 0; j < rowCols[index].length; j++) {
 					for (int k = 1; k < key.intValue(); k++) {
 						int tmp150_148 = j;
@@ -247,9 +247,10 @@ public class AwardNumberGenerateUtils {
 	}
 
 	/**
-	 * betItems 投注內容
-	 * digit	任選位數
-	 * nuPos	虎位数
+	 *	任選直選系列
+	 * 	betItems 	投注內容
+	 * 	digit		任選位數
+	 * 	nuPos		虎位数
 	 */
 	public static List<String> getRenXuanZhiXuan(String[][] betItems, int digit){
 		List<String> result = new ArrayList<String>();
@@ -281,9 +282,9 @@ public class AwardNumberGenerateUtils {
 			AwardNumberGenerateUtils.betItemPermutation(betData, 0, "", result);
 		}
 		
-		
 		return result;
 	}
+	
 	
 	public static List<String> getCombinationPermutation(String[] data) {
 		return getCombinationPermutation(data, "");

@@ -23,6 +23,7 @@ public class SSCConfig {
 	public static final Map<String, String> SSC3KuaDu = new HashMap<String, String>();
 	public static final Map<String, String> SSC2KuaDu = new HashMap<String, String>();
 	public static final Map<String, List<Integer[]>> SSCLongHuDou = new HashMap<String, List<Integer[]>>();
+	public static final Map<String, List<Integer[]>> SSC5HG = new HashMap<String, List<Integer[]>>(); // 和值大小单双
 	public static final List<String> allDataList = new ArrayList<String>();
 
 	static {
@@ -72,7 +73,38 @@ public class SSCConfig {
 		SSCConfig.SSCLongHuDou.put("虎", huList);
 		SSCConfig.SSCLongHuDou.put("和", herList);
 		
-		
+		List<Integer[]> daList = new ArrayList<Integer[]>();
+		List<Integer[]> shiauList = new ArrayList<Integer[]>();
+		List<Integer[]> danList = new ArrayList<Integer[]>();
+		List<Integer[]> shuangList = new ArrayList<Integer[]>();
+		int sumVal = 0;
+		for (int i3 = 0; i3 <= 9; ++i3) {
+			for (int j3 = i3; j3 <= 9; ++j3) {
+				for (int k3 = j3; k3 <= 9; ++k3) {
+					for (int l3 = k3; l3 <= 9; ++l3) {
+						for (int m3 = l3; m3 <= 9; ++m3) {
+							sumVal = i3 + j3 + k3 + l3 + m3;
+							if(sumVal >= 23) {
+								daList.add(new Integer[] {i3, j3, k3, l3, m3});
+							}else { //sumVal <= 22
+								shiauList.add(new Integer[] {i3, j3, k3, l3, m3});
+							}
+							
+							if(sumVal % 2 == 1) {
+								danList.add(new Integer[] {i3, j3, k3, l3, m3});
+							}else { // sumVal % 2 == 0
+								shuangList.add(new Integer[] {i3, j3, k3, l3, m3});
+							}
+							
+						}
+					}
+				}
+			}
+		}
+		SSCConfig.SSC5HG.put("大", daList);
+		SSCConfig.SSC5HG.put("小", shiauList);
+		SSCConfig.SSC5HG.put("单", danList);
+		SSCConfig.SSC5HG.put("双", shuangList);
 		
 		for (int sum = 0; sum <= 27; ++sum) {
 			for (int i = 0; i <= 9 && i <= sum; ++i) {

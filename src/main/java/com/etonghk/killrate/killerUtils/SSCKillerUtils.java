@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.etonghk.killrate.config.SSCConfig;
 import com.etonghk.killrate.constant.AmodeType;
 import com.etonghk.killrate.constant.KillerConstant;
+import com.etonghk.killrate.utils.CommonUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
 public class SSCKillerUtils {
@@ -1459,6 +1460,23 @@ public class SSCKillerUtils {
 		return resultList;
 	}
 	
+	/**
+	 *	五星和值大小单双
+	 */
+	private static List<String> wxhzdxds(BetRecordBean betOrder) {
+		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		List<String> resultList = new ArrayList<String>();
+		for(String betItem : rows) {
+			List<Integer[]> numsCombineList = SSCConfig.SSC5HG.get(betItem);
+			List<String> tempList = null;
+			for(Integer[] nums : numsCombineList) {
+				String[] numsString = CommonUtils.arrayToStringArray(nums);
+				tempList = AwardNumberGenerateUtils.getCombinationPermutation(numsString);
+				resultList.addAll(tempList);
+			}
+		}
+		return resultList;
+	}
 //	/**
 //	 * 五星组合
 //	 */
@@ -1564,6 +1582,7 @@ public class SSCKillerUtils {
 		}
 	}
 
+	// 不用Arrays.asList 是因為 asList 出來的 list 無法 add 或 remove
 	private static List<String> arrayToList(String[] array) {
 		List<String> result = new ArrayList<String>();
 		for (String item : array) {
