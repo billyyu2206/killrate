@@ -10,6 +10,11 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
 import com.etonghk.killrate.vo.BetRecordBean;
 
+/**
+ * 五星組合
+ * @author Ami
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestWxzhixzhAwardNumber {
