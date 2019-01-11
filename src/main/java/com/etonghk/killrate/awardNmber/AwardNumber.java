@@ -12,7 +12,7 @@ public interface AwardNumber {
 	/**
 	 * 選號符號
 	 */
-	String BetItemSplit = "&";
+	String BetItemSplit = "";
 	String BetPosItem = "[√]";
 	List<String> getAwardNumber(BetRecordBean betOrder);
 }
