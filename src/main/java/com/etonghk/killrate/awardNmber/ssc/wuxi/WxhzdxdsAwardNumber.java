@@ -3,6 +3,7 @@ package com.etonghk.killrate.awardNmber.ssc.wuxi;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.config.SSCConfig;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
@@ -13,6 +14,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  * @author Peter
  *
  */
+@AwardComponent(name= {"wxhzdxds"})
 public class WxhzdxdsAwardNumber implements AwardNumber {
 
 	@Override

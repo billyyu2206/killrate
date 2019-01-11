@@ -1,4 +1,4 @@
-package com.etonghk.killrate.awardNumber.sxzhi;
+package com.etonghk.killrate.awardNumber.erxi;
 
 import java.util.List;
 
@@ -12,25 +12,24 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
 import com.etonghk.killrate.vo.BetRecordBean;
 /**
- * 三星組三
+ * 后二星_组选复式-h
+ * 前二星_组选复式-q
  * @author Peter
- *
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestSxzuxzAwardNumber {
+public class TestExzuxfsAwardNumber {
 
 	@Autowired
 	private AwardNumberFactory awardNumberFactory;
 	
 	@Test
-	public void testWxzhixzhAwardNumber() {
-		// "後 sxzuxzsh","中sxzuxzsz","前sxzuxzsq"
+	public void testExzuxfsAwardNumber() {
+		// "exzuxfsh","exzuxfsq"
 		BetRecordBean betOrder = new BetRecordBean();
-		betOrder.setBetItem("13");
-		
-		betOrder.setGamePlayId("sxzuxzsh");
-		AwardNumber awardNumber = awardNumberFactory.getAwardNumber("sxzuxzsh");
+		betOrder.setBetItem("12");
+		betOrder.setGamePlayId("exzuxfsq");
+		AwardNumber awardNumber = awardNumberFactory.getAwardNumber("exzuxfsq");
 		List<String> result = awardNumber.getAwardNumber(betOrder);
 		System.out.println(result);
 		System.out.println(result.size());
