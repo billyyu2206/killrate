@@ -1,4 +1,4 @@
-package com.etonghk.killrate.awardNmber;
+package com.etonghk.killrate.awardNmber.awardmoney;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -1,8 +1,6 @@
 package com.etonghk.killrate.awardNumber.sxzhi;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,11 +41,17 @@ public class TestSxzuxzAwardNumber {
 	}
 	
 	public void testAll() {
-		// oriMap // 傳入的資料
-		// BetRecordBean bean = BeanConverFactory.getConverHelper(oriMap);
-		// AwardNumber awardNumber = awardNumberFactory.getAwardNumber(bean.getGamePlayId());
+		// T oriBetBean  // 傳入的資料
+		// BetDataConvert betDataConvert = BeanConverFactory.getConvertObj(oriBetBean);
+		// BetRecordBean bean = betDataConvert.convertBetRecord(oriBetBean);
+		
+		// AwardNumber awardNumber = AwardNumberFactory.getAwardNumber(bean.getGamePlayId());
 		// Map<String,List<String>> awardMap = awardNumber.getAwardNumber(betOrder);
-		// Map<String, BigDecimal> result = calcAwardMoney(BetRecordBean betOrder, Map<String, List<String>>
+		
+		
+		//CalcAwardMoney calcAwardMoney = FactoryCalcAwardMoney.getcalcAwardMoney(bean.getGamePlayId());
+		
+		// Map<String, BigDecimal> result = calcAwardMoney.calcAwardMoney(BetRecordBean betOrder, Map<String, List<String>>
 		
 	}
 	
