@@ -16,7 +16,8 @@ public class SxzhixdAwardNumber extends SxzhiBase implements AwardNumber {
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
-		String[] items = betOrder.getBetItem().split(BetItemSplit);
+		// FIXME 投注內容需重新確認
+		String[] items = betOrder.getBetItem().split(BetZhSplit);
 		int[] sxzhi = getSxzhiPos(betOrder.getGamePlayId());
 		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(items, sxzhi[0], sxzhi[1]); 
 		return resultList;

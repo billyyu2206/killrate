@@ -13,7 +13,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
  *
  */
 @AwardComponent(name={"rx2fs","rx3fs","rx4fs"})
-public class rxfsAwardNumber extends RxBase implements AwardNumber {
+public class RxfsAwardNumber extends RxBase implements AwardNumber {
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
