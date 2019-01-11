@@ -12,7 +12,7 @@ public interface AwardNumber {
 	/**
 	 * 	選號符號
 	 */
-	String BetItemSplit = "[]";
+	String BetItemSplit = "";
 	/**
 	 * 	選位數符號
 	 */
@@ -29,4 +29,6 @@ public interface AwardNumber {
 	String BetZhSplit="[,]";
 	
 	List<String> getAwardNumber(BetRecordBean betOrder);
+	
+//	Map<String,List<String>> getAwardNumberOfType(BetRecordBean betOrder);
 }
