@@ -8,7 +8,11 @@ import com.etonghk.killrate.config.SSCConfig;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.utils.CommonUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
-
+/**
+ * 五星和值大小單雙
+ * @author Peter
+ *
+ */
 public class WxhzdxdsAwardNumber implements AwardNumber {
 
 	@Override
