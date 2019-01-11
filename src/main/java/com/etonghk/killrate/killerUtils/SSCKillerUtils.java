@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.config.SSCConfig;
 import com.etonghk.killrate.constant.AmodeType;
 import com.etonghk.killrate.constant.KillerConstant;
@@ -1447,7 +1448,7 @@ public class SSCKillerUtils {
 	}
 	
 	/**
-	 * 任四 直选复式
+	 * 	任四 直选复式
 	 */
 	private static List<String> SSC012001001(BetRecordBean betOrder){
 		String[][] rowcols = new String[5][];
@@ -1464,7 +1465,7 @@ public class SSCKillerUtils {
 	 *	五星和值大小单双
 	 */
 	private static List<String> wxhzdxds(BetRecordBean betOrder) {
-		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		String[] rows = betOrder.getBetItem().split(BetItemSplit);
 		List<String> resultList = new ArrayList<String>();
 		for(String betItem : rows) {
 			List<Integer[]> numsCombineList = SSCConfig.SSC5HG.get(betItem);
@@ -1476,6 +1477,153 @@ public class SSCKillerUtils {
 			}
 		}
 		return resultList;
+	}
+	
+	
+	/**
+	 *	任选_任三组三
+	 */
+	private static List<String> rx3z3(BetRecordBean betOrder) {
+		// getBetItem [√,-,√,-,√]036
+		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] numsData = betDatas[1].split("");
+		String[] pos = getBetPos(betOrder.getBetItem());
+		
+		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
+		betDataMap.put(2, StringUtils.join(numsData, ","));
+		betDataMap.put(1, StringUtils.join(numsData, ","));
+
+		Map<Integer, Integer> dataCountMap = new HashMap<Integer, Integer>();
+		dataCountMap.put(2, 1);
+		dataCountMap.put(1, 1);
+		
+		List<String[]> betPermutations = AwardNumberGenerateUtils.getTzuShiuanNumberForRenXuan(betDataMap, dataCountMap, 2);
+		
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanTzuShiuanResult(pos, 3, 5, betPermutations);
+		return resultList;
+	}
+	
+	/**
+	 *	任选_任三组六
+	 */
+	private static List<String> rx3z6(BetRecordBean betOrder) {
+		// getBetItem [√,-,√,-,√]036
+		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] numsData = betDatas[1].split("");
+		String[] pos = getBetPos(betOrder.getBetItem());
+		
+		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
+		betDataMap.put(1, StringUtils.join(numsData, ","));
+
+		Map<Integer, Integer> dataCountMap = new HashMap<Integer, Integer>();
+		dataCountMap.put(1, 3);
+		
+		List<String[]> betPermutations = AwardNumberGenerateUtils.getTzuShiuanNumberForRenXuan(betDataMap, dataCountMap, 3);
+		
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanTzuShiuanResult(pos, 3, 5, betPermutations);
+		return resultList;
+	}
+	
+	/**
+	 * 	TODO 確認傳入資料格式 目前假設是 [√,-,√,-,√]036,022,023 這種方式
+	 *	任选_任三混合
+	 */
+	private static List<String> rx3hh(BetRecordBean betOrder) {
+		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] numsData = betDatas[1].split(",");
+		String[] pos = getBetPos(betOrder.getBetItem());
+		List<String> betList = arrayToList(numsData);
+
+		List<String[]> betPermutations = new ArrayList<String[]>();
+		for (int i = 0; i < betList.size(); i++) {
+			betPermutations.addAll(AwardNumberGenerateUtils.getArrayCombinationPermutation(betList.get(i).split("")));
+		}
+		
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanTzuShiuanResult(pos, 3, 5, betPermutations);
+		return resultList;
+	}
+	
+	/**
+	 *	任选_任二组选
+	 */
+	private static List<String> rx2zx(BetRecordBean betOrder) {
+		// getBetItem [√,-,√,-,√]036
+		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] numsData = betDatas[1].split("");
+		String[] pos = getBetPos(betOrder.getBetItem());
+		
+		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
+		betDataMap.put(1, StringUtils.join(numsData, ","));
+
+		Map<Integer, Integer> dataCountMap = new HashMap<Integer, Integer>();
+		dataCountMap.put(1, 2);
+		
+		List<String[]> betPermutations = AwardNumberGenerateUtils.getTzuShiuanNumberForRenXuan(betDataMap, dataCountMap, 2);
+		
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanTzuShiuanResult(pos, 2, 5, betPermutations);
+		return resultList;
+	}
+	
+	/**
+	 *	任选_任二直选单式
+	 */
+	private static List<String> rx2ds(BetRecordBean betOrder) {
+		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] numsData = betDatas[1].split(",");
+		String[] pos = getBetPos(betOrder.getBetItem());
+
+		List<String[]> betPermutations = new ArrayList<String[]>();
+		for (int i = 0; i < numsData.length; i++) {
+			betPermutations.add(numsData[i].split(""));
+		}
+		
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanTzuShiuanResult(pos, 2, 5, betPermutations);
+		return resultList;
+	}
+	
+	/**
+	 *	任选_任三直选单式
+	 */
+	private static List<String> rx3ds(BetRecordBean betOrder) {
+		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] numsData = betDatas[1].split(",");
+		String[] pos = getBetPos(betOrder.getBetItem());
+
+		List<String[]> betPermutations = new ArrayList<String[]>();
+		for (int i = 0; i < numsData.length; i++) {
+			betPermutations.add(numsData[i].split(""));
+		}
+		
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanTzuShiuanResult(pos, 3, 5, betPermutations);
+		return resultList;
+	}
+	
+	/**
+	 *	任选_任四直选单式
+	 */
+	private static List<String> rx4ds(BetRecordBean betOrder) {
+		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] numsData = betDatas[1].split(",");
+		String[] pos = getBetPos(betOrder.getBetItem());
+
+		List<String[]> betPermutations = new ArrayList<String[]>();
+		for (int i = 0; i < numsData.length; i++) {
+			betPermutations.add(numsData[i].split(""));
+		}
+		
+		List<String> resultList = AwardNumberGenerateUtils.getRenXuanTzuShiuanResult(pos, 4, 5, betPermutations);
+		return resultList;
+	}
+	
+	private static String[] getBetPos(String betItems) {
+		String[] posTemp = betItems.split("]")[0].substring(1).split(",");
+		String posStr = "";
+		for(int i = 0; i < posTemp.length; i++) {
+			if(posTemp[i].equals(AwardNumber.BetPosItem)) {
+				posStr += i;
+			}
+		}
+		return posStr.split("");
 	}
 //	/**
 //	 * 五星组合

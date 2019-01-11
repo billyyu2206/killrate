@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.etonghk.killrate.config.SSCConfig;
@@ -44,7 +45,43 @@ public class AwardNumberGenerateUtils {
 			}
 		}
 	}
-
+	
+	/**
+	 * 	取得任選系列完整號碼
+	 * 	betPos 			投注位數 ex:萬千百	[1,2,3], 萬百個	[1,3,5]
+	 * 	blankPos		非投注的位數  
+	 * 	betItems		所有投注號碼的排列組合
+	 * 	blankItems		非投注位數的號碼 時時彩 0-9
+	 * 	pos 			遞迴目前位數
+	 * 	betItemCount	目前取用了多少個 betItem 中的號碼
+	 * 	item			遞迴號碼字串
+	 * 	usedBetItem		使用 betItems 中的哪個 betItem
+	 * 	result			遞迴最終產生的結果
+	 */
+	public static void getCompleteListForRenXuan(int[] betPos, int[] blankPos, List<String[]> betItems, String[] blankItems,
+			int pos, int betItemCount, String item, String[] usedBetItem, List<String> result) {
+		if(ArrayUtils.contains(betPos, pos + 1)) {
+			if(betItemCount == 0) {
+				for(String[] betItem : betItems) {
+					getCompleteListForRenXuan(betPos, blankPos, betItems, blankItems, pos + 1, betItemCount + 1,
+							item + betItem[betItemCount], betItem, result);
+				}
+			}else {
+				getCompleteListForRenXuan(betPos, blankPos, betItems, blankItems, pos + 1, betItemCount + 1,
+						item + usedBetItem[betItemCount], usedBetItem, result);
+			}
+			
+		}else if(ArrayUtils.contains(blankPos, pos + 1)) {
+			for(String blankItem : blankItems) {
+				getCompleteListForRenXuan(betPos, blankPos, betItems, blankItems, pos + 1, betItemCount,
+						item + blankItem, usedBetItem, result);
+			}
+		}else {
+			result.add(item);
+		}
+	}
+	
+	
 	public static List<String> getCompleteAwardList(String[] itemArray, int preLength, int afterLength) {
 		List<String> itemList = Arrays.asList(itemArray);
 		return getCompleteAwardList(itemList, preLength, afterLength);
@@ -90,7 +127,72 @@ public class AwardNumberGenerateUtils {
 		}
 	}
 	
+	/**
+	 * 	取得任選組選系列投注號碼排列組合
+	 */
+	public static List<String[]> getTzuShiuanNumberForRenXuan(Map<Integer, String> betDataMap, Map<Integer, Integer> dataCountMap,
+			int totalCount) {
+		List<String[]> itemList = new ArrayList<String[]>();
+		String[][] rowCols = new String[totalCount][];
+		int index = 0;
+		int totalLength = 0;
+		for (Integer key : betDataMap.keySet()) {
+			int count = dataCountMap.get(key).intValue();
+			totalLength += count;
+			for (int i = 0; i < count; i++) {
+				rowCols[index] = betDataMap.get(key).split(",");
+				for (int j = 0; j < rowCols[index].length; j++) {
+					for (int k = 1; k < key.intValue(); k++) {
+						String[] tmp150_147 = rowCols[index];
+						tmp150_147[j] = tmp150_147[j] + betDataMap.get(key).split(",")[j];
+					}
+				}
+				index++;
+			}
+		}
+		AwardNumberGenerateUtils.getCombinationNumberArray(rowCols, 0, totalLength, "", itemList);
+		itemList = AwardNumberGenerateUtils.trimArrayRepeatItem(itemList);
+		
+		List<String[]> betItems = new ArrayList<String[]>();
+		for (String[] item : itemList) {
+			betItems.addAll(AwardNumberGenerateUtils.getArrayCombinationPermutation(item));
+		}
+		return betItems;
+	}
+	
+	/**
+	 * 	取得任選系列 所有可能中獎號碼
+	 * 	posItems	下注位數
+	 * 	pickLength	位數個數 EX: 任三=3
+	 * 	maxLength	一個中獎號碼長度	EX: 時時彩=5
+	 * 	betItems	所有下注號碼的排列組合
+	 */
+	public static List<String> getRenXuanTzuShiuanResult(String[] posItems, int pickLength, int maxLength, List<String[]> betItems){
+		List<String[]> posCombine = new ArrayList<String[]>();
+		List<String> temp = new ArrayList<String>();
+		AwardNumberGenerateUtils.combination(posItems, 0, temp, pickLength, posCombine);
+		
+		String blankPos = "";
+		String[] blankPosArray = null;
+		List<String> result = new ArrayList<String>();
+		String[] blankItems = SSCConfig.itemSource.clone();
+		for(String[] betPosArray : posCombine) {
+			blankPos = "";
+			for(int i = 1; i <= maxLength; i++) {
+				if(!ArrayUtils.contains(betPosArray, i+"")) {
+					blankPos += i;
+				}
+			}
+			blankPosArray = blankPos.split("");
+			AwardNumberGenerateUtils.getCompleteListForRenXuan(Arrays.stream(betPosArray).mapToInt(Integer::parseInt).toArray(), 
+					Arrays.stream(blankPosArray).mapToInt(Integer::parseInt).toArray(), betItems, blankItems, 0, 0, "", null, result);
+		}
+		return result;
+	}
 
+	/**
+	 * 	取得一般連號組選系列投注號碼排列組合
+	 */
 	public static List<String> getTzuShiuanNumber(Map<Integer, String> betDataMap, Map<Integer, Integer> dataCountMap,
 			int totalCount) {
 		List<String> itemList = new ArrayList<String>();
@@ -124,6 +226,7 @@ public class AwardNumberGenerateUtils {
 		return resultList;
 	}
 
+	
 	public static void getCombinationPermutation(String source, int pos, int maxPos, String result,
 			List<String> itemList) {
 		if (pos < maxPos) {
@@ -153,6 +256,21 @@ public class AwardNumberGenerateUtils {
 			}
 		} else {
 			itemList.add(result);
+		}
+	}
+	
+	public static void getCombinationNumberArray(String[][] arr, int pos, int totalLength, String result,
+			List<String[]> itemList) {
+		if (pos < totalLength) {
+			for (int i = 0; i < arr[pos].length; i++) {
+				if (pos == 0) {
+					getCombinationNumberArray(arr, pos + 1, totalLength, result + arr[pos][i], itemList);
+				} else if (result.indexOf(arr[pos][i].split("")[0]) == -1) {
+					getCombinationNumberArray(arr, pos + 1, totalLength, result + arr[pos][i], itemList);
+				}
+			}
+		} else {
+			itemList.add(result.split(""));
 		}
 	}
 
@@ -229,9 +347,9 @@ public class AwardNumberGenerateUtils {
 	}
 	
 	/**
-	 * longPos	龙位数 
-	 * nuPos	虎位数
-	 * 万: 1, 千: 2, 百: 3, 十: 4, 个: 5
+	 * 	longPos	龙位数 
+	 * 	nuPos	虎位数
+	 * 	万: 1, 千: 2, 百: 3, 十: 4, 个: 5
 	 */
 	public static List<String> getLongHuDou(String betItem, int longPos, int huPos) {
 		List<String> resultList = new ArrayList<String>();
@@ -285,6 +403,13 @@ public class AwardNumberGenerateUtils {
 		return result;
 	}
 	
+	public static List<String[]> getArrayCombinationPermutation(String[] data) {
+		List<String[]> resultList = new ArrayList<String[]>();
+		do {
+			resultList.add(data.clone());
+		} while (permuteLexically(data));
+		return resultList;
+	}
 	
 	public static List<String> getCombinationPermutation(String[] data) {
 		return getCombinationPermutation(data, "");
@@ -365,7 +490,7 @@ public class AwardNumberGenerateUtils {
 	public static List<String> trimRepeatItem(List<String> itemList) {
 		List<String> tempList = new ArrayList<String>();
 		for (int i = 0; i < itemList.size(); i++) {
-			String[] tempArray = ((String) itemList.get(i)).split("");
+			String[] tempArray = itemList.get(i).split("");
 			Arrays.sort(tempArray);
 			String item = StringUtils.join(tempArray);
 			if (!tempList.contains(item)) {
@@ -373,6 +498,21 @@ public class AwardNumberGenerateUtils {
 			}
 		}
 		return tempList;
+	}
+	
+	public static List<String[]> trimArrayRepeatItem(List<String[]> itemList) {
+		List<String[]> result = new ArrayList<String[]>();
+		List<String> tempList = new ArrayList<String>();
+		for (int i = 0; i < itemList.size(); i++) {
+			String[] tempArray = itemList.get(i);
+			Arrays.sort(tempArray);
+			String item = StringUtils.join(tempArray);
+			if (!tempList.contains(item)) {
+				tempList.add(item);
+				result.add(tempArray);
+			}
+		}
+		return result;
 	}
 
 	public static void Combination(String[] arr, int pos, int max, String prefix, String split,

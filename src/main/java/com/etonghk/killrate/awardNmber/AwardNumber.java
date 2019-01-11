@@ -8,6 +8,6 @@ public interface AwardNumber {
 
 	String BetLineSplit = "[|]";
 	String BetItemSplit = "[&]";
-	
+	String BetPosItem = "[√]";
 	List<String> getAwardNumber(BetRecordBean betOrder);
 }
