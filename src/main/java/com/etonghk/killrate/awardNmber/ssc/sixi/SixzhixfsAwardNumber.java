@@ -19,11 +19,7 @@ public class SixzhixfsAwardNumber extends SixiBase implements AwardNumber{
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
-		String[][] rowcols = new String[4][];
-		String[] rows = betOrder.getBetItem().split(BetLineSplit);
-		for (int i = 0; i < rows.length; i++) {
-			rowcols[i] = rows[i].split(BetItemSplit);
-		}
+		String[][] rowcols = getBetItemsRows(betOrder);
 		List<String> itemlist = new ArrayList<String>();
 		AwardNumberGenerateUtils.betItemPermutation(rowcols, 0, "", itemlist);
 		int[] pos = getSixiPos(betOrder.getGamePlayId());

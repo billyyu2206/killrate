@@ -6,7 +6,11 @@ import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
-
+/**
+ * 五星x碼不定位
+ * @author Peter
+ *
+ */
 @AwardComponent(name= {"wxbdw1m","wxbdw2m","wxbdw3m"})
 public class WuxiBdw extends WuxiBase implements AwardNumber {
 

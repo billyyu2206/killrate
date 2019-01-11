@@ -17,7 +17,7 @@ public class SSCAwardUtils {
 	 * @return 0前  1中 2后
 	 */
 	public static Integer getFrontOrMiddleOrBack(String playId) {
-		String lastChar = playId.substring(playId.length()-2, playId.length()-1);
+		String lastChar = playId.substring(playId.length()-1, playId.length());
 		if("q".equals(lastChar)) {
 			return 0;
 		}else if("z".equals(lastChar)) {
@@ -34,7 +34,7 @@ public class SSCAwardUtils {
 	 * @return 0前  1中 2后
 	 */
 	public static Integer getKDFrontOrMiddleOrBack(String playId) {
-		String lastChar = playId.substring(playId.length()-3, playId.length()-2);
+		String lastChar = playId.substring(playId.length()-2, playId.length()-1);
 		if("q".equals(lastChar)) {
 			return 0;
 		}else if("z".equals(lastChar)) {
