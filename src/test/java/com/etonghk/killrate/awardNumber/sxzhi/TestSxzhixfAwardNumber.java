@@ -26,6 +26,7 @@ public class TestSxzhixfAwardNumber {
 	@Test
 	public void testWxzhixzhAwardNumber() {
 		// "sxzhixfsh","sxzhixfsz","sxzhixfsq"
+		// "'-,56789,01234,13579,-'"
 		BetRecordBean betOrder = new BetRecordBean();
 		betOrder.setBetItem("12,3,2");
 		

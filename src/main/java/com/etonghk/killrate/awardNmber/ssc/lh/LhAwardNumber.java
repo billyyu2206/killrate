@@ -17,7 +17,7 @@ public class LhAwardNumber extends LhBase implements AwardNumber {
 
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
-		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		String[] rows = betOrder.getBetItem().split(BetLongHuSplit);
 		List<String> resultList = new ArrayList<String>();
 		
 		int[] lhPos = getLhPos(betOrder.getGamePlayId());
