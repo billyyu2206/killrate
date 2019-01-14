@@ -3,6 +3,7 @@ package com.etonghk.killrate.cache;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +18,10 @@ import com.google.gson.reflect.TypeToken;
 @Component
 public class RedisCache implements Cache{
 
+	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
-	private Gson gson;
+	private Gson gson = new Gson();
 
 	@Override
 	public void putObj(String key, Object value) {

@@ -21,7 +21,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-  <insert id="insert" parameterType="com.etonghk.killrate.entity.Account">
+  <insert id="insert" parameterType="com.etonghk.killrate.domain.Account">
     insert into account (id, account, password, 
       name, create_time, last_login_time, 
       last_login_ip)
