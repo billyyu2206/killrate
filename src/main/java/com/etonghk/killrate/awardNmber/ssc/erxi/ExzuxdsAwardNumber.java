@@ -1,6 +1,9 @@
 package com.etonghk.killrate.awardNmber.ssc.erxi;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
@@ -18,7 +21,8 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class ExzuxdsAwardNumber extends ErxiBase implements AwardNumber{
 
 	@Override
-	public List<String> getAwardNumber(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		String[] items = betOrder.getBetItem().split(BetItemSplit);
 		List<String> resultList = SSCAwardUtils.arrayToList(items);
 		int size = resultList.size();
@@ -27,6 +31,14 @@ public class ExzuxdsAwardNumber extends ErxiBase implements AwardNumber{
 		}
 		int[] pos = getErxiPos(betOrder.getGamePlayId());
 		resultList = AwardNumberGenerateUtils.getCompleteAwardList(items, pos[0], pos[1]);
-		return resultList;
+		result.put("1", resultList);
+		return result;
+	}
+
+	@Override
+	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
+			Map<String, List<String>> typeByAwardNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,8 +1,10 @@
 package com.etonghk.killrate.utils;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CommonUtils {
@@ -29,4 +31,17 @@ public class CommonUtils {
 		return result;
 	}
 	
+	public static boolean isRepeat(String[] a) {
+		if (a == null) {
+			return false;
+		}
+		Set<String> set = new HashSet<String>();
+		for (String str : a) {
+			set.add(str);
+		}
+		if (set.size() != a.length) {
+			return true;
+		}
+		return false;
+	}
 }
