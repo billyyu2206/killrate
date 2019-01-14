@@ -43,4 +43,17 @@ public class TestRxfsAwardNumber {
 		System.out.println(result.size());
 	}
 
+	public void testAll() {
+		// T oriBetBean  // 傳入的資料
+		// BetDataConvert betDataConvert = BeanConverFactory.getConvertObj(oriBetBean);
+		// BetRecordBean bean = betDataConvert.convertBetRecord(oriBetBean);
+		
+		// AwardNumber awardNumber = AwardNumberFactory.getAwardNumber(bean.getGamePlayId());
+		// Map<String,List<String>> awardMap = awardNumber.getAwardNumber(betOrder);
+		
+		
+		
+		// Map<String, BigDecimal> result = SSCAwardUtils.calcAwardMoney(BetRecordBean betOrder, Map<String, List<String>>
+		
+	}
 }
