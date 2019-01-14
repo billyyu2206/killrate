@@ -1,4 +1,4 @@
-package com.etonghk.killrate.db;
+package com.etonghk.killrate.dao.db;
 
 import java.util.List;
 

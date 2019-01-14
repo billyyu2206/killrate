@@ -8,8 +8,8 @@ import java.util.Map;
 
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
+import com.etonghk.killrate.awardNmber.config.SSCConfig;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
-import com.etonghk.killrate.config.SSCConfig;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
