@@ -1,7 +1,10 @@
 package com.etonghk.killrate.awardNmber.ssc.sixi;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
@@ -18,13 +21,22 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class SixzhixfsAwardNumber extends SixiBase implements AwardNumber{
 
 	@Override
-	public List<String> getAwardNumber(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		String[][] rowcols = getBetItemsRows(betOrder);
 		List<String> itemlist = new ArrayList<String>();
 		AwardNumberGenerateUtils.betItemPermutation(rowcols, 0, "", itemlist);
 		int[] pos = getSixiPos(betOrder.getGamePlayId());
 		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(itemlist, pos[0], pos[1]);
-		return resultList;
+		result.put("1", resultList);
+		return result;
+	}
+
+	@Override
+	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
+			Map<String, List<String>> typeByAwardNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
