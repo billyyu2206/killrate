@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
+import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
@@ -33,7 +34,7 @@ public class RxfsAwardNumber extends RxBase implements AwardNumber {
 
 	
 	@Override
-	public Map<String, List<String>> getAwardNumberOfType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
 		Map<String, List<String>> result = new HashMap<>();
 		String[][] rowcols = new String[5][];
 		String[] rows = betOrder.getBetItem().split(BetLineSplit, -1);
@@ -63,25 +64,15 @@ public class RxfsAwardNumber extends RxBase implements AwardNumber {
 			// 拿投注項目 中獎號碼
 			String awardNumber = awardNumberMap.get(propertyKey);
 			String betNumber = betNumberMap.get(propertyKey);
-			System.out.println(propertyKey + " awardNumber : " + awardNumber);
-			System.out.println(propertyKey + " betNumber : " + betNumber);
 			// 中獎金額
 //			 String awardMoney = jar.getAwardMoney(playId,awardNumber,betNumber,betMultiplier);
 			BigDecimal awardMoney = getAwardMoney(awardNumber, betNumber);
 			List<String> numberList = map.getValue();
 			for (String number : numberList) {
-				addResult(result, number, awardMoney);
+				SSCAwardUtils.addAwardMoney(result, number, awardMoney);
 			}
 		}
 		return result;
-	}
-
-	private void addResult(Map<String, BigDecimal> numberMap, String number, BigDecimal awardMoney) {
-		if (numberMap.get(number) == null) {
-			numberMap.put(number, awardMoney);
-		} else {
-			numberMap.put(number, numberMap.get(number).add(awardMoney));
-		}
 	}
 	
 	// 假的回傳金額

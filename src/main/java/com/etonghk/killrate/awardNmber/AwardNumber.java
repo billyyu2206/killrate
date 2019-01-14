@@ -36,7 +36,7 @@ public interface AwardNumber {
 	 */
 	int TypeStartIndex = 1;
 	
-	Map<String,List<String>> getAwardNumberOfType(BetRecordBean betOrder);
+	Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder);
 
 	Map<String,BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,Map<String,List<String>> typeByAwardNumber);
 }

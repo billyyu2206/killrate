@@ -1,8 +1,10 @@
 package com.etonghk.killrate.awardNmber.ssc;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 时时彩工具类别
@@ -57,6 +59,20 @@ public class SSCAwardUtils {
 			}
 		);
 		return result;
+	}
+	
+	/**
+	 * 
+	 * @param numberMap
+	 * @param number
+	 * @param awardMoney
+	 */
+	public static void addAwardMoney(Map<String, BigDecimal> numberMap, String number, BigDecimal awardMoney) {
+		if (numberMap.get(number) == null) {
+			numberMap.put(number, awardMoney);
+		} else {
+			numberMap.put(number, numberMap.get(number).add(awardMoney));
+		}
 	}
 
 	
