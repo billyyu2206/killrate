@@ -24,7 +24,7 @@ public class WxzhixzhAwardNumber implements AwardNumber{
 	private String[] allBallNumbers= SSCConfig.sscItemSource.clone();
 	
 	@Override
-	public Map<String, List<String>> getAwardNumberOfType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		int typeIndex = TypeStartIndex;
 		String[][] rowcols = new String[5][];
@@ -98,6 +98,13 @@ public class WxzhixzhAwardNumber implements AwardNumber{
 			allBallNumberList.remove(ball);
 		}
 		return allBallNumberList.toArray(new String[0]);
+	}
+	
+	@Override
+	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
+			Map<String, List<String>> typeByAwardNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
