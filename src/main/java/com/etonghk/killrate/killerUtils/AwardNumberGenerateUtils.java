@@ -175,7 +175,7 @@ public class AwardNumberGenerateUtils {
 		String blankPos = "";
 		String[] blankPosArray = null;
 		List<String> result = new ArrayList<String>();
-		String[] blankItems = SSCConfig.itemSource.clone();
+		String[] blankItems = SSCConfig.sscItemSource.clone();
 		for(String[] betPosArray : posCombine) {
 			blankPos = "";
 			for(int i = 1; i <= maxLength; i++) {
@@ -368,7 +368,7 @@ public class AwardNumberGenerateUtils {
 	 *	任選直選系列
 	 * 	betItems 	投注內容
 	 * 	digit		任選位數
-	 * 	nuPos		虎位数
+	 * 	huPos		虎位数
 	 */
 	public static List<String> getRenXuanZhiXuan(String[][] betItems, int digit){
 		List<String> result = new ArrayList<String>();
@@ -393,7 +393,7 @@ public class AwardNumberGenerateUtils {
 				if(Arrays.asList(posCombine).contains(i + 1 + "")) {
 					betData[i] = betItems[i];
 				}else {
-					betData[i] = SSCConfig.itemSource.clone();
+					betData[i] = SSCConfig.sscItemSource.clone();
 				}
 			}
 			AwardNumberGenerateUtils.betItemPermutation(betData, 0, "", result);

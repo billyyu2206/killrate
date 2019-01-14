@@ -26,9 +26,15 @@ public interface AwardNumber {
 	
 	/**
 	 * 
-	 * 直選單式
+	 *	 直選單式
 	 */
 	String BetZhSplit="[,]";
+	
+	/**
+	 * 
+	 *	 類型開始Index
+	 */
+	int TypeStartIndex = 1;
 	
 	Map<String,List<String>> getAwardNumberOfType(BetRecordBean betOrder);
 

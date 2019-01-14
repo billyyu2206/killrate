@@ -1,5 +1,8 @@
 package com.etonghk.killrate.awardNumber.wuxi;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +28,12 @@ public class TestWxzhixzhAwardNumber {
 	@Test
 	public void testWxzhixzhAwardNumber() {
 		BetRecordBean betOrder = new BetRecordBean();
-		betOrder.setBetItem("123,012,172,1,20");
+		betOrder.setBetItem("01,01,0,0,0");
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber("wxzhixzh");
-		awardNumber.getAwardNumber(betOrder);
-		
+		Map<String, List<String>> numberResult = awardNumber.getAwardNumberOfType(betOrder);
+		for(Map.Entry<String, List<String>> entry : numberResult.entrySet()) {
+			System.out.println("TYPE: " + entry.getKey() + "  SIZE: " + entry.getValue().size());
+		}
 	}
 	
 }
