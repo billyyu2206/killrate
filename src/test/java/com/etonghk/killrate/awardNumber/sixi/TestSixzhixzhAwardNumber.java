@@ -26,7 +26,7 @@ public class TestSixzhixzhAwardNumber {
 	public void testSixzhixzhAwardNumber() {
 		
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(betOrder.getGamePlayId());
-		Map<String, List<String>> numberResult = awardNumber.getAwardNumberOfType(betOrder);
+		Map<String, List<String>> numberResult = awardNumber.getAwardNumberWithType(betOrder);
 		for(Map.Entry<String, List<String>> entry : numberResult.entrySet()) {
 			System.out.println("TYPE: " + entry.getKey() + "  SIZE: " + entry.getValue().size());
 		}
