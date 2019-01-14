@@ -6,6 +6,7 @@ import java.util.List;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
+import com.etonghk.killrate.config.SSCConfig;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
@@ -17,7 +18,7 @@ import com.etonghk.killrate.vo.BetRecordBean;
 @AwardComponent(name= {"sixzhixzhh","sixzhixzhq"})
 public class SixzhixzhAwardNumber extends SixiBase implements AwardNumber{
 
-	private String[] allBallNumbers= new String[]{"0","1","2","3","4","5","6","7","8","9"}; 
+	private String[] allBallNumbers= SSCConfig.sscItemSource.clone();
 	
 	@Override
 	public List<String> getAwardNumber(BetRecordBean betOrder) {
@@ -31,7 +32,7 @@ public class SixzhixzhAwardNumber extends SixiBase implements AwardNumber{
 		//計算后三星獎號
 		String[] reverseBallNumber = null;
 		//若五星號碼全包,則不需要計算後四,因為后四獎金會包含在五星內
-		if(rowcols[0].length!=10) {
+		if(rowcols[0].length != 10) {
 			reverseBallNumber = getReverseBallNumberStringArray(rowcols[0]);
 			rowcols[0] = reverseBallNumber;
 			itemlist = new ArrayList<String>();
@@ -42,7 +43,7 @@ public class SixzhixzhAwardNumber extends SixiBase implements AwardNumber{
 		
 		//計算后二星號碼
 		//同后四
-		if(rowcols[1].length!=10) {
+		if(rowcols[1].length != 10) {
 			reverseBallNumber = getReverseBallNumberStringArray(rowcols[1]);
 			rowcols[0] = allBallNumbers;
 			rowcols[1] = reverseBallNumber;
@@ -53,7 +54,7 @@ public class SixzhixzhAwardNumber extends SixiBase implements AwardNumber{
 		
 		//計算后一號碼
 		//同后四
-		if(rowcols[2].length!=10) {
+		if(rowcols[2].length != 10) {
 			//計算后二號碼
 			reverseBallNumber = getReverseBallNumberStringArray(rowcols[2]);
 			rowcols[0] = allBallNumbers;

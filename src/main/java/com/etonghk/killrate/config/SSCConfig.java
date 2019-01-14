@@ -26,7 +26,7 @@ public class SSCConfig {
 	public static final Map<String, List<Integer[]>> SSC5HG = new HashMap<String, List<Integer[]>>(); // 和值大小单双
 	public static final List<String> allDataList = new ArrayList<String>();
 
-	public static final String[] itemSource = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+	public static final String[] sscItemSource = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 	
 	static {
 		SSCConfig.DaShiauDanShuang.put("大", "5,6,7,8,9");
