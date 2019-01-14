@@ -1,7 +1,16 @@
 package com.etonghk.killrate.awardNmber.ssc.lh;
 
-public class LhBase {
+import java.util.HashMap;
+import java.util.Map;
 
+public class LhBase {
+	
+	public static Map<String, String> lhTypeMap = new HashMap<String, String>();
+	static {
+		lhTypeMap.put("龙", "1");
+		lhTypeMap.put("虎", "2");
+		lhTypeMap.put("和", "3");
+	}
 	/**
 	 * 龍虎鬥位數 
 	 * @param playId
