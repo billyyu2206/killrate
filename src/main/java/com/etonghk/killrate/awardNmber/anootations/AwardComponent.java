@@ -1,4 +1,4 @@
-package com.etonghk.killrate.anootations;
+package com.etonghk.killrate.awardNmber.anootations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
