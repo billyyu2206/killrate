@@ -48,15 +48,15 @@ public class AwardNumberGenerateUtils {
 	
 	/**
 	 * 	取得任選系列完整號碼
-	 * 	betPos 			投注位數 ex:萬千百	[1,2,3], 萬百個	[1,3,5]
-	 * 	blankPos		非投注的位數  
-	 * 	betItems		所有投注號碼的排列組合
-	 * 	blankItems		非投注位數的號碼 時時彩 0-9
-	 * 	pos 			遞迴目前位數
-	 * 	betItemCount	目前取用了多少個 betItem 中的號碼
-	 * 	item			遞迴號碼字串
-	 * 	usedBetItem		使用 betItems 中的哪個 betItem
-	 * 	result			遞迴最終產生的結果
+	 * 	@param betPos 			投注位數 ex:萬千百	[1,2,3], 萬百個	[1,3,5]
+	 * 	@param blankPos			非投注的位數  
+	 * 	@param betItems			所有投注號碼的排列組合
+	 * 	@param blankItems		非投注位數的號碼 時時彩 0-9
+	 * 	@param pos 				遞迴目前位數
+	 * 	@param betItemCount		目前取用了多少個 betItem 中的號碼
+	 * 	@param item				遞迴號碼字串
+	 * 	@param usedBetItem		使用 betItems 中的哪個 betItem
+	 * 	@param result			遞迴最終產生的結果
 	 */
 	public static void getCompleteListForRenXuan(int[] betPos, int[] blankPos, List<String[]> betItems, String[] blankItems,
 			int pos, int betItemCount, String item, String[] usedBetItem, List<String> result) {
@@ -162,10 +162,10 @@ public class AwardNumberGenerateUtils {
 	
 	/**
 	 * 	取得任選系列 所有可能中獎號碼
-	 * 	posItems	下注位數
-	 * 	pickLength	位數個數 EX: 任三=3
-	 * 	maxLength	一個中獎號碼長度	EX: 時時彩=5
-	 * 	betItems	所有下注號碼的排列組合
+	 * 	@param posItems	下注位數
+	 * 	@param pickLength	位數個數 EX: 任三=3
+	 * 	@param maxLength	一個中獎號碼長度	EX: 時時彩=5
+	 * 	@param betItems	所有下注號碼的排列組合
 	 */
 	public static List<String> getRenXuanTzuShiuanResult(String[] posItems, int pickLength, int maxLength, List<String[]> betItems){
 		List<String[]> posCombine = new ArrayList<String[]>();
@@ -327,7 +327,7 @@ public class AwardNumberGenerateUtils {
 		}
 		return resultList;
 	}
-
+	
 	public static List<String> getChiuWei(String[] arr, int count, int starCount) {
 		List<String> resultList = new ArrayList<String>();
 		int j;
@@ -387,14 +387,13 @@ public class AwardNumberGenerateUtils {
 		// 取得下注位數的組合
 		AwardNumberGenerateUtils.combination(betPosArray, 0, temp, digit, posConbineResult);
 		
-		String source = "0123456789";
 		String[][] betData = new String[5][];
 		for(String[] posCombine : posConbineResult) {
 			for(int i = 0; i <= 4; i++) {
 				if(Arrays.asList(posCombine).contains(i + 1 + "")) {
 					betData[i] = betItems[i];
 				}else {
-					betData[i] = source.split("");
+					betData[i] = SSCConfig.itemSource.clone();
 				}
 			}
 			AwardNumberGenerateUtils.betItemPermutation(betData, 0, "", result);
