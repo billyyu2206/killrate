@@ -1,6 +1,8 @@
 package com.etonghk.killrate.awardNmber;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.etonghk.killrate.vo.BetRecordBean;
 
@@ -28,7 +30,7 @@ public interface AwardNumber {
 	 */
 	String BetZhSplit="[,]";
 	
-	List<String> getAwardNumber(BetRecordBean betOrder);
-	
-//	Map<String,List<String>> getAwardNumberOfType(BetRecordBean betOrder);
+	Map<String,List<String>> getAwardNumberOfType(BetRecordBean betOrder);
+
+	Map<String,BigDecimal> getcalcAwardMoney(BetRecordBean betOrder,Map<String,List<String>> typeByAwardNumber);
 }
