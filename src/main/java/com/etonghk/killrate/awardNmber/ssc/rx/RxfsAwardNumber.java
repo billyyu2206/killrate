@@ -20,6 +20,18 @@ import com.etonghk.killrate.vo.BetRecordBean;
 @AwardComponent(name = { "rx2fs", "rx3fs", "rx4fs" })
 public class RxfsAwardNumber extends RxBase implements AwardNumber {
 
+	Map<String, Map<String, String>> playNumberMap;
+
+	static Map<String, String> awardNumberMap = new HashMap<String, String>();
+	static Map<String, String> betNumberMap = new HashMap<String, String>();
+	static {
+		awardNumberMap.put("rx2fs-1", "11---");
+	}
+	static {
+		betNumberMap.put("rx2fs-1", "11000");
+	}
+
+	
 	@Override
 	public Map<String, List<String>> getAwardNumberOfType(BetRecordBean betOrder) {
 		Map<String, List<String>> result = new HashMap<>();
@@ -36,16 +48,6 @@ public class RxfsAwardNumber extends RxBase implements AwardNumber {
 
 	}
 
-	Map<String, Map<String, String>> playNumberMap;
-
-	static Map<String, String> awardNumberMap = new HashMap<String, String>();
-	static Map<String, String> betNumberMap = new HashMap<String, String>();
-	static {
-		awardNumberMap.put("rx2fs-1", "11---");
-	}
-	static {
-		betNumberMap.put("rx2fs-1", "11000");
-	}
 
 	@Override
 	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,

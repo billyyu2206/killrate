@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +17,22 @@ import com.etonghk.killrate.awardNmber.ssc.rx.RxfsAwardNumber;
 import com.etonghk.killrate.vo.BetRecordBean;
 
 /**
- * 任选_任X直选复式
- * @author Peter
- *
+ *	 任选_任X直选复式
+ * 	 玩法  "rx2fs","rx3fs","rx4fs"
+ * 	 @author Peter
+ *	
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class TestRxfsAwardNumber {
 
 	@Autowired
 	private AwardNumberFactory awardNumberFactory;
+
+	BetRecordBean betOrder = new BetRecordBean();
 	
-	// rx2fs rx3fs rx4fs
+	
 	@Test
 	public void testRxfsAwardNumber() {
-		// "sxzhixdsh","sxzhixdsz","sxzhixdsq"
-		BetRecordBean betOrder = new BetRecordBean();
-		betOrder.setBetItem("0,2,-,-,-");
-		
-		betOrder.setGamePlayId("rx2fs");
+
 //		AwardNumber awardNumber = awardNumberFactory.getAwardNumber("rx3fs");
 		AwardNumber awardNumber = new RxfsAwardNumber();
 		Map<String,List<String>> result = awardNumber.getAwardNumberOfType(betOrder);
@@ -43,8 +41,6 @@ public class TestRxfsAwardNumber {
 	}
 	
 	private Map<String,List<String>> getAwardNumber(AwardNumber awardNumber,BetRecordBean betOrder){
-		// "sxzhixdsh","sxzhixdsz","sxzhixdsq"
-		
 		betOrder.setGamePlayId("rx2fs");
 //		AwardNumber awardNumber = awardNumberFactory.getAwardNumber("rx3fs");
 		awardNumber = new RxfsAwardNumber();
