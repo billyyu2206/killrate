@@ -1,4 +1,4 @@
-package com.etonghk.killrate.entity;
+package com.etonghk.killrate.domain;
 
 import java.util.Date;
 

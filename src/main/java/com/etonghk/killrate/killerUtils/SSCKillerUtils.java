@@ -16,7 +16,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
-import com.etonghk.killrate.config.SSCConfig;
+import com.etonghk.killrate.awardNmber.config.SSCConfig;
 import com.etonghk.killrate.constant.AmodeType;
 import com.etonghk.killrate.constant.KillerConstant;
 import com.etonghk.killrate.utils.CommonUtils;

@@ -1,4 +1,4 @@
-package com.etonghk.killrate.config;
+package com.etonghk.killrate.awardNmber.config;
 
 import java.util.Date;
 
