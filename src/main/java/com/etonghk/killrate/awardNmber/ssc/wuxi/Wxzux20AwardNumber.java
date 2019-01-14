@@ -1,5 +1,6 @@
 package com.etonghk.killrate.awardNmber.ssc.wuxi;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,9 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class Wxzux20AwardNumber implements AwardNumber{
 
 	@Override
-	public List<String> getAwardNumber(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+		Map<String,List<String>> result = new HashMap<String,List<String>>();
+		int typeKey = TypeStartIndex;
 		String[] rows = betOrder.getBetItem().split(BetLineSplit);
 		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
 		betDataMap.put(3, StringUtils.join(rows[0].split(BetItemSplit), ","));
@@ -32,7 +35,15 @@ public class Wxzux20AwardNumber implements AwardNumber{
 
 		List<String> resultList = AwardNumberGenerateUtils.getTzuShiuanNumber(betDataMap, dataCountMap, 3);
 		resultList = AwardNumberGenerateUtils.getCompleteAwardList(resultList, 0, 0);
-		return resultList;
+		result.put(typeKey+"", resultList);
+		return result;
+	}
+	
+	@Override
+	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
+			Map<String, List<String>> typeByAwardNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
