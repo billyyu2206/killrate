@@ -33,9 +33,6 @@ public class SSCKillerUtils {
 		for (BetRecordBean betOrder : betList) {
 			// 取得會中獎的號碼
 			List<String> needAwardNumberList = getNeedAwardNumber(betOrder);
-			Set<String> needAwardNumberSet = new HashSet<String>();
-			needAwardNumberSet.addAll(needAwardNumberList);
-			
 			BigDecimal award = null;
 			String gamePlayId = betOrder.getGamePlayId();
 			List<String> checkRepeatPlayIdList = Arrays.asList(checkRepeatPlayId);
