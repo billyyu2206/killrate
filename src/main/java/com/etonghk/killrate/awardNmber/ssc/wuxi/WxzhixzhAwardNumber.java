@@ -33,7 +33,7 @@ public class WxzhixzhAwardNumber implements AwardNumber{
 		for (int i = 0; i < rows.length; i++) {
 			rowcols[i] = rows[i].split(BetItemSplit);
 		}
-		
+		String[] reverseBallNumber = null;
 		List<String> itemlist = new ArrayList<String>();
 		//計算五星獎號
 		AwardNumberGenerateUtils.betItemPermutation(rowcols, 0, "", itemlist);
@@ -41,7 +41,6 @@ public class WxzhixzhAwardNumber implements AwardNumber{
 		typeIndex++;
 		
 		//計算后四獎號
-		String[] reverseBallNumber = null;
 		itemlist = new ArrayList<String>();
 		//若五星號碼全包,則不需要計算後四,因為后四獎金會包含在五星內
 		if(rowcols[0].length != 10) {
