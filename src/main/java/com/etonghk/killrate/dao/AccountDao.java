@@ -15,4 +15,8 @@ public interface IAccountDao {
 	int insert(Account record);
 
     Account selectByPrimaryKey(Integer id);
+    
+    Account selectByName(String name);
+    
+    void update(Account account);
 }
