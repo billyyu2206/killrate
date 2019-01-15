@@ -1,6 +1,5 @@
 package com.etonghk.killrate.awardNmber.ssc.rx;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,13 +38,6 @@ public class RxhhAwardNumber extends RxBase implements AwardNumber {
 		result.put("1", getNumberExpress(type1List, pos, rxNum));
 		result.put("2", getNumberExpress(type2List, pos, rxNum));
 		return result;
-	}
-
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private List<String> getNumberExpress(List<String> datas, String[] pos, int rxNum){

@@ -1,6 +1,5 @@
 package com.etonghk.killrate.awardNmber.ssc.sixi;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,12 +27,4 @@ public class SixzhixdsAwardNumber extends SixiBase implements AwardNumber{
 		result.put("1", resultList);
 		return result;
 	}
-
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -1,6 +1,5 @@
 package com.etonghk.killrate.awardNmber.ssc.erxi;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,12 +26,5 @@ public class ExzhixdsAwardNumber extends ErxiBase implements AwardNumber{
 		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(items, pos[0], pos[1]);
 		result.put("1", resultList);
 		return result;
-	}
-
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

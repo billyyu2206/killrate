@@ -1,6 +1,5 @@
 package com.etonghk.killrate.awardNmber.ssc.lh;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,12 +31,4 @@ public class LhAwardNumber extends LhBase implements AwardNumber {
 		
 		return result;
 	}
-
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

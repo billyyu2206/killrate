@@ -1,6 +1,5 @@
 package com.etonghk.killrate.awardNmber.ssc.sxzhi;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,12 +39,4 @@ public class SxzuxzAwardNumber extends SxzhiBase implements AwardNumber {
 		result.put(typeKey+"", resultList);
 		return result;
 	}
-	
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
