@@ -1,14 +1,11 @@
 package com.etonghk.killrate.awardNmber.ssc.rx;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
-import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
@@ -21,18 +18,6 @@ import com.etonghk.killrate.vo.BetRecordBean;
 @AwardComponent(name = { "rx2fs", "rx3fs", "rx4fs" })
 public class RxfsAwardNumber extends RxBase implements AwardNumber {
 
-	Map<String, Map<String, String>> playNumberMap;
-
-	static Map<String, String> awardNumberMap = new HashMap<String, String>();
-	static Map<String, String> betNumberMap = new HashMap<String, String>();
-	static {
-		awardNumberMap.put("rx2fs-1", "11---");
-	}
-	static {
-		betNumberMap.put("rx2fs-1", "11000");
-	}
-
-	
 	@Override
 	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
 		Map<String, List<String>> result = new HashMap<>();
@@ -48,39 +33,4 @@ public class RxfsAwardNumber extends RxBase implements AwardNumber {
 		return result;
 
 	}
-
-
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-
-		Map<String, BigDecimal> result = new HashMap<>();
-		String playId = betOrder.getGamePlayId();
-		Integer betMultiplier = betOrder.getBetMultiplier();
-
-		for (Entry<String, List<String>> map : typeByAwardNumber.entrySet()) {
-			String propertyKey = playId + "-" + map.getKey();
-
-			// 拿投注項目 中獎號碼
-			String awardNumber = awardNumberMap.get(propertyKey);
-			String betNumber = betNumberMap.get(propertyKey);
-			// 中獎金額
-//			 String awardMoney = jar.getAwardMoney(playId,awardNumber,betNumber,betMultiplier);
-			BigDecimal awardMoney = getAwardMoney(awardNumber, betNumber);
-			List<String> numberList = map.getValue();
-			for (String number : numberList) {
-				SSCAwardUtils.addAwardMoney(result, number, awardMoney);
-			}
-		}
-		return result;
-	}
-	
-	// 假的回傳金額
-	private BigDecimal getAwardMoney(String awardNumber, String betNumber) {
-		BigDecimal result;
-		result = new BigDecimal("123.00");
-
-		return result;
-	}
-
 }

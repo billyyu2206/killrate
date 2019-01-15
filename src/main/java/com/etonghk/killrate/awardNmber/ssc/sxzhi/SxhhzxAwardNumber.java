@@ -1,6 +1,5 @@
 package com.etonghk.killrate.awardNmber.ssc.sxzhi;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,10 +24,9 @@ public class SxhhzxAwardNumber extends SxzhiBase implements AwardNumber{
 	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
 		// FIXME
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
-		int typeKey = TypeStartIndex;
 		
 		String[] items = betOrder.getBetItem().split(BetLineSplit); // 001,012
-		Map<String,List<String>> awardNumMap = arrayToListMap(items,typeKey);
+		Map<String,List<String>> awardNumMap = arrayToListMap(items);
 
 		int[] sxzhi = getSxzhiPos(betOrder.getGamePlayId());
 
@@ -39,15 +37,19 @@ public class SxhhzxAwardNumber extends SxzhiBase implements AwardNumber{
 		return result;
 	}
 	
-	private Map<String, List<String>> arrayToListMap(String[] items,int typeKey) {
+	private Map<String, List<String>> arrayToListMap(String[] items) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		List<String> type1list = new ArrayList<String>(); // 組三
 		List<String> type2list = new ArrayList<String>(); // 組六
+		int typeKey = TypeStartIndex;
+		
 		for (String str : items) {
 			if(isRepeat(str)) {
+				typeKey = 1;
 				type1list.add(str);
 				result.put(typeKey+"",type1list);
 			}else {
+				typeKey = 2;
 				type2list.add(str);
 				result.put(typeKey+"",type2list);
 			}
@@ -78,12 +80,5 @@ public class SxhhzxAwardNumber extends SxzhiBase implements AwardNumber{
 			return true;
 		}
 		return false;
-	}
-	
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

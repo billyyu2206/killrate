@@ -1,6 +1,5 @@
 package com.etonghk.killrate.awardNmber.ssc.rx;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,7 @@ import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
 /**
- * 	任选_组选   任三組六
+ * 	任选_组选   任二组选 任三组六
  * @author Billy
  *
  */
@@ -41,12 +40,4 @@ public class RxzxAwardNumber extends RxBase implements AwardNumber {
 		result.put("1", resultList);
 		return result;
 	}
-
-	@Override
-	public Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
-			Map<String, List<String>> typeByAwardNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

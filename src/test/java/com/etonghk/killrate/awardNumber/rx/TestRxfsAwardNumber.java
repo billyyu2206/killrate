@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
+import com.etonghk.killrate.awardNmber.utils.CalcAwardMoneyUtil;
 import com.etonghk.killrate.vo.BetRecordBean;
 
 /**
@@ -38,7 +39,7 @@ public class TestRxfsAwardNumber {
 	public void getCalcAwardMoney() {
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(betOrder.getGamePlayId());
 		Map<String,List<String>> typeByAwardNumber = awardNumber.getAwardNumberWithType(betOrder);
-		Map<String,BigDecimal> result = awardNumber.getCalcAwardMoney(betOrder, typeByAwardNumber);
+		Map<String,BigDecimal> result = CalcAwardMoneyUtil.getCalcAwardMoney(betOrder, typeByAwardNumber);
 		System.out.println(result);
 		System.out.println(result.size());
 	}
