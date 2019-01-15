@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/killRate")
-public class killRateController {
+public class KillRateController {
 
 	@RequestMapping("/")
 	public String test(Model model) {
