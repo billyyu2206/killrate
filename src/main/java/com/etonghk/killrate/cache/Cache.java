@@ -26,4 +26,7 @@ public interface Cache {
 	Set<String> keys(final String pattern);
 	boolean exists(final String key);
 	
+	Long incr(final String key);
+	
+	
 }

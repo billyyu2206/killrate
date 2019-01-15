@@ -91,4 +91,9 @@ public class RedisCache implements Cache{
 		this.gson = gson;
 	}
 
+	@Override
+	public Long incr(String key) {
+		return redisTemplate.opsForValue().increment(key);
+	}
+
 }

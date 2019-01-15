@@ -16,8 +16,12 @@ public class RedisCacheTest {
 	
 	@Test
 	public void tesSteCache() {
-		cache.set("123", "1234");
-		System.out.println(cache.get("123"));
+		long l1 = System.currentTimeMillis();
+		for(long i=1l;i<100000l;i++) {
+			cache.incr("123456");
+		}
+		long l2 = System.currentTimeMillis();
+		System.out.println((l2-l1)/1000);
 	}
 	
 }
