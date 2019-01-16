@@ -41,12 +41,15 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
-	public Account login(String account, String password) throws Exception{
+	public Account login(String account, String password,String ip) throws Exception{
 		password = getMd5(password);
 		Account acc = accountDao.login(account, password);
 		if(acc == null) {
 			throw new RuntimeException("帳號密碼錯誤");
 		}
+		acc.setLastLoginIp(ip);
+		acc.setLastLoginTime(new Date());
+		accountDao.updateLogin(acc);
 		return acc;
 	}
 	

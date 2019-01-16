@@ -19,4 +19,6 @@ public interface AccountDao {
     void update(Account account);
     
     Account login(String account,String password);
+    
+    void updateLogin(Account account);
 }

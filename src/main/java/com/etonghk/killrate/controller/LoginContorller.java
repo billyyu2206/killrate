@@ -1,5 +1,6 @@
 package com.etonghk.killrate.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,14 @@ public class LoginContorller {
 	}
 
 	@PostMapping("/loginAcc")
-	public String login(Account account, Model model,HttpSession session) {
-		
+	public String login(Account account, Model model, HttpServletRequest request) {
+		HttpSession session =  request.getSession();
+		 request.getRemoteAddr();
 		try {
 			model.addAttribute("errorMsg", null);
-			account = accountService.login(account.getAccount(), account.getPassword());
+			String ip = getFisrtRemoteHost(request);
+			System.out.println("ip : "+ip);
+			account = accountService.login(account.getAccount(), account.getPassword(),ip);
 			session.setAttribute(session.getId(), account);
 		} catch (RuntimeException e) {
 			model.addAttribute("errorMsg", "帳號密碼錯誤");
@@ -40,5 +44,35 @@ public class LoginContorller {
 
 		return "redirect:/killRate";
 	}
+	
+	
+	private String getRemoteHost(HttpServletRequest request){
+	    String ip = request.getHeader("x-forwarded-for");
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+	        ip = request.getHeader("X-FORWARDED-FOR");
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+	        ip = request.getHeader("X-Forwarded-For");
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+	        ip = request.getHeader("Proxy-Client-IP");
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+	        ip = request.getHeader("WL-Proxy-Client-IP");
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+	        ip = request.getRemoteAddr();
+	    return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
+	}//method 
+	
+	private String getFisrtRemoteHost(HttpServletRequest request){
+	 
+		String ip = getRemoteHost(request);
+	    
+	    if(ip != null){
+	    	String[] array = ip.split(",");
+	    	if(array.length > 0){
+	    		ip = array[0];
+	    	}
+	    }
+	    
+	    return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
+	}//method 
 
 }

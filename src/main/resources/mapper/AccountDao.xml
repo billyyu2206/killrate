@@ -46,4 +46,12 @@
     where account = #{account}
   </update>
   
+  <update id="updateLogin" parameterType="com.etonghk.killrate.domain.Account">
+    update account 
+    set 
+    last_login_time = #{lastLoginTime},
+    last_login_ip = #{lastLoginIp}
+    where account = #{account}
+  </update>
+  
 </mapper>
