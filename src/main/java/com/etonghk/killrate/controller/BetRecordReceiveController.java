@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.etonghk.killrate.domain.ApiResult;
-import com.etonghk.killrate.vo.GameLotteryOrder;
+import com.etonghk.killrate.controller.dto.ApiResult;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 @RestController
 @RequestMapping("/betRecord")

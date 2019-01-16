@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.etonghk.killrate.vo.AwardNumberBean;
+import com.etonghk.killrate.controller.dto.AwardNumberBean;
 
 @RestController
 @RequestMapping("awardNumber")

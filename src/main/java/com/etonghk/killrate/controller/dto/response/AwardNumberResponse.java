@@ -1,8 +1,8 @@
-package com.etonghk.killrate.vo;
+package com.etonghk.killrate.controller.dto.response;
 
 import java.io.Serializable;
 
-public class AwardNumberBean implements Serializable{
+public class AwardNumberResponse implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

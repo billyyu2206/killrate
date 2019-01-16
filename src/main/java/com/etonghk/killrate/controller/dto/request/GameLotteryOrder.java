@@ -1,4 +1,4 @@
-package com.etonghk.killrate.vo;
+package com.etonghk.killrate.controller.dto.request;
 
 import java.util.Date;
 

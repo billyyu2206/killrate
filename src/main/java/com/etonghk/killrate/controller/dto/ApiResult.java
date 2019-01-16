@@ -1,6 +1,12 @@
-package com.etonghk.killrate.domain;
+package com.etonghk.killrate.controller.dto;
 
+/**
+ * 
+ * @author Billy
+ *
+ */
 public class ApiResult{
+	
 	private String resultCode;
 	private String resultMsg;
 	
