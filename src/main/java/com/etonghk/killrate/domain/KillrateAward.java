@@ -12,6 +12,8 @@ public class KillrateAward {
     private Date awardNumber;
 
     private Date awardTime;
+    
+    private Date issueEndTime;
 
     private Integer isPush;
 
@@ -62,4 +64,13 @@ public class KillrateAward {
     public void setIsPush(Integer isPush) {
         this.isPush = isPush;
     }
+
+	public Date getIssueEndTime() {
+		return issueEndTime;
+	}
+
+	public void setIssueEndTime(Date issueEndTime) {
+		this.issueEndTime = issueEndTime;
+	}
+    
 }
