@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etonghk.killrate.dao.GameIssueDao">
+  <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.GameIssue">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+    <result column="issue" jdbcType="VARCHAR" property="issue" />
+    <result column="full_issue" jdbcType="VARCHAR" property="fullIssue" />
+    <result column="issue_start_time" jdbcType="TIMESTAMP" property="issueStartTime" />
+    <result column="issue_end_time" jdbcType="TIMESTAMP" property="issueEndTime" />
+    <result column="issue_date" jdbcType="DATE" property="issueDate" />
+    <result column="play_id" jdbcType="VARCHAR" property="playId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, game_id, issue, full_issue, issue_start_time, issue_end_time, issue_date, play_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_issue_${gameId}
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.etonghk.killrate.domain.GameIssue">
+    insert into game_issue_${gameId} (id, game_id, issue, 
+      full_issue, issue_start_time, issue_end_time, 
+      issue_date, play_id)
+    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+      #{fullIssue,jdbcType=VARCHAR}, #{issueStartTime,jdbcType=TIMESTAMP}, #{issueEndTime,jdbcType=TIMESTAMP}, 
+      #{issueDate,jdbcType=DATE}, #{playId,jdbcType=VARCHAR})
+  </insert>
+</mapper>
