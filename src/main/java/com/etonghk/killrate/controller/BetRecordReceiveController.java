@@ -14,13 +14,13 @@ import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 public class BetRecordReceiveController {
 	
 	@RequestMapping("/send")
-	public ApiResult betReceive(@RequestBody List<GameLotteryOrder> betRecords) {
-		ApiResult result = new ApiResult();
+	public ApiResult<Void> betReceive(@RequestBody List<GameLotteryOrder> betRecords) {
+		ApiResult<Void> result = new ApiResult<Void>();
 		
 		// TODO send MQ
 		
-		result.setResultCode("0000");
-		result.setResultMsg("success");
+		result.setCode(ApiResult.SUCCESS_CODE);
+		result.setMsg("success");
 		return result;
 	}
 }

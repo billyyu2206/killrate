@@ -5,23 +5,29 @@ package com.etonghk.killrate.controller.dto;
  * @author Billy
  *
  */
-public class ApiResult{
+public class ApiResult<T>{
+	public static final String SUCCESS_CODE = "200";
+	public static final String FAILD_CODE = "500";
 	
-	private String resultCode;
-	private String resultMsg;
-	
-	public String getResultCode() {
-		return resultCode;
+	private T data;
+	private String code;
+	private String msg;
+	public T getData() {
+		return data;
 	}
-	public void setResultCode(String resultCode) {
-		this.resultCode = resultCode;
+	public void setData(T data) {
+		this.data = data;
 	}
-	public String getResultMsg() {
-		return resultMsg;
+	public String getCode() {
+		return code;
 	}
-	public void setResultMsg(String resultMsg) {
-		this.resultMsg = resultMsg;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	
-	
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 }
