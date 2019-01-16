@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etonghk.killrate.dao.KillrateAwardDao">
+  <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.KillrateAward">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+    <result column="issue" jdbcType="VARCHAR" property="issue" />
+    <result column="award_number" jdbcType="TIMESTAMP" property="awardNumber" />
+    <result column="award_time" jdbcType="TIMESTAMP" property="awardTime" />
+    <result column="is_push" jdbcType="INTEGER" property="isPush" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, game_id, issue, award_number, award_time, is_push
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from killrate_award
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.etonghk.killrate.domain.KillrateAward">
+    insert into killrate_award (id, game_id, issue, 
+      award_number, award_time, is_push
+      )
+    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+      #{awardNumber,jdbcType=TIMESTAMP}, #{awardTime,jdbcType=TIMESTAMP}, #{isPush,jdbcType=INTEGER}
+      )
+  </insert>
+</mapper>
