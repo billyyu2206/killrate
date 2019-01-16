@@ -6,7 +6,7 @@
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="create_time" jdbcType="DATE" property="createTime"/>
     <result column="last_login_time" jdbcType="DATE" property="lastLoginTime" />
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
   </resultMap>
@@ -29,5 +29,21 @@
       #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{lastLoginTime,jdbcType=DATE}, 
       #{lastLoginIp,jdbcType=VARCHAR})
   </insert>
+  
+  <select id="login" parameterType="com.etonghk.killrate.domain.Account" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where account = #{account}
+    and password = #{password}
+  </select>
+  
+  <update id="update" parameterType="com.etonghk.killrate.domain.Account" >
+    update account 
+    set 
+    password = #{password},
+    name = #{name}
+    where account = #{account}
+  </update>
   
 </mapper>

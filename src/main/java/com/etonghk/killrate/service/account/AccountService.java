@@ -15,9 +15,7 @@ public interface AccountService {
 	
 	public Account getAccById(Integer id);
 
-	public Account getAccByName(String name);
-	
-	public Account login(String account,String password);
+	public Account login(String account,String password) throws Exception;
 }
 
 

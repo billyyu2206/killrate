@@ -16,8 +16,6 @@ public interface AccountDao {
 
     Account selectByPrimaryKey(Integer id);
     
-    Account selectByName(String name);
-    
     void update(Account account);
     
     Account login(String account,String password);

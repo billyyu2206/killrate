@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		HttpSession session = request.getSession();
 		String requestUrl = request.getRequestURI();
-		System.out.println("requestUrl :"+requestUrl);
+		
 		for(String url : allowUrls) {
 			if(requestUrl.endsWith(url)) {
 				return true;

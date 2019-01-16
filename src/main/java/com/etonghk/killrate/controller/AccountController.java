@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.etonghk.killrate.domain.Account;
@@ -15,15 +16,21 @@ import com.etonghk.killrate.service.account.AccountService;
 @RequestMapping("account")
 public class AccountController {
 
-//	@Autowired
-	AccountService accountService;
+	@Autowired
+	private AccountService accountService;
 	
 	@RequestMapping("createAccount")
+	public String createAccountIndex(Account account) {
+		
+		return "/account/createAcc";
+	}
+	
+	@PostMapping("create")
 	public String createAccount(Account account) {
 		
 		accountService.creat(account);
 		
-		return "login";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("detail/{accid}")

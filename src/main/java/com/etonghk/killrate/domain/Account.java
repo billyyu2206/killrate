@@ -1,8 +1,9 @@
 package com.etonghk.killrate.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Account {
+public class Account implements Serializable{
     private Integer id;
 
     private String account;
