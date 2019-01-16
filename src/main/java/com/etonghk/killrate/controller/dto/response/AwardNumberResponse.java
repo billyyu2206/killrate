@@ -15,26 +15,6 @@ public class AwardNumberResponse implements Serializable{
 	private Long timeStamp;
 	
 	private String time;
-	
-	private String statCode;
-	
-	private String statMsg;
-
-	public String getStatCode() {
-		return statCode;
-	}
-
-	public void setStatCode(String statCode) {
-		this.statCode = statCode;
-	}
-
-	public String getStatMsg() {
-		return statMsg;
-	}
-
-	public void setStatMsg(String statMsg) {
-		this.statMsg = statMsg;
-	}
 
 	public String getGameId() {
 		return gameId;

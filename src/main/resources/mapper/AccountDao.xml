@@ -6,8 +6,8 @@
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="create_time" jdbcType="DATE" property="createTime"/>
-    <result column="last_login_time" jdbcType="DATE" property="lastLoginTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -26,7 +26,7 @@
       name, create_time, last_login_time, 
       last_login_ip)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{lastLoginTime,jdbcType=DATE}, 
+      #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
       #{lastLoginIp,jdbcType=VARCHAR})
   </insert>
   
