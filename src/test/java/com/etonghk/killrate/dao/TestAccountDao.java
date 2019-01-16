@@ -13,7 +13,7 @@ import com.etonghk.killrate.domain.Account;
 public class TestAccountDao {
 
 	@Autowired
-	private IAccountDao accountDao;
+	private AccountDao accountDao;
 	
 	@Test
 	public void testSelect() {

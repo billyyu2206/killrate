@@ -8,6 +8,7 @@ public interface AccountService {
 
 	public void creat(Account account);
 	
+	
 	public void update(Account account);
 	
 	public List<Account> getAccList();
@@ -15,4 +16,8 @@ public interface AccountService {
 	public Account getAccById(Integer id);
 
 	public Account getAccByName(String name);
+	
+	public Account login(String account,String password);
 }
+
+

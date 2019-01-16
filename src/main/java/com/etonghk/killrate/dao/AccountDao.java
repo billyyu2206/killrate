@@ -10,7 +10,7 @@ import com.etonghk.killrate.domain.Account;
  *
  */
 @Mapper
-public interface IAccountDao {
+public interface AccountDao {
 
 	int insert(Account record);
 
@@ -19,4 +19,6 @@ public interface IAccountDao {
     Account selectByName(String name);
     
     void update(Account account);
+    
+    Account login(String account,String password);
 }
