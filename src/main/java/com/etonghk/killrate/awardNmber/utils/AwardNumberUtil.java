@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
 import com.etonghk.killrate.vo.BetRecordBean;
 
-public class CalcAwardMoneyUtil {
+public class AwardNumberUtil {
 
 	Map<String, Map<String, String>> playNumberMap;
 
@@ -58,5 +58,10 @@ public class CalcAwardMoneyUtil {
 		result = new BigDecimal("123.00");
 
 		return result;
+	}
+	
+	public static String getAwardNumber(String gameId,String issue) {
+		
+		return "1,2,3,4,5";
 	}
 }
