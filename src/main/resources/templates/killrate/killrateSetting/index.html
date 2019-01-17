@@ -36,23 +36,26 @@
 							<div>
 								<form id='settingForm' role="form">
 									<div class="form-group form-inline mt20">
+										<font color="red">*杀率区间段与杀率奖期请择一输入</font>
+									</div>
+									<div class="form-group form-inline mt20">
 										<label for="time">杀率区间段</label>
-									  <div class="col-8 form-inline">
-									    <input class="form-control mr-3" type="text" value="" id="startTime" name='startTime'>
-									    -
-									    <input class="form-control ml-3" type="text" value="" id="endTime" name='endTime'>
-									  </div>
+									  	<div class="col-8 form-inline">
+										    <input class="form-control mr-3" type="text" value="" id="startTime" name='startTime' readonly>
+										    -
+										    <input class="form-control ml-3" type="text" value="" id="endTime" name='endTime' readonly>
+									  	</div>
 									</div>
 									<div class="form-group form-inline">
 										<label for="issue">杀率奖期</label>
 										<div class="col-4">
-											<input type="text" class="form-control" name="issue">
+											<input type="text" class="form-control" name="issue" id="issue">
 										</div>
 									</div>
 									<div class="form-group form-inline">
 										<label for="percent">杀率比例</label>
 										<div class="col-6">
-										<input type="number" class="form-control mr-3" id="killrate" name='killrate'>%(0-100) 若设定20%,表示若开启杀率则至少赢20%以上
+										<input type="text" class="form-control mr-3" id="killrate" name='killrate'>%(0-100) 若设定20%,表示若开启杀率则至少赢20%以上
 										</div>
 									</div>
 									<div class="btn btn-primary" onclick='doGenerate();' >
@@ -97,12 +100,51 @@
 	</div>
   </body>
   <script type="text/javascript" th:inline="javascript">
-//   	$('#startTime').datetimepicker();
-//   	$('#endTime').datetimepicker();
-  	var gameId = [[${gameId}]];
-  	var errorNumber = '输入框可输入的数值范围是：0到100';
   	
+	var gameId = [[${gameId}]];
+	var errorNumber = "杀率比例可输入的数值范围是：0到100";
+	var errorMsg = "";
+	
+	function checkIssueAndTime(){
+  		var isPass = true;
+  		var startTime = $("#startTime").val();
+  		var endTime = $("#endTime").val();
+  		var issue = $("#issue").val();
+  		console.log(startTime)
+  		console.log(endTime)
+  		console.log(issue)
+  		if(startTime == "" && endTime == "" && issue == ""){
+  			isPass = false;
+  			errorMsg = "杀率区间段与杀率奖期请择一输入";
+  		}else if((startTime != "" || endTime != "") && issue != ""){
+  			isPass = false;
+  			errorMsg = "杀率区间段与杀率奖期不可同时输入";
+  		}else if(startTime != "" && endTime != ""){
+  			var startDate = new Date(startTime);
+  			var endDate = new Date(endTime);
+  			
+  			if(startDate >= endDate){
+  				isPass = false;
+  	  			errorMsg = "杀率区间段开始时间必须小于结束时间";
+  			}
+  		}
+  		
+  		return isPass;
+  	}
   	function doGenerate(){
+  		var targetPoint = $("#killrate").val();
+  		if(!checkIssueAndTime()){
+  			myToast(errorMsg);
+			return;
+  		}
+  		
+  		
+  		if(!checkKillrate(targetPoint)) {
+			myToast(errorNumber);
+			$('#killrate').val('');
+			return;
+		}
+  		
   		var datas = $("#settingForm").serialize();
   		datas += "&gameId=" + gameId;
   		$.ajax({
@@ -114,6 +156,8 @@
 				if("200" == data.code){
 					myToast(data.msg);
 					location.reload();
+				}else{
+					myToast(data.msg);
 				}
 			}
 		});
@@ -150,6 +194,8 @@
 						if("200" == data.code){
 							myToast(data.msg);
 							$("#dataTr" + id).remove();
+						}else{
+							myToast(data.msg);
 						}
 					}
 				});
@@ -173,8 +219,7 @@
 		$("#killrateInput" + id).val(originInput);
 	}
 	
-	function save(id){
-		var targetPoint = $("#killrateInput" +id).val();
+	function checkKillrate(targetPoint){
 		var isPass = true;
 		if (!/^[0-9]+(\.[0-9]{1,2})?$/.test(targetPoint) && targetPoint != '') {
 			isPass = false;
@@ -183,8 +228,13 @@
 		} else if(targetPoint == ""){
 			isPass = false;
 		}
+		return isPass;
+	}
+	
+	function save(id){
+		var targetPoint = $("#killrateInput" +id).val();
 		
-		if(!isPass) {
+		if(!checkKillrate(targetPoint)) {
 			myToast(errorNumber);
 			$('#killrateInput' + id).val('');
 			return;
@@ -217,7 +267,17 @@
 				
 			}
 		});
-		
 	}
+	
+	$('#startTime').datetimepicker({
+		dateFormat : "yy-mm-dd",
+		timeFormat : "HH:mm:00",
+		minDateTime: new Date()
+	});
+  	$('#endTime').datetimepicker({
+		dateFormat : "yy-mm-dd",
+		timeFormat : "HH:mm:00",
+		minDateTime: new Date()
+	});
   </script>
 </html>
