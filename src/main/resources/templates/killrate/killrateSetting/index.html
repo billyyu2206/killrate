@@ -20,7 +20,7 @@
     <div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<h3>殺率設定</h3>
+				<h3>杀率设定</h3>
 				<div class="tabbable" id="tabs-206948">
 					<ul class="nav nav-tabs">
 						<li class="nav-item" th:each="game : ${allGameData}">
@@ -35,9 +35,9 @@
 									<div class="form-group form-inline mt20">
 										<label for="time">杀率区间段</label>
 									  <div class="col-8 form-inline">
-									    <input class="form-control" type="text" value="" id="issueStartTime">
+									    <input class="form-control" type="text" value="" id="startTime" name='startTime'>
 									    -
-									    <input class="form-control" type="text" value="" id="issueEndTime">
+									    <input class="form-control" type="text" value="" id="endTime" name='endTime'>
 									  </div>
 									</div>
 									<div class="form-group form-inline">
@@ -49,12 +49,12 @@
 									<div class="form-group form-inline">
 										<label for="percent">杀率比例</label>
 										<div class="col-4">
-										<input type="number" class="form-control" id="percent">%(0-100)
+										<input type="number" class="form-control" id="killrate" name='killrate'>%(0-100) 若设定20%,表示若开启杀率则至少赢20%以上
 										</div>
 									</div>
-									<button type="submit" class="btn btn-primary">
+									<div class="btn btn-primary" onclick='doGenerate();' >
 										保存
-									</button>
+									</div>
 								</form>
 							</div>
 						</div>
@@ -64,7 +64,22 @@
 		</div>
 	</div>
   </body>
-  <script type="text/javascript">
-  	$('#issueStartTime').datetimepicker();
+  <script type="text/javascript" th:inline="javascript">
+//   	$('#startTime').datetimepicker();
+//   	$('#endTime').datetimepicker();
+  	var gameId = [[${gameId}]];
+  	
+  	function doGenerate(){
+  		var data = $("#settingForm").serialize();
+  		$.ajax({
+			type: "POST",
+			url: "/killrateSetting/generate/" + gameId,
+			data: data, // serializes 
+			success: function(data)
+			{
+				console.log(data)
+			}
+		});
+  	}
   </script>
 </html>

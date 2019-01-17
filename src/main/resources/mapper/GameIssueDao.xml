@@ -28,4 +28,20 @@
       #{fullIssue,jdbcType=VARCHAR}, #{issueStartTime,jdbcType=TIMESTAMP}, #{issueEndTime,jdbcType=TIMESTAMP}, 
       #{issueDate,jdbcType=DATE}, #{playId,jdbcType=VARCHAR})
   </insert>
+  
+  <select id="selectForGenerateKillrate" parameterType="com.etonghk.killrate.controller.dto.request.KillrateSetting" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_issue_${gameId}
+    where 1 = 1
+    <if test='issue != null and issue != ""'>
+    	AND	full_issue = #{issue,jdbcType=VARCHAR}
+    </if>
+    <if test='startTime != null and endTime != null'>
+    	<![CDATA[ 
+    	AND	issue_end_time > #{startTime,jdbcType=TIMESTAMP} 
+    	AND issue_end_time <= #{endTime,jdbcType=TIMESTAMP} 
+    	]]> 
+    </if>
+  </select>
 </mapper>

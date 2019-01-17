@@ -9,13 +9,15 @@ public class KillrateAward {
 
     private String issue;
 
-    private Date awardNumber;
+    private String awardNumber;
 
     private Date awardTime;
     
     private Date issueEndTime;
 
     private Integer isPush;
+    
+    private Integer killrate;
 
     public Integer getId() {
         return id;
@@ -41,11 +43,11 @@ public class KillrateAward {
         this.issue = issue == null ? null : issue.trim();
     }
 
-    public Date getAwardNumber() {
+    public String getAwardNumber() {
         return awardNumber;
     }
 
-    public void setAwardNumber(Date awardNumber) {
+    public void setAwardNumber(String awardNumber) {
         this.awardNumber = awardNumber;
     }
 
@@ -72,5 +74,14 @@ public class KillrateAward {
 	public void setIssueEndTime(Date issueEndTime) {
 		this.issueEndTime = issueEndTime;
 	}
+
+	public Integer getKillrate() {
+		return killrate;
+	}
+
+	public void setKillrate(Integer killrate) {
+		this.killrate = killrate;
+	}
     
+	
 }

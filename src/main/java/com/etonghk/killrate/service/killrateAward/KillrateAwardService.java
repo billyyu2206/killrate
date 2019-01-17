@@ -1,13 +1,13 @@
 package com.etonghk.killrate.service.killrateAward;
 
 import java.util.List;
-import java.util.Map;
 
+import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.domain.KillrateAward;
 
 public interface KillrateAwardService {
 	
-	public List<KillrateAward> selectForSettingPage(Map<String, Object> cond);
-	public int insertKillrateAward(KillrateAward killrateAward);
-	public int batchInsertKillrateAward(List<KillrateAward> killrateAward);
+	public List<KillrateAward> selectForSettingPage(KillrateAward cond);
+	
+	public int generateKillrateAward(KillrateSetting setting);
 }
