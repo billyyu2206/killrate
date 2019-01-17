@@ -6,8 +6,13 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * 
+ * @author Ami.Tsai
+ * @date 2019年1月17日
+ */
 @Configuration
-public class RedisCacheBean {
+public class RedisCacheConfig {
 
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
