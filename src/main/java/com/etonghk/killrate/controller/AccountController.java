@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.etonghk.killrate.domain.Account;
 import com.etonghk.killrate.service.account.AccountService;
@@ -43,11 +43,11 @@ public class AccountController {
 	}
 	
 	@RequestMapping("updateAccount/{accId}")
-	public String updateAccount(@PathVariable Integer accId,Account account) {
+	public String updateAccount(@RequestParam Integer accId,Account account) {
 		
 		accountService.update(account);
 		
-		return "detail";
+		return "redirect:detail?"+accId;
 	}
 	
 	@RequestMapping("list")
@@ -55,5 +55,10 @@ public class AccountController {
 		List<Account> list =  accountService.getAccList();
 		model.addAttribute("accList", list);
 		return "list";
+	}
+	
+	@RequestMapping("index")
+	public String index() {
+		return "account/index";
 	}
 }

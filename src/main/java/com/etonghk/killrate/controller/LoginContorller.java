@@ -24,11 +24,14 @@ public class LoginContorller {
 	private AccountService accountService;
 
 	@GetMapping("/")
-	public String index(Account account) {
+	public String index(Account account,HttpSession session) {
 		logger.info("123");
+		if(session.getAttribute(session.getId())!=null) {
+			return "redirect:/account/index";
+		}
 		return "login";
 	}
-
+	
 	@PostMapping("/loginAcc")
 	public String login(Account account, Model model, HttpServletRequest request) {
 		HttpSession session =  request.getSession();
@@ -46,7 +49,7 @@ public class LoginContorller {
 			return "login";
 		}
 
-		return "redirect:/killRate";
+		return "redirect:/account/index";
 	}
 	
 	
