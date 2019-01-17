@@ -9,11 +9,11 @@ import com.etonghk.killrate.interceptor.LoginInterceptor;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginInterceptor())
-		.excludePathPatterns("/error","/js/**","/bootstrap/**","/css/**")
-		.addPathPatterns("/**")
-		;
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(new LoginInterceptor())
+//		.excludePathPatterns("/error","/js/**","/bootstrap/**","/css/**")
+//		.addPathPatterns("/**")
+//		;
+//	}
 }
