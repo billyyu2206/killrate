@@ -1,8 +1,8 @@
 package com.etonghk.killrate.service.killrateAward;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,44 +34,61 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	
 	/**
 	 * 	生成殺率設定獎期
-	 * 	@param KillrateAward.gameId
-	 * 	@param KillrateAward.issueEndDate
+	 * 	@param KillrateSetting.gameId
+	 * 	@param KillrateSetting.issueEndDate
 	 */
 	@Override
 	public int generateKillrateAward(KillrateSetting setting) {
 		//FIXME issue 跟 startTime endTime判斷
+		
+		setting.setOperateTime(new Date());
 		List<GameIssue> matchGameIssues = gameIssueDao.selectForGenerateKillrate(setting);
 		if(matchGameIssues == null || matchGameIssues.size() == 0){
 			return 0;
 		}
 		
 		List<KillrateAward> existKillrateAward = killrateAwardDao.selectForGenerateKillrate(setting);
-		List<String> existsIssueList = existKillrateAward.stream()
-										.map(KillrateAward::getIssue)
-										.collect(Collectors.toList());
-		
-		
 		
 		List<KillrateAward> insertList = new ArrayList<KillrateAward>();
 		KillrateAward insertData = new KillrateAward();
 		// 整理需要新增的清單
 		for(GameIssue issueData : matchGameIssues) {
-			if(!existsIssueList.contains(issueData.getFullIssue())) {
-				insertData = new KillrateAward();
-				insertData.setAwardNumber("");
-				insertData.setGameId(setting.getGameId());
-				insertData.setIssue(issueData.getFullIssue());
-				insertData.setIssueEndTime(issueData.getIssueEndTime());
-				insertData.setKillrate(setting.getKillrate());
-				insertData.setIsPush(0);
-				insertList.add(insertData);
-			}
+			insertData = new KillrateAward();
+			insertData.setAwardNumber("");
+			insertData.setGameId(setting.getGameId());
+			insertData.setIssue(issueData.getFullIssue());
+			insertData.setIssueEndTime(issueData.getIssueEndTime());
+			insertData.setKillrate(setting.getKillrate());
+			insertData.setIsPush(0);
+			insertList.add(insertData);
+		}
+		if(existKillrateAward != null && existKillrateAward.size() > 0) {
+			killrateAwardDao.deleteForGenerateKillrate(setting);
 		}
 		
-		if(insertList != null || insertList.size() > 0) {
+		if(insertList != null && insertList.size() > 0) {
 			killrateAwardDao.batchInsert(insertList);
 		}
 		return 0;
+	}
+
+	/**
+	 * 	修改殺率奖期設定
+	 * 	@param KillrateAward.id
+	 * 	@param KillrateAward.killrate
+	 */
+	@Override
+	public int updateKillrateAward(KillrateAward record) {
+		return killrateAwardDao.updateByPK(record);
+	}
+
+	/**
+	 * 	删除殺率奖期設定
+	 * 	@param KillrateAward.id
+	 */
+	@Override
+	public int deleteKillrateAward(KillrateAward record) {
+		return killrateAwardDao.deleteByPK(record);
 	}
 
 	

@@ -29,7 +29,10 @@
 		<include refid="Base_Column_List" />
 		from killrate_award
 		where game_id = #{gameId,jdbcType=INTEGER}
-		AND issue_end_time > #{issueEndTime,jdbcType=TIMESTAMP}
+		<![CDATA[ 
+		and issue_end_time > #{issueEndTime,jdbcType=TIMESTAMP}
+		]]>
+		order by issue_end_time
 	</select>
 	
 	<insert id="insert" parameterType="com.etonghk.killrate.domain.KillrateAward">
@@ -60,7 +63,7 @@
 	    from killrate_award
 	    where game_id = #{gameId,jdbcType=VARCHAR}
 	    <![CDATA[ 
-	    and issue_end_time >= SYSDATE()
+	    and issue_end_time > #{operateTime,jdbcType=TIMESTAMP} 
 	    ]]>
 	    <if test='issue != null and issue != ""'>
 	    	and	issue = #{issue,jdbcType=VARCHAR}
@@ -71,5 +74,33 @@
 	    	and issue_end_time <= #{endTime,jdbcType=TIMESTAMP} 
 	    	]]>
 	    </if>
-	  </select>
+	    order by issue_end_time 
+	</select>
+	  
+ 	<delete id="deleteForGenerateKillrate" parameterType="com.etonghk.killrate.controller.dto.request.KillrateSetting">
+    	delete from killrate_award 
+	    where game_id = #{gameId,jdbcType=VARCHAR}
+	    <![CDATA[ 
+	    and issue_end_time > #{operateTime,jdbcType=TIMESTAMP} 
+	    ]]>
+	    <if test='issue != null and issue != ""'>
+	    	and	issue = #{issue,jdbcType=VARCHAR}
+	    </if>
+	    <if test='startTime != null and endTime != null'>
+	    	<![CDATA[ 
+	    	and	issue_end_time > #{startTime,jdbcType=TIMESTAMP} 
+	    	and issue_end_time <= #{endTime,jdbcType=TIMESTAMP} 
+	    	]]>
+	    </if>
+	</delete>
+	  
+	<insert id="updateByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
+		update killrate_award set killrate = #{killrate,jdbcType=INTEGER} 
+		where id = #{id,jdbcType=INTEGER}
+	</insert>
+	
+	<insert id="deleteByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
+		delete from killrate_award 
+		where id = #{id,jdbcType=INTEGER}
+	</insert>
 </mapper>

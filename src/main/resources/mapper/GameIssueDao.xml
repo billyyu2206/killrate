@@ -11,15 +11,18 @@
     <result column="issue_date" jdbcType="DATE" property="issueDate" />
     <result column="play_id" jdbcType="VARCHAR" property="playId" />
   </resultMap>
+  
   <sql id="Base_Column_List">
     id, game_id, issue, full_issue, issue_start_time, issue_end_time, issue_date, play_id
   </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from game_issue_${gameId}
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
   <insert id="insert" parameterType="com.etonghk.killrate.domain.GameIssue">
     insert into game_issue_${gameId} (id, game_id, issue, 
       full_issue, issue_start_time, issue_end_time, 
@@ -34,6 +37,9 @@
     <include refid="Base_Column_List" />
     from game_issue_${gameId}
     where 1 = 1
+    <![CDATA[ 
+	    and issue_end_time > #{operateTime,jdbcType=TIMESTAMP} 
+    ]]>
     <if test='issue != null and issue != ""'>
     	AND	full_issue = #{issue,jdbcType=VARCHAR}
     </if>
@@ -43,5 +49,6 @@
     	AND issue_end_time <= #{endTime,jdbcType=TIMESTAMP} 
     	]]> 
     </if>
+    order by issue_end_time
   </select>
 </mapper>

@@ -7,13 +7,16 @@
     <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/jquery-ui.css}" rel="stylesheet"/>
     <link th:href="@{/css/jquery-ui-timepicker-addon.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery.toast.css}" rel="stylesheet"/>
     <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
-<!--     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
 	<script th:src="@{/js/jquery-ui-1.11.0.min.js}" type="text/javascript"></script>
 	<script th:src="@{/js/jquery-ui-timepicker-addon.js}" type="text/javascript"></script>
 	<script th:src="@{/js/i18n/jquery-ui-timepicker-addon-i18n.min.js}" type="text/javascript"></script>
 	<script th:src="@{/js/jquery-ui-sliderAccess.js}" type="text/javascript"></script>
     <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/altDialog.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.toast.js}" type="text/javascript"></script>
+    <script th:src="@{/js/myToast.js}" type="text/javascript"></script>
   </head>
   <body>
 	<div th:include="header :: navbar"></div>
@@ -35,9 +38,9 @@
 									<div class="form-group form-inline mt20">
 										<label for="time">杀率区间段</label>
 									  <div class="col-8 form-inline">
-									    <input class="form-control" type="text" value="" id="startTime" name='startTime'>
+									    <input class="form-control mr-3" type="text" value="" id="startTime" name='startTime'>
 									    -
-									    <input class="form-control" type="text" value="" id="endTime" name='endTime'>
+									    <input class="form-control ml-3" type="text" value="" id="endTime" name='endTime'>
 									  </div>
 									</div>
 									<div class="form-group form-inline">
@@ -48,14 +51,43 @@
 									</div>
 									<div class="form-group form-inline">
 										<label for="percent">杀率比例</label>
-										<div class="col-4">
-										<input type="number" class="form-control" id="killrate" name='killrate'>%(0-100) 若设定20%,表示若开启杀率则至少赢20%以上
+										<div class="col-6">
+										<input type="number" class="form-control mr-3" id="killrate" name='killrate'>%(0-100) 若设定20%,表示若开启杀率则至少赢20%以上
 										</div>
 									</div>
 									<div class="btn btn-primary" onclick='doGenerate();' >
 										保存
 									</div>
 								</form>
+							</div>
+							<div>
+								<table class="table table-bordered mt-3 ">
+									<thead>
+										<tr>
+											<th>奖期</th>
+											<th>杀率比例</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody id="sortable">
+										<tr th:if="${#lists.isEmpty(list)}" class="indexData">
+											<td colspan="3" style="text-align: center;">尚无数据</td>
+										</tr>
+										<tr th:unless="${#lists.isEmpty(list)}" class="indexData" th:each="item : ${list}" th:id="'dataTr' + ${item.id}">
+											<td width="30%">[[${item.issue}]]</td>
+											<td width="30%">
+												<span th:id="'killrateShow' + ${item.id}">[[${item.killrate}]]%</span>
+												<input type="text" th:name="'killrateInput' + ${item.id}" th:id="'killrateInput' + ${item.id}" th:value="${item.killrate}" style="display:none;">
+											</td>
+											<td width="30%">
+												<a th:id="'editBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-hide" th:onclick="'edit(\'' + ${item.id} + '\')'" >编辑</a>
+												<a th:id="'removeBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-hide" th:onclick="'remove(\'' + ${item.id} + '\')'" >删除</a>
+	 											<a th:id="'saveBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-show" style="display:none;" th:onclick="'save(\'' + ${item.id} + '\')'">储存</a> 
+												<a th:id="'cancelBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-show" style="display:none;" th:onclick="'cancel(\'' + ${item.id} + '\')'" >取消</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -68,18 +100,124 @@
 //   	$('#startTime').datetimepicker();
 //   	$('#endTime').datetimepicker();
   	var gameId = [[${gameId}]];
+  	var errorNumber = '输入框可输入的数值范围是：0到100';
   	
   	function doGenerate(){
-  		var data = $("#settingForm").serialize();
+  		var datas = $("#settingForm").serialize();
+  		datas += "&gameId=" + gameId;
   		$.ajax({
 			type: "POST",
-			url: "/killrateSetting/generate/" + gameId,
-			data: data, // serializes 
+			url: "/killrateSetting/generate/",
+			data: datas, // serializes 
 			success: function(data)
 			{
-				console.log(data)
+				if("200" == data.code){
+					myToast(data.msg);
+					location.reload();
+				}
 			}
 		});
   	}
+  	
+  	var originInput = "";
+	function edit(id){
+		$(".edit-hide").each(function(){
+			$(this).attr("disabled", "disabled");
+		})
+		$("#editBtn" + id).hide();
+		$("#removeBtn" + id).hide();
+		$("#cancelBtn" + id).show();
+		$("#saveBtn" + id).show();
+	
+		$("#killrateShow" + id).hide();
+		$("#killrateInput" + id).show();
+		originInput = $("#killrateInput" + id).val();
+	}
+	
+	function remove(id, issue){
+		$.altDialog({
+			title : "温馨提示",
+			content : "是否刪除此筆殺率設定 獎期 : " + issue,
+			style:"confirm",
+			done:function() {
+				datas = "id=" + id;
+				$.ajax({
+					type: "POST",
+					url: "/killrateSetting/delete/",
+					data: datas, 
+					success: function(data)
+					{
+						if("200" == data.code){
+							myToast(data.msg);
+							$("#dataTr" + id).remove();
+						}
+					}
+				});
+			},
+			cancel: function(){
+			}
+		});
+	}
+	
+	function cancel(id){
+		$(".edit-hide").each(function(){
+			$(this).removeAttr("disabled");
+		})
+		$("#editBtn" + id).show();
+		$("#removeBtn" + id).show();
+		$("#cancelBtn" + id).hide();
+		$("#saveBtn" + id).hide();
+	
+		$("#killrateShow" + id).show();
+		$("#killrateInput" + id).hide();
+		$("#killrateInput" + id).val(originInput);
+	}
+	
+	function save(id){
+		var targetPoint = $("#killrateInput" +id).val();
+		var isPass = true;
+		if (!/^[0-9]+(\.[0-9]{1,2})?$/.test(targetPoint) && targetPoint != '') {
+			isPass = false;
+		} else if(targetPoint * 1 > 100){
+			isPass = false;
+		} else if(targetPoint == ""){
+			isPass = false;
+		}
+		
+		if(!isPass) {
+			myToast(errorNumber);
+			$('#killrateInput' + id).val('');
+			return;
+		}
+		
+		var datas = "id=" + id + "&killrate=" + targetPoint;
+	
+		$.ajax({
+			type: "POST",
+			url: "/killrateSetting/update",
+			data: datas,
+			success: function(data)
+			{
+				if(data.code == "200"){
+					myToast(data.msg);
+					$(".edit-hide").each(function(){
+						$(this).removeAttr("disabled");
+					})
+					$("#editBtn" + id).show();
+					$("#removeBtn" + id).show();
+					$("#cancelBtn" + id).hide();
+					$("#saveBtn" + id).hide();
+					
+					$("#killrateShow" + id).html(targetPoint + "%");
+					$("#killrateShow" + id).show();
+					$("#killrateInput" + id).hide();
+				}else{
+					myToast(data.msg);
+				}
+				
+			}
+		});
+		
+	}
   </script>
 </html>

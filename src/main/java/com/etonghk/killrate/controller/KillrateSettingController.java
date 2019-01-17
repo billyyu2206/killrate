@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etonghk.killrate.constant.KillrateConstant;
+import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.service.killrateAward.KillrateAwardService;
@@ -41,10 +42,32 @@ public class KillrateSettingController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/generate/{gameId}")
-	public String generate(@PathVariable String gameId, KillrateSetting setting, Model model) {
-		System.out.println(setting.getKillrate());
+	@RequestMapping("/generate")
+	public ApiResult<Void> generate(KillrateSetting setting, Model model) {
+		ApiResult<Void> result = new ApiResult<Void>();
 		killrateAwardService.generateKillrateAward(setting);
-		return "success";
+		result.setCode(ApiResult.SUCCESS_CODE);
+		result.setMsg("生成成功");
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/update")
+	public ApiResult<Void> update(KillrateAward record, Model model) {
+		ApiResult<Void> result = new ApiResult<Void>();
+		killrateAwardService.updateKillrateAward(record);
+		result.setCode(ApiResult.SUCCESS_CODE);
+		result.setMsg("编辑成功");
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/delete")
+	public ApiResult<Void> delete(KillrateAward record, Model model) {
+		ApiResult<Void> result = new ApiResult<Void>();
+		killrateAwardService.deleteKillrateAward(record);
+		result.setCode(ApiResult.SUCCESS_CODE);
+		result.setMsg("删除成功");
+		return result;
 	}
 }

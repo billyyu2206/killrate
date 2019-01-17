@@ -10,4 +10,8 @@ public interface KillrateAwardService {
 	public List<KillrateAward> selectForSettingPage(KillrateAward cond);
 	
 	public int generateKillrateAward(KillrateSetting setting);
+	
+	public int updateKillrateAward(KillrateAward record);
+	
+	public int deleteKillrateAward(KillrateAward record);
 }

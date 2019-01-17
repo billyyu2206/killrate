@@ -14,6 +14,8 @@ public class KillrateSetting {
 	private Date startTime;
 	private Date endTime;
 	
+	private Date operateTime;
+	
 	public String getGameId() {
 		return gameId;
 	}
@@ -43,6 +45,12 @@ public class KillrateSetting {
 	}
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	public Date getOperateTime() {
+		return operateTime;
+	}
+	public void setOperateTime(Date operateTime) {
+		this.operateTime = operateTime;
 	}
 	
 }
