@@ -32,7 +32,7 @@
   
   <select id="login" parameterType="com.etonghk.killrate.domain.Account" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
+    id, account, name, create_time, last_login_time, last_login_ip
     from account
     where account = #{account}
     and password = #{password}
