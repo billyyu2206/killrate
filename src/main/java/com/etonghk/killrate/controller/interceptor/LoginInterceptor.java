@@ -1,4 +1,4 @@
-package com.etonghk.killrate.interceptor;
+package com.etonghk.killrate.controller.interceptor;
 
 import java.util.ArrayList;
 import java.util.List;

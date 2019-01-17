@@ -13,7 +13,7 @@ public class BetConvertImpl implements BetDataConvert<GameLotteryOrder> {
 		bean.setGamePlayId(gameLotterOrder.getMethod()); // 玩法
 		bean.setBetItem(gameLotterOrder.getContent()); // 投注內容
 //		bean.setAmode(gameLotterOrder.getModel()); // 元角分
-		bean.setIssue(gameLotterOrder.getIssue()); // 獎期
+		//bean.setIssue(gameLotterOrder.getIssue()); // 獎期
 		bean.setBetMultiplier(gameLotterOrder.getMultiple());
 		return bean;
 	}
