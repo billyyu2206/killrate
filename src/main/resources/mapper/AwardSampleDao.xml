@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etonghk.killrate.dao.AwardSampleDao">
+  <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.AwardSample">
+    <id column="game_type" jdbcType="VARCHAR" property="gameType" />
+    <id column="game_play_id" jdbcType="VARCHAR" property="gamePlayId" />
+    <id column="type" jdbcType="INTEGER" property="type" />
+    <result column="game_play_name" jdbcType="VARCHAR" property="gamePlayName" />
+    <result column="bet_number" jdbcType="VARCHAR" property="betNumber" />
+    <result column="award_number" jdbcType="VARCHAR" property="awardNumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    game_type, game_play_id, type, game_play_name, bet_number, award_number, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.etonghk.killrate.domain.AwardSampleKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from award_sample
+    where game_type = #{gameType,jdbcType=VARCHAR}
+      and game_play_id = #{gamePlayId,jdbcType=VARCHAR}
+      and type = #{type,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.etonghk.killrate.domain.AwardSample">
+    insert into award_sample (game_type, game_play_id, type, 
+      game_play_name, bet_number, award_number, 
+      remarks)
+    values (#{gameType,jdbcType=VARCHAR}, #{gamePlayId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{gamePlayName,jdbcType=VARCHAR}, #{betNumber,jdbcType=VARCHAR}, #{awardNumber,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from award_sample
+    order by game_type;
+  </select>
+</mapper>
