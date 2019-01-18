@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
 import com.etonghk.killrate.awardNmber.utils.AwardNumberUtil;
+import com.etonghk.killrate.awardSample.cache.AwardSampleCache;
 import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
@@ -25,6 +26,8 @@ public class TestRxfsAwardNumber {
 
 	GameLotteryOrder order = new GameLotteryOrder();
 	
+	@Autowired
+	private AwardSampleCache awardSampleCache;
 	
 	@Test
 	public void testRxfsAwardNumber() {
@@ -39,7 +42,7 @@ public class TestRxfsAwardNumber {
 	public void getCalcAwardMoney() {
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
 		Map<String,List<String>> typeByAwardNumber = awardNumber.getAwardNumberWithType(order);
-		Map<String,BigDecimal> result = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber);
+		Map<String,BigDecimal> result = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber, awardSampleCache);
 		System.out.println(result);
 		System.out.println(result.size());
 	}
