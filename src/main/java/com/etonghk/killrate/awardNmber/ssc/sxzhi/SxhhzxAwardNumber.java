@@ -10,7 +10,7 @@ import java.util.Set;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 三星混合组选
@@ -21,14 +21,14 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class SxhhzxAwardNumber extends SxzhiBase implements AwardNumber{
 
 	@Override
-	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		// FIXME
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		
-		String[] items = betOrder.getBetItem().split(BetLineSplit); // 001,012
+		String[] items = order.getContent().split(BetLineSplit); // 001,012
 		Map<String,List<String>> awardNumMap = arrayToListMap(items);
 
-		int[] sxzhi = getSxzhiPos(betOrder.getGamePlayId());
+		int[] sxzhi = getSxzhiPos(order.getMethod());
 
 		for (Map.Entry<String,List<String>> mapEntry : awardNumMap.entrySet()) {
 			awardNumMap.put(mapEntry.getKey(), getAwardNumber(mapEntry.getValue(),sxzhi));

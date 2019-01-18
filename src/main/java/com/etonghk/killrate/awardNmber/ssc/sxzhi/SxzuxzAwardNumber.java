@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 三星组三
@@ -20,10 +20,10 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class SxzuxzAwardNumber extends SxzhiBase implements AwardNumber {
 
 	@Override
-	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] items = betOrder.getBetItem().split(BetItemSplit);
+		String[] items = order.getContent().split(BetItemSplit);
 		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
 		betDataMap.put(2, StringUtils.join(items, ","));
 		betDataMap.put(1, StringUtils.join(items, ","));
@@ -33,7 +33,7 @@ public class SxzuxzAwardNumber extends SxzhiBase implements AwardNumber {
 		dataCountMap.put(1, 1);
 
 		List<String> resultList = AwardNumberGenerateUtils.getTzuShiuanNumber(betDataMap, dataCountMap, 2);
-		int[] sxzhi = getSxzhiPos(betOrder.getGamePlayId());
+		int[] sxzhi = getSxzhiPos(order.getMethod());
 		resultList = AwardNumberGenerateUtils.getCompleteAwardList(resultList, sxzhi[0], sxzhi[1]); // 後三
 		
 		result.put(typeKey+"", resultList);

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
 import com.etonghk.killrate.awardNmber.utils.AwardNumberUtil;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  *	 任选_任X直选复式
@@ -23,23 +23,23 @@ public class TestRxfsAwardNumber {
 	@Autowired
 	private AwardNumberFactory awardNumberFactory;
 
-	BetRecordBean betOrder = new BetRecordBean();
+	GameLotteryOrder order = new GameLotteryOrder();
 	
 	
 	@Test
 	public void testRxfsAwardNumber() {
 
-		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(betOrder.getGamePlayId());
-		Map<String,List<String>> result = awardNumber.getAwardNumberWithType(betOrder);
+		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
+		Map<String,List<String>> result = awardNumber.getAwardNumberWithType(order);
 		System.out.println(result.get("1"));
 		System.out.println(result.get("1").size());
 	}
 	
 	@Test
 	public void getCalcAwardMoney() {
-		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(betOrder.getGamePlayId());
-		Map<String,List<String>> typeByAwardNumber = awardNumber.getAwardNumberWithType(betOrder);
-		Map<String,BigDecimal> result = AwardNumberUtil.getCalcAwardMoney(betOrder, typeByAwardNumber);
+		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
+		Map<String,List<String>> typeByAwardNumber = awardNumber.getAwardNumberWithType(order);
+		Map<String,BigDecimal> result = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber);
 		System.out.println(result);
 		System.out.println(result.size());
 	}

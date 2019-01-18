@@ -9,7 +9,7 @@ import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.utils.CommonUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 	任选_混合
@@ -20,10 +20,10 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class RxhhAwardNumber extends RxBase implements AwardNumber {
 
 	@Override
-	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		int rxNum = getRxNum(betOrder.getGamePlayId());
-		String[] betDatas = betOrder.getBetItem().split("]");
+		int rxNum = getRxNum(order.getMethod());
+		String[] betDatas = order.getContent().split("]");
 		String[] numsDataTemp = betDatas[1].split(",");
 		List<String> type1List = new ArrayList<String>(); // 組三下注項清單
 		List<String> type2List = new ArrayList<String>(); // 組六下注項清單
@@ -34,7 +34,7 @@ public class RxhhAwardNumber extends RxBase implements AwardNumber {
 				type2List.add(betNum);
 			}
 		}
-		String[] pos = getBetPos(betOrder.getBetItem());
+		String[] pos = getBetPos(order.getContent());
 		result.put("1", getNumberExpress(type1List, pos, rxNum));
 		result.put("2", getNumberExpress(type2List, pos, rxNum));
 		return result;

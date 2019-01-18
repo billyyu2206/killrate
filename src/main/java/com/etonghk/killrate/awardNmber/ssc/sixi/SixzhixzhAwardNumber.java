@@ -10,7 +10,7 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.config.SSCConfig;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 四星直選組合
@@ -23,16 +23,16 @@ public class SixzhixzhAwardNumber extends SixiBase implements AwardNumber{
 	private String[] allBallNumbers= SSCConfig.sscItemSource.clone();
 	
 	@Override
-	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		int typeIndex = TypeStartIndex;
-		String[][] rowcols = getBetItemsRows(betOrder);
+		String[][] rowcols = getBetItemsRows(order);
 		List<String> itemlist = new ArrayList<String>();
 		String[] reverseBallNumber = null;
 		
 		//計算四星獎號
 		AwardNumberGenerateUtils.betItemPermutation(rowcols, 0, "", itemlist);
-		int[] pos = getSixiPos(betOrder.getGamePlayId());
+		int[] pos = getSixiPos(order.getMethod());
 		itemlist = AwardNumberGenerateUtils.getCompleteAwardList(itemlist, pos[0], pos[1]);		
 		result.put(typeIndex + "", itemlist);
 		typeIndex++;

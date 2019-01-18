@@ -8,7 +8,7 @@ import java.util.Map;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 /**
  * 龍虎鬥
  * @author Peter
@@ -18,12 +18,12 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class LhAwardNumber extends LhBase implements AwardNumber {
 
 	@Override
-	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		String[] rows = betOrder.getBetItem().split(BetLongHuSplit);
+		String[] rows = order.getContent().split(BetLongHuSplit);
 		List<String> resultList = new ArrayList<String>();
 		
-		int[] lhPos = getLhPos(betOrder.getGamePlayId());
+		int[] lhPos = getLhPos(order.getMethod());
 		for(String betItems : rows) {
 			resultList = AwardNumberGenerateUtils.getLongHuDou(betItems, lhPos[0], lhPos[1]);
 			result.put(lhTypeMap.get(betItems), resultList);

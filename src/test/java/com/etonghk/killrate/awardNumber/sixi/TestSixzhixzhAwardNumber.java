@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 	四星組合
@@ -20,13 +20,13 @@ public class TestSixzhixzhAwardNumber {
 	@Autowired
 	private AwardNumberFactory awardNumberFactory;
 	
-	BetRecordBean betOrder = new BetRecordBean();
+	GameLotteryOrder order = new GameLotteryOrder();
 	
 	@Test
 	public void testSixzhixzhAwardNumber() {
 		
-		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(betOrder.getGamePlayId());
-		Map<String, List<String>> numberResult = awardNumber.getAwardNumberWithType(betOrder);
+		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
+		Map<String, List<String>> numberResult = awardNumber.getAwardNumberWithType(order);
 		for(Map.Entry<String, List<String>> entry : numberResult.entrySet()) {
 			System.out.println("TYPE: " + entry.getKey() + "  SIZE: " + entry.getValue().size());
 		}

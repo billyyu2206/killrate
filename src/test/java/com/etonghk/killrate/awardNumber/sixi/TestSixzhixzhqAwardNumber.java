@@ -11,8 +11,8 @@ public class TestSixzhixzhqAwardNumber extends TestSixzhixzhAwardNumber{
 
 	@Before
 	public void beforeTest() {
-		betOrder.setBetItem("0,0,0,0,-");
-		betOrder.setGamePlayId("sixzhixzhq");
+		order.setContent("0,0,0,0,-");
+		order.setMethod("sixzhixzhq");
 	}
 	
 }

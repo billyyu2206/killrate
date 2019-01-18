@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 四星基础类别
@@ -18,11 +18,11 @@ public abstract class SixiBase{
 	 * @param betOrder
 	 * @return
 	 */
-	protected String[][] getBetItemsRows(BetRecordBean betOrder){
+	protected String[][] getBetItemsRows(GameLotteryOrder order){
 		String[][] rowcols = new String[4][];
-		List<String> rowList = SSCAwardUtils.arrayToList(betOrder.getBetItem().split(AwardNumber.BetLineSplit));
+		List<String> rowList = SSCAwardUtils.arrayToList(order.getContent().split(AwardNumber.BetLineSplit));
 		//取得前四后四要忽视的球位
-		int ignoreBallPos = getIgnoreBallPos(betOrder.getGamePlayId());
+		int ignoreBallPos = getIgnoreBallPos(order.getMethod());
 		rowList.remove(ignoreBallPos);
 		String[] rows = rowList.toArray(new String[0]);
 		for (int i = 0; i < rows.length; i++) {

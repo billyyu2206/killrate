@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 	任选_组选   任二组选 任三组六
@@ -20,13 +20,13 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class RxzxAwardNumber extends RxBase implements AwardNumber {
 
 	@Override
-	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		int rxNum = getRxNum(betOrder.getGamePlayId());
+		int rxNum = getRxNum(order.getMethod());
 		
-		String[] betDatas = betOrder.getBetItem().split("]");
+		String[] betDatas = order.getContent().split("]");
 		String[] numsData = betDatas[1].split(BetItemSplit);
-		String[] pos = getBetPos(betOrder.getBetItem());
+		String[] pos = getBetPos(order.getContent());
 		
 		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
 		betDataMap.put(1, StringUtils.join(numsData, ","));

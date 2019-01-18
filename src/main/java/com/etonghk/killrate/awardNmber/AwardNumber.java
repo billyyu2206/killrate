@@ -3,7 +3,7 @@ package com.etonghk.killrate.awardNmber;
 import java.util.List;
 import java.util.Map;
 
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 public interface AwardNumber {
 	/**
@@ -40,5 +40,5 @@ public interface AwardNumber {
 	 * @param betOrder
 	 * @return
 	 */
-	Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder);
+	Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order);
 }

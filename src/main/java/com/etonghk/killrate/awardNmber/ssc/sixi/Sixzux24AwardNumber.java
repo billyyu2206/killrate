@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 后四星_组选24
@@ -21,9 +21,9 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class Sixzux24AwardNumber extends SixiBase implements AwardNumber{
 
 	@Override
-	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		String[] rows = betOrder.getBetItem().split(BetItemSplit);
+		String[] rows = order.getContent().split(BetItemSplit);
 		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
 		betDataMap.put(1, StringUtils.join(rows, ","));
 
@@ -31,7 +31,7 @@ public class Sixzux24AwardNumber extends SixiBase implements AwardNumber{
 		dataCountMap.put(1, 4);
 
 		List<String> resultList = AwardNumberGenerateUtils.getTzuShiuanNumber(betDataMap, dataCountMap, 4);
-		int[] pos = getSixiPos(betOrder.getGamePlayId());
+		int[] pos = getSixiPos(order.getMethod());
 		resultList = AwardNumberGenerateUtils.getCompleteAwardList(resultList, pos[0], pos[1]);
 		
 		result.put("1", resultList);

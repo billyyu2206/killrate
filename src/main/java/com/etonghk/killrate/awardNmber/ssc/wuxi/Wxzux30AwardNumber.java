@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 五星_组选30
@@ -20,10 +20,10 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class Wxzux30AwardNumber implements AwardNumber{
 
 	@Override
-	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		String[] rows = order.getContent().split(BetLineSplit);
 		Map<Integer, String> betDataMap = new HashMap<Integer, String>();
 		betDataMap.put(2, StringUtils.join(rows[0].split(BetItemSplit), ","));
 		betDataMap.put(1, StringUtils.join(rows[1].split(BetItemSplit), ","));

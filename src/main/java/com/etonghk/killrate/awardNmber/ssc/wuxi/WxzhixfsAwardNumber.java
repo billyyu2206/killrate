@@ -8,7 +8,7 @@ import java.util.Map;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 五星_直选复式
@@ -19,12 +19,12 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class WxzhixfsAwardNumber implements AwardNumber{
 
 	@Override
-	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
 
 		String[][] rowcols = new String[5][];
-		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		String[] rows = order.getContent().split(BetLineSplit);
 		for (int i = 0; i < rows.length; i++) {
 			rowcols[i] = rows[i].split(BetItemSplit);
 		}

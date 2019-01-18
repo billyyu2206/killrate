@@ -10,7 +10,7 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.config.SSCConfig;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 /**
  * 五星直選組合
@@ -23,12 +23,12 @@ public class WxzhixzhAwardNumber implements AwardNumber{
 	private String[] allBallNumbers= SSCConfig.sscItemSource.clone();
 	
 	@Override
-	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		int typeIndex = TypeStartIndex;
 		String[][] rowcols = new String[5][];
 		//取得五星號碼[0123,122,233,321,311]
-		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		String[] rows = order.getContent().split(BetLineSplit);
 		for (int i = 0; i < rows.length; i++) {
 			rowcols[i] = rows[i].split(BetItemSplit);
 		}

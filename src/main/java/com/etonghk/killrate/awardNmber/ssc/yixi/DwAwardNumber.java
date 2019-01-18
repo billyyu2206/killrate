@@ -9,8 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
 /**
  * 定位膽
  * @author Peter
@@ -20,10 +20,10 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class DwAwardNumber implements AwardNumber {
 
 	@Override
-	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] rows = betOrder.getBetItem().split(BetLineSplit, -1);
+		String[] rows = order.getContent().split(BetLineSplit, -1);
 		List<String> resultList = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
 			if (!StringUtils.isEmpty(rows[i])) {

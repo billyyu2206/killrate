@@ -10,7 +10,7 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.config.SSCConfig;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.etonghk.killrate.utils.CommonUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 /**
  * 五星和值大小單雙
  * @author Peter
@@ -20,10 +20,10 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class WxhzdxdsAwardNumber implements AwardNumber {
 
 	@Override
-	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] rows = betOrder.getBetItem().split(BetLineSplit);
+		String[] rows = order.getContent().split(BetLineSplit);
 		List<String> resultList = new ArrayList<String>();
 		for(String betItem : rows) {
 			List<Integer[]> numsCombineList = SSCConfig.SSC5HG.get(betItem);

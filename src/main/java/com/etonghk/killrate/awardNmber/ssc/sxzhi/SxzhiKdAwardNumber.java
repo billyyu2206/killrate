@@ -9,7 +9,7 @@ import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.config.SSCConfig;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 /**
  * 三星跨度
  * @author Peter
@@ -19,12 +19,12 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class SxzhiKdAwardNumber extends SxzhiBase implements AwardNumber {
 
 	@Override
-	public Map<String,List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] cols = betOrder.getBetItem().split(BetItemSplit);
+		String[] cols = order.getContent().split(BetItemSplit);
 		List<String> resultList = new ArrayList<String>();
-		int[] sxzhi = getSxzhiPos(betOrder.getGamePlayId());
+		int[] sxzhi = getSxzhiPos(order.getMethod());
 		
 		for (String c : cols) {
 			Map<String, String> ssc3Kuadu = SSCConfig.SSC3KuaDu;

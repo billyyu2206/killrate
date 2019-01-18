@@ -8,8 +8,8 @@ import java.util.Map;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.config.SSCConfig;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
 /**
  * 二星跨度
  * @author Peter
@@ -19,12 +19,12 @@ import com.etonghk.killrate.vo.BetRecordBean;
 public class ErxiKdAwardNumber extends ErxiBase implements AwardNumber {
 
 	@Override
-	public Map<String, List<String>> getAwardNumberWithType(BetRecordBean betOrder) {
+	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		
-		String[] cols = betOrder.getBetItem().split(BetItemSplit);
+		String[] cols = order.getContent().split(BetItemSplit);
 		List<String> resultList = new ArrayList<String>();
-		int[] pos = getErxiKdPos(betOrder.getGamePlayId());
+		int[] pos = getErxiKdPos(order.getMethod());
 		for (String c : cols) {
 			Map<String, String> ssc2Kuadu = SSCConfig.SSC2KuaDu;
 			String awardNumber = ssc2Kuadu.get(c);

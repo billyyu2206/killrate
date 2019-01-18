@@ -11,8 +11,8 @@ public class TestRx2fsAwardNumber extends TestRxfsAwardNumber{
 
 	@Before
 	public void beforeTest() {
-		betOrder.setBetItem("0,2,-,-,-");
-		betOrder.setGamePlayId("rx2fs");
+		order.setContent("0,2,-,-,-");
+		order.setMethod("rx2fs");
 	}
 	
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
-import com.etonghk.killrate.vo.BetRecordBean;
+import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 
 public class AwardNumberUtil {
 
@@ -28,11 +28,11 @@ public class AwardNumberUtil {
 	 * @param typeByAwardNumber
 	 * @return
 	 */
-	public static Map<String, BigDecimal> getCalcAwardMoney(BetRecordBean betOrder,
+	public static Map<String, BigDecimal> getCalcAwardMoney(GameLotteryOrder order,
 			Map<String, List<String>> typeByAwardNumber) {
 		// TODO 需call jar拿取中獎金額 下面寫死供測試用
 		Map<String, BigDecimal> result = new HashMap<>();
-		String playId = betOrder.getGamePlayId();
+		String playId = order.getMethod();
 		// Integer betMultiplier = betOrder.getBetMultiplier(); // 倍數
 
 		for (Entry<String, List<String>> map : typeByAwardNumber.entrySet()) {
