@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="common_css(title,links)">
+<head th:fragment="common_head(title)">
 	<title th:replace="${title}">title</title>
     <meta charset="utf-8"></meta>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!-- Common styles and scripts -->
-    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-    
-	<link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
-	<!-- MetisMenu CSS -->
-	<link th:href="@{/metisMenu/metisMenu.min.css}" rel="stylesheet"/>
-    <!-- Custom CSS -->
-    <link th:href="@{/css/sb-admin-2.css}" rel="stylesheet"/>
-
-	<!--/* Per-page placeholder for additional links */-->
-	<th:block th:replace="${links}" />
 </head>
 

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head th:insert="commonHead :: common_css(~{::title},~{::link})">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="/layout">
+  <head layout:fragment="contentHead">
     <title>殺率設定</title>
-    <link th:href="@{/css/jquery-ui.css}" rel="stylesheet"/>
-    <link th:href="@{/css/jquery-ui-timepicker-addon.css}" rel="stylesheet"/>
-    <link th:href="@{/css/jquery.toast.css}" rel="stylesheet"/>
+    
   </head>
   <body>
-	<div th:include="navbar :: navbar"></div>
-    <div id="page-wrapper">
+  	<div layout:fragment="contentCss">
+  		<link th:href="@{/css/jquery-ui.css}" rel="stylesheet"/>
+    	<link th:href="@{/css/jquery-ui-timepicker-addon.css}" rel="stylesheet"/>
+    	<link th:href="@{/css/jquery.toast.css}" rel="stylesheet"/>
+  	</div>
+    <div layout:fragment="content">
 		<div class="row">
 			<div class="col-md-12">
 				<h3>杀率设定</h3>
@@ -86,10 +88,8 @@
 				</div>
 		</div>
 	</div>
-	<div th:insert="commonJs :: common_js">
-	
-	</div>
   </body>
+  <div layout:fragment="contentJs">
 	<script th:src="@{/js/jquery-ui-1.11.0.min.js}" type="text/javascript"></script>
 	<script th:src="@{/js/jquery-ui-timepicker-addon.js}" type="text/javascript"></script>
 	<script th:src="@{/js/i18n/jquery-ui-timepicker-addon-i18n.min.js}" type="text/javascript"></script>
@@ -123,10 +123,11 @@
   	  			errorMsg = "杀率区间段开始时间必须小于结束时间";
   			}
   		}
-  		
+  		console.log(isPass)
   		return isPass;
   	}
   	function doGenerate(){
+  		console.log(123)
   		var targetPoint = $("#killrate").val();
   		if(!checkIssueAndTime()){
   			myToast(errorMsg);
@@ -275,4 +276,5 @@
 		minDateTime: new Date()
 	});
   </script>
+  </div>
 </html>
