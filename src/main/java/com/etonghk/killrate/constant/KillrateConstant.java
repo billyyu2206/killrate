@@ -15,6 +15,5 @@ public class KillrateConstant {
 	static {
 		allGameMap = new HashMap<String, String>();
 		allGameMap.put("vipssc", "VIP时时彩");
-		allGameMap.put("vipk3", "VIP快三");
 	}
 }
