@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head th:insert="commonHead :: common_css(~{::title},~{})">
-    <title>首頁</title>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="/layout">
+  <head layout:fragment="contentHead">
+    <title>首页</title>
   </head>
   <body>
-	<div th:include="navbar :: navbar"></div>
-    <div id="page-wrapper">
+    <div layout:fragment="content">
 		<div class="row">
 			<div class="col-md-12">
 				我是首頁
@@ -14,10 +13,6 @@
 				<a th:href="@{/logOut}">登出</a>
 			</div>
 		</div>
-	</div>
-	
-	<div th:insert="commonJs :: common_js">
-	
 	</div>
   </body>
   
