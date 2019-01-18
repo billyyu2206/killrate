@@ -1,5 +1,6 @@
 package com.etonghk.killrate.controller.dto.request;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class GameLotteryOrder implements java.io.Serializable {
@@ -288,6 +289,20 @@ public class GameLotteryOrder implements java.io.Serializable {
 
 	public void setPids(Integer[] pids) {
 		this.pids = pids;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GameLotteryOrder [id=" + id + ", billno=" + billno + ", accountId=" + accountId + ", type=" + type
+				+ ", lottery=" + lottery + ", issue=" + issue + ", method=" + method + ", content=" + content
+				+ ", compress=" + compress + ", nums=" + nums + ", model=" + model + ", multiple=" + multiple
+				+ ", code=" + code + ", point=" + point + ", money=" + money + ", orderTime=" + orderTime
+				+ ", stopTime=" + stopTime + ", openTime=" + openTime + ", status=" + status + ", openCode=" + openCode
+				+ ", winMoney=" + winMoney + ", clearTime=" + clearTime + ", reference=" + reference + ", pids="
+				+ Arrays.toString(pids) + "]";
 	}
 
 }
