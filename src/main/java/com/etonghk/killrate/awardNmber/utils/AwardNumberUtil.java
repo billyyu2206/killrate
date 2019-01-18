@@ -54,6 +54,9 @@ public class AwardNumberUtil {
 				SSCAwardUtils.addAwardMoney(result, number, awardMoney);
 			}
 		}
+		
+		// FIXME 需對撤單做判斷
+		SSCAwardUtils.addAwardMoney(result, KillrateConstant.TOTAL_BET, new BigDecimal(order.getMoney()));
 		return result;
 	}
 	

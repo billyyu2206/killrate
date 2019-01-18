@@ -17,4 +17,6 @@ public interface KillrateAwardService {
 	public int deleteKillrateAward(KillrateAward record);
 
 	public List<KillrateAward> selectForRecord(String gameId,Date issueDate,Boolean isPush);
+	
+	public KillrateAward calAwardNumber(String gameId, String fullIssue, Boolean isTask);
 }

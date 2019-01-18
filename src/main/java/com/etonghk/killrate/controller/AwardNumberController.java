@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.response.AwardNumberResponse;
+import com.etonghk.killrate.service.killrateAward.KillrateAwardService;
 
 @RestController
 @RequestMapping("awardNumber")
 public class AwardNumberController {
 
+	@Autowired
+	private KillrateAwardService killrateAwardService;
+	
 	@PostMapping
 	public ApiResult<AwardNumberResponse> getAwardNumber(@RequestParam String gameId,@RequestParam String issue) {
 		
@@ -41,7 +46,7 @@ public class AwardNumberController {
 	
 	@PostMapping("job")
 	public String getAwardNumberByJob(@RequestParam String gameId,@RequestParam String issue) {
-		
+		killrateAwardService.calAwardNumber(gameId, issue, true);
 		return "success";
 	}
 	

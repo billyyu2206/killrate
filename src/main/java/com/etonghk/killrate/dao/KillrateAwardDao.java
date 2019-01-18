@@ -21,4 +21,8 @@ public interface KillrateAwardDao {
     int deleteByPK(KillrateAward record);
     
     public List<KillrateAward> selectForRecord(@Param("gameId") String gameId,@Param("issueDate") Date issueDate,@Param("isPush") Boolean isPush);
+    
+    public KillrateAward selectForCalNumber(@Param("gameId") String gameId,@Param("issue") String issue);
+    
+    int updateForAward(KillrateAward record);
 }
