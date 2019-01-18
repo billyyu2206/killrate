@@ -91,6 +91,9 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		return killrateAwardDao.deleteByPK(record);
 	}
 
-	
+	@Override
+	public List<KillrateAward> selectForRecord(String gameId, Date issueDate, Boolean isPush) {
+		return killrateAwardDao.selectForRecord(gameId, issueDate, isPush);
+	}
 
 }
