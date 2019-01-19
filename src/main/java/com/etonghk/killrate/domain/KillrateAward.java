@@ -1,5 +1,6 @@
 package com.etonghk.killrate.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class KillrateAward {
@@ -18,6 +19,10 @@ public class KillrateAward {
     private Integer isPush;
     
     private Integer killrate;
+    
+    private BigDecimal awardMoney;
+    
+    private BigDecimal betMoney;
 
     public Integer getId() {
         return id;
@@ -82,6 +87,21 @@ public class KillrateAward {
 	public void setKillrate(Integer killrate) {
 		this.killrate = killrate;
 	}
-    
+
+	public BigDecimal getAwardMoney() {
+		return awardMoney;
+	}
+
+	public void setAwardMoney(BigDecimal awardMoney) {
+		this.awardMoney = awardMoney;
+	}
+
+	public BigDecimal getBetMoney() {
+		return betMoney;
+	}
+
+	public void setBetMoney(BigDecimal betMoney) {
+		this.betMoney = betMoney;
+	}
 	
 }

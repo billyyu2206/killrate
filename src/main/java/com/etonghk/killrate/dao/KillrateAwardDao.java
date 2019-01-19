@@ -1,5 +1,6 @@
 package com.etonghk.killrate.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +19,10 @@ public interface KillrateAwardDao {
     int updateByPK(KillrateAward record);
     
     int deleteByPK(KillrateAward record);
+    
+    public List<KillrateAward> selectForRecord(@Param("gameId") String gameId,@Param("issueDate") Date issueDate,@Param("isPush") Boolean isPush);
+    
+    public KillrateAward selectForCalNumber(@Param("gameId") String gameId,@Param("issue") String issue);
+    
+    int updateForAward(KillrateAward record);
 }

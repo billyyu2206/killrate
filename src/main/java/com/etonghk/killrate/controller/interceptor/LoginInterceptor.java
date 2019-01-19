@@ -21,6 +21,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 	static {
 		allowUrls.add("/loginAcc");
 		allowUrls.add("/");
+		allowUrls.add("/account/create");
+		allowUrls.add("/account/createAccount");
 	}
 	
 	@Override

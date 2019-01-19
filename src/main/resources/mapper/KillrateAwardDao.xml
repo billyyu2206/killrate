@@ -11,10 +11,12 @@
 		<result column="issue_end_time" jdbcType="TIMESTAMP" property="issueEndTime" />
 		<result column="is_push" jdbcType="INTEGER" property="isPush" />
 		<result column="killrate" jdbcType="INTEGER" property="killrate" />
+		<result column="award_money" jdbcType="DECIMAL" property="awardMoney" />
+		<result column="bet_money" jdbcType="DECIMAL" property="betMoney" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		id, game_id, issue, award_number, award_time, issue_end_time, is_push, killrate
+		id, game_id, issue, award_number, award_time, issue_end_time, is_push, killrate, award_money, bet_money
 	</sql>
 
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -37,10 +39,11 @@
 	
 	<insert id="insert" parameterType="com.etonghk.killrate.domain.KillrateAward">
 		insert into killrate_award (id, game_id, issue,
-		award_number, award_time, issue_end_time, is_push, killrate)
+		award_number, award_time, issue_end_time, is_push, killrate, award_money, bet_money)
 		values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR},
 		#{awardNumber,jdbcType=VARCHAR}, #{awardTime,jdbcType=TIMESTAMP},
 		#{issueEndTime,jdbcType=TIMESTAMP}, #{isPush,jdbcType=INTEGER}, #{killrate,jdbcType=INTEGER}
+		, #{award_money}, #{bet_money}
 		)
 	</insert>
 	
@@ -94,13 +97,42 @@
 	    </if>
 	</delete>
 	  
-	<insert id="updateByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
+	<update id="updateByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
 		update killrate_award set killrate = #{killrate,jdbcType=INTEGER} 
 		where id = #{id,jdbcType=INTEGER}
-	</insert>
+	</update>
 	
-	<insert id="deleteByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
+	<delete id="deleteByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
 		delete from killrate_award 
 		where id = #{id,jdbcType=INTEGER}
-	</insert>
+	</delete>
+	
+	<select id="selectForRecord" resultMap="BaseResultMap">
+		select a.full_issue as issue , b.game_id, b.is_push, b.award_number,b.award_money,b.bet_money,b.killrate from game_issue_${gameId} a
+		left join killrate_award b on a.game_id = b.game_id and a.full_issue = b.issue
+		where a.game_id = #{gameId}
+		and a.issue_date = #{issueDate,jdbcType=DATE}
+		<if test='isPush != null and isPush'>
+		and b.is_push = 1
+		</if>
+	</select>
+	
+	<select id="selectForCalNumber" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from killrate_award
+	    where game_id = #{gameId,jdbcType=VARCHAR}
+		and issue = #{issue,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateForAward" parameterType="com.etonghk.killrate.domain.KillrateAward">
+		update killrate_award set 
+		award_number = #{awardNumber},
+		award_time =  #{awardTime,jdbcType=TIMESTAMP},
+		award_money =  #{awardMoney},
+		bet_money =  #{betMoney}
+		where id = #{id}
+		and is_push = 0
+		and award_number = ''
+	</update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.etonghk.killrate.service.killrateAward;
 
+import java.util.Date;
 import java.util.List;
 
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
@@ -14,4 +15,8 @@ public interface KillrateAwardService {
 	public int updateKillrateAward(KillrateAward record);
 	
 	public int deleteKillrateAward(KillrateAward record);
+
+	public List<KillrateAward> selectForRecord(String gameId,Date issueDate,Boolean isPush);
+	
+	public KillrateAward calAwardNumber(String gameId, String fullIssue, Boolean isTask);
 }

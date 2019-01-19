@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="/layout">
+  <head layout:fragment="contentHead">
+    <title>殺率開獎紀錄</title>
+  </head>
+<body>
+  	<div layout:fragment="contentCss">
+  		<link th:href="@{/css/jquery-ui.css}" rel="stylesheet"/>
+    	<link th:href="@{/css/jquery-ui-timepicker-addon.css}" rel="stylesheet"/>
+    	<link th:href="@{/css/jquery.toast.css}" rel="stylesheet"/>
+  	</div>
+    <div layout:fragment="content">
+		<div class="row">
+			<h3>殺率開獎紀錄</h3>
+			<div class="col-md-12">
+				<form th:object="${killRateReq}" th:action="@{/killrate/awardRecord/search}">
+					<div class="form-row col-auto form-inline">
+						<div class="form-group col-sm-3 my-1">
+						  <label for="gameId">彩种</label>
+						  <select th:field="*{gameId}" id="gameId" class="form-control">
+						      <option th:each="game:${gameList}" th:value="${game}" th:text="${game}"></option>
+						  </select>
+						</div>
+						<div class="form-group col-sm-3 my-1">
+						  <label for="issueDate">时间</label>
+						  <input th:field=*{issueDate} type="date" class="form-control" id="issueDate" required="required">
+						</div>
+						<div class="form-group col-sm-3 my-1">
+					  		<input th:field="*{isKillRate}" class="form-check-input" type="checkbox" id="isKillRate">
+						    <label class="form-check-label" for="isKillRate">
+							      只显示有开杀率奖期
+						    </label>
+						</div>
+						<div class="form-group col-sm-3 my-1">
+							<button class="btn btn-primary" type="submit">查询</button>
+						</div>
+					</div>
+				</form>
+				<table class="table table-striped"  align="center" valign="center">
+				  <thead  align="center" valign="center">
+				    <tr>
+				      <th scope="col">期数</th>
+				      <th scope="col">是否开启杀率</th>
+				      <th scope="col">杀率号码</th>
+				      <th scope="col">投注金额</th>
+				      <th scope="col">中奖金额</th>
+				      <th scope="col">设定杀率比率</th>
+				      <th scope="col">实际杀率比率</th>
+				    </tr>
+				  </thead>
+    			  <tbody id="sortable"  align="center" valign="center">
+					<tr th:if="${#lists.isEmpty(killAwardList)}" class="indexData">
+						<td colspan="7" style="text-align: center;">尚无数据</td>
+					</tr>
+					<tr th:if="${not #lists.isEmpty(killAwardList)}" class="indexData" th:each="item : ${killAwardList}">
+					<td th:text="${item.issue}"></td>
+					<td th:text="${item.isPush}?是:否"></td>
+					<td th:text="${item.awardNumber}"></td>
+					<td th:text="${item.betMoney}"></td>
+					<td th:text="${item.awardMoney}"></td>
+					<td >[[${item.killrate}]]%</td>
+					<td th:text="${item.awardNumber} ? ${item.awardNumber}/${item.betMoney} + '%'"></td>
+					</tr>
+				</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+<div layout:fragment="contentJs">
+	<script th:src="@{/js/jquery-ui-1.11.0.min.js}" type="text/javascript"></script>
+	<script th:src="@{/js/jquery-ui-timepicker-addon.js}" type="text/javascript"></script>
+	<script th:src="@{/js/i18n/jquery-ui-timepicker-addon-i18n.min.js}" type="text/javascript"></script>
+	<script th:src="@{/js/jquery-ui-sliderAccess.js}" type="text/javascript"></script>
+    <script th:src="@{/js/altDialog.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.toast.js}" type="text/javascript"></script>
+    <script th:src="@{/js/myToast.js}" type="text/javascript"></script>
+<script type="text/javascript" th:inline="javascript">
+</script>
+</div>
+
+</html>
