@@ -14,7 +14,7 @@ public interface KillrateAwardDao {
     int batchInsert(@Param("dataList") List<KillrateAward> dataList);
     KillrateAward selectByPrimaryKey(Integer id);
     int deleteForGenerateKillrate(KillrateSetting setting);
-    List<KillrateAward> selectForSettingPage(KillrateAward cond);
+    List<KillrateAward> selectForSettingPage(@Param("cond")KillrateAward cond,@Param("page")Page page);
     List<KillrateAward> selectForGenerateKillrate(KillrateSetting setting);
     
     int updateByPK(KillrateAward record);

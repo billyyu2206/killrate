@@ -9,7 +9,7 @@ import com.etonghk.killrate.domain.KillrateAward;
 
 public interface KillrateAwardService {
 	
-	public List<KillrateAward> selectForSettingPage(KillrateAward cond);
+	public List<KillrateAward> selectForSettingPage(KillrateAward cond,Page page);
 	
 	public int generateKillrateAward(KillrateSetting setting);
 	

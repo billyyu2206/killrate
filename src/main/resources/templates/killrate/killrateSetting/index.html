@@ -24,7 +24,8 @@
 					<div class="tab-content mt-3">
 						<div class="tab-pane active" id="tab1">
 							<div>
-								<form id='settingForm' role="form">
+								<form id='settingForm' role="form" th:action="@{/killrateSetting/index/__${gameId}__}">
+									<input type="hidden" name="pageNo" id="pageNo">
 									<div class="form-group form-inline mt20">
 										<font color="red">*杀率区间段与杀率奖期请择一输入</font>
 									</div>
@@ -86,6 +87,7 @@
 					</div>
 				</div>
 				</div>
+				<div th:include="page :: page"></div>
 		</div>
 	</div>
   </body>
@@ -275,6 +277,11 @@
 		timeFormat : "HH:mm:00",
 		minDateTime: new Date()
 	});
+  	
+  	function pagination(page){
+  		$("#pageNo").val(page);
+  		$("#settingForm").submit();
+  	}
   </script>
   </div>
 </html>

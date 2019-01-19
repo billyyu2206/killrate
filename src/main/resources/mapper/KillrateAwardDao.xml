@@ -26,13 +26,13 @@
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 	
-	<select id="selectForSettingPage" parameterType="com.etonghk.killrate.domain.KillrateAward" resultMap="BaseResultMap">
+	<select id="selectForSettingPage" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from killrate_award
-		where game_id = #{gameId,jdbcType=INTEGER}
+		where game_id = #{cond.gameId,jdbcType=INTEGER}
 		<![CDATA[ 
-		and issue_end_time > #{issueEndTime,jdbcType=TIMESTAMP}
+		and issue_end_time > #{cond.issueEndTime,jdbcType=TIMESTAMP}
 		]]>
 		order by issue_end_time
 	</select>
@@ -115,7 +115,7 @@
 		<if test='isPush != null and isPush'>
 		and b.is_push = 1
 		</if>
-		order by a.full_issue
+		order by a.issue_end_time
 	</select>
 	
 	<select id="selectForCalNumber" resultMap="BaseResultMap">

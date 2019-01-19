@@ -31,7 +31,7 @@ public class TestAwardRecord {
 	@Test
 	public void testSelect() throws ParseException {
 		Page page = new Page();
-		page.setPage(2);
+		page.setPage(0);
 		String gameId = "vipssc";
 		Date issueDate = new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-17");
 		Boolean isPush = false;
@@ -39,6 +39,8 @@ public class TestAwardRecord {
 		System.out.println(list.get(0).getIssue());
 		System.out.println(page.getCount());
 		System.out.println(page.getNextPageNo());
-		
+		page.getPageSize();
+		System.out.println(page.getCount());
+		System.out.println( Math.max(2, page.getPage() - 2));
 	}
 }
