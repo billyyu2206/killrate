@@ -1,6 +1,8 @@
 package com.etonghk.killrate.cache;
 
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -41,5 +43,8 @@ public interface Cache {
 	RedisSerializer<String> getRedisKeySerializer();
 	
 	List<?> excutePipeline(RedisCallback<?> pipelineCallback);
+	
+	<T1, T2> Map<T1, T2> hgetAll(String key, Class<T1> hkeyClass, Class<T2> hvalueClass);
+
 	
 }

@@ -128,11 +128,10 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		}
 		
 		String redisKey = gameId + ":" + fullIssue;
-		// FIXME 取得方式要再調整
-		String jsonStr = redisCache.get(redisKey);
-		Gson gson = new Gson();
+		Map<String, Double> redisData = redisCache.hgetAll(redisKey, String.class, Double.class);
+		String tempStr = redisCache.getGson().toJson(redisData);
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
-		Map<String, BigDecimal> data = gson.fromJson(jsonStr, type);
+		Map<String, BigDecimal> data = redisCache.getGson().fromJson(tempStr, type);
 		BigDecimal total = data.get(KillrateConstant.TOTAL_BET);
 		data.remove(KillrateConstant.TOTAL_BET);
 		data = CommonUtils.sortByValueAsc(data);

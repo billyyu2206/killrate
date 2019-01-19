@@ -38,10 +38,10 @@ public class AwardNumberUtil {
 			String betNumber = sample.getBetNumber();
 			
 			// FIXME 中獎金額
-//			order.setContent(betNumber);
-//			order.setOpenCode(awardNumber);
+			order.setContent(betNumber);
+			order.setOpenCode(awardNumber);
 //			 String awardMoney = jar.getAwardMoney(order);
-			BigDecimal awardMoney = getAwardMoney(awardNumber, betNumber);
+			BigDecimal awardMoney = getAwardMoney(order);
 			
 			// FIXME 目前暫時假定以money的正負來判斷
 			// 撤單類 money 為負項
@@ -61,9 +61,9 @@ public class AwardNumberUtil {
 	}
 	
 	// 假的回傳金額
-	private static BigDecimal getAwardMoney(String awardNumber, String betNumber) {
+	private static BigDecimal getAwardMoney(GameLotteryOrder order) {
 		BigDecimal result;
-		result = new BigDecimal("123.00");
+		result = new BigDecimal(order.getMultiple() * 100);
 
 		return result;
 	}
