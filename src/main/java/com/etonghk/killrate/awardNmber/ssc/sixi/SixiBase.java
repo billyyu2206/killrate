@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * 四星基础类别

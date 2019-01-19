@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * 五星_组选20

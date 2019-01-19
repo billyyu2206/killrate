@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * 	任选_组选   任二组选 任三组六

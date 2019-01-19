@@ -9,14 +9,16 @@ import java.util.Map.Entry;
 import com.etonghk.killrate.awardNmber.ssc.SSCAwardUtils;
 import com.etonghk.killrate.awardSample.cache.AwardSampleCache;
 import com.etonghk.killrate.constant.KillrateConstant;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 import com.etonghk.killrate.domain.AwardSample;
+import com.jack.entity.GameLotteryOrder;
+import com.jack.pool.DataFactory;
+
+import lottery.utils.prize.cacluate.LotteryResult;
 
 public class AwardNumberUtil {
 
 	Map<String, Map<String, String>> playNumberMap;
 
-	
 	
 	/**
 	 * 依類型 計算號碼中獎金額
@@ -25,7 +27,7 @@ public class AwardNumberUtil {
 	 * @return
 	 */
 	public static Map<String, BigDecimal> getCalcAwardMoney(GameLotteryOrder order,
-			Map<String, List<String>> typeByAwardNumber, AwardSampleCache cache) {
+			Map<String, List<String>> typeByAwardNumber, AwardSampleCache cache, DataFactory dataFactory) {
 		// TODO 需call jar拿取中獎金額 下面寫死供測試用
 		Map<String, BigDecimal> result = new HashMap<>();
 
@@ -37,11 +39,11 @@ public class AwardNumberUtil {
 			String awardNumber = sample.getAwardNumber();
 			String betNumber = sample.getBetNumber();
 			
-			// FIXME 中獎金額
-//			order.setContent(betNumber);
-//			order.setOpenCode(awardNumber);
-//			 String awardMoney = jar.getAwardMoney(order);
-			BigDecimal awardMoney = getAwardMoney(awardNumber, betNumber);
+			// FIXME 中獎金額 
+			order.setContent(betNumber);
+			order.setOpenCode(awardNumber);
+			LotteryResult ltResult = dataFactory.doCacluate(order);ltResult.getWinMoney();
+			BigDecimal awardMoney = getAwardMoney(order);//ltResult.getWinMoney()
 			
 			// FIXME 目前暫時假定以money的正負來判斷
 			// 撤單類 money 為負項
@@ -61,9 +63,9 @@ public class AwardNumberUtil {
 	}
 	
 	// 假的回傳金額
-	private static BigDecimal getAwardMoney(String awardNumber, String betNumber) {
+	private static BigDecimal getAwardMoney(GameLotteryOrder order) {
 		BigDecimal result;
-		result = new BigDecimal("123.00");
+		result = new BigDecimal(order.getMultiple() * 100);
 
 		return result;
 	}

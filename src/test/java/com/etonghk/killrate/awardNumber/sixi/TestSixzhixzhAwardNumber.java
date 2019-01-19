@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * 	四星組合

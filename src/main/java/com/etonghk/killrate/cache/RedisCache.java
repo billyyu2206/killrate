@@ -1,12 +1,15 @@
 package com.etonghk.killrate.cache;
 
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
@@ -112,5 +115,15 @@ public class RedisCache implements Cache{
 	public List<?> excutePipeline(RedisCallback<?> pipelineCallback) {
 		return redisTemplate.executePipelined(pipelineCallback);
 	}
+	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T1, T2> Map<T1, T2> hgetAll(String key, Class<T1> hkeyClass, Class<T2> hvalueClass) {
+		redisTemplate.setHashKeySerializer(new GenericToStringSerializer<>(hkeyClass));
+		redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(hvalueClass));
+		return (Map<T1, T2>) redisTemplate.opsForHash().entries(key);
+	}
+
 	
 }

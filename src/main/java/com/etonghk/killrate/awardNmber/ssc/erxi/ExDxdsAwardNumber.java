@@ -6,8 +6,8 @@ import java.util.Map;
 
 import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * 后二星_大小单双-h
