@@ -9,7 +9,7 @@ import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.config.SSCConfig;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
 /**
  * 三星跨度
  * @author Peter

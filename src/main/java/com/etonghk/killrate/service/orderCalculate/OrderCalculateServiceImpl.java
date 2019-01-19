@@ -19,7 +19,8 @@ import com.etonghk.killrate.awardNmber.AwardNumberFactory;
 import com.etonghk.killrate.awardNmber.utils.AwardNumberUtil;
 import com.etonghk.killrate.awardSample.cache.AwardSampleCache;
 import com.etonghk.killrate.cache.RedisCache;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
+import com.jack.pool.DataFactory;
 
 /**
  * @author Billy.Yu
@@ -33,6 +34,9 @@ public class OrderCalculateServiceImpl implements OrderCalculateService{
 	
 	@Autowired
 	private AwardSampleCache awardSampleCache;
+
+	@Autowired
+	private DataFactory dataFactory;
 	
 	@Autowired
 	private RedisCache redisCache;
@@ -43,7 +47,7 @@ public class OrderCalculateServiceImpl implements OrderCalculateService{
 	public void doCalOrder(GameLotteryOrder order) {
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
 		Map<String,List<String>> typeByAwardNumber = awardNumber.getAwardNumberWithType(order);
-		Map<String,BigDecimal> resultToSet = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber, awardSampleCache);
+		Map<String,BigDecimal> resultToSet = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber, awardSampleCache, dataFactory);
 		
 		//取出key序列化元件
 		RedisSerializer<String> redisSerializer = redisCache.getRedisKeySerializer();

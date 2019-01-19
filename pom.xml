@@ -88,6 +88,14 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.etong</groupId>
+		    <artifactId>lottery-utils</artifactId>
+		    <version>1.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/src/main/resources/lib/lottery-utils.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 

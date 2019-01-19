@@ -1,6 +1,6 @@
 package com.etonghk.killrate.service.orderCalculate;
 
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * @author Billy.Yu

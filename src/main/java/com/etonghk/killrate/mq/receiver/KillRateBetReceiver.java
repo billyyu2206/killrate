@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.etonghk.killrate.config.RabbitMqConfig;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 import com.etonghk.killrate.service.orderCalculate.OrderCalculateService;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * @author Ami.Tsai

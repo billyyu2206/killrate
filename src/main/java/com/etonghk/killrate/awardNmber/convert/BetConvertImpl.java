@@ -1,7 +1,7 @@
 package com.etonghk.killrate.awardNmber.convert;
 
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
 import com.etonghk.killrate.vo.BetRecordBean;
+import com.jack.entity.GameLotteryOrder;
 
 public class BetConvertImpl implements BetDataConvert<GameLotteryOrder> {
 

@@ -11,7 +11,8 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.awardNmber.AwardNumberFactory;
 import com.etonghk.killrate.awardNmber.utils.AwardNumberUtil;
 import com.etonghk.killrate.awardSample.cache.AwardSampleCache;
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
+import com.jack.pool.DataFactory;
 
 /**
  *	 任选_任X直选复式
@@ -29,6 +30,8 @@ public class TestRxfsAwardNumber {
 	@Autowired
 	private AwardSampleCache awardSampleCache;
 	
+	@Autowired
+	private DataFactory dataFactory;
 	@Test
 	public void testRxfsAwardNumber() {
 
@@ -42,7 +45,7 @@ public class TestRxfsAwardNumber {
 	public void getCalcAwardMoney() {
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
 		Map<String,List<String>> typeByAwardNumber = awardNumber.getAwardNumberWithType(order);
-		Map<String,BigDecimal> result = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber, awardSampleCache);
+		Map<String,BigDecimal> result = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber, awardSampleCache, dataFactory);
 		System.out.println(result);
 		System.out.println(result.size());
 	}

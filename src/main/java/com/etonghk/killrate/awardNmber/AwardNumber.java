@@ -3,7 +3,8 @@ package com.etonghk.killrate.awardNmber;
 import java.util.List;
 import java.util.Map;
 
-import com.etonghk.killrate.controller.dto.request.GameLotteryOrder;
+import com.jack.entity.GameLotteryOrder;
+
 
 public interface AwardNumber {
 	/**
