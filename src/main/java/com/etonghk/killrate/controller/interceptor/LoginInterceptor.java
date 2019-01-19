@@ -23,6 +23,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		allowUrls.add("/");
 		allowUrls.add("/account/create");
 		allowUrls.add("/account/createAccount");
+		allowUrls.add("/betRecord/send");
+		allowUrls.add("/awardNumber");
+		allowUrls.add("/awardNumber/job");
 	}
 	
 	@Override
