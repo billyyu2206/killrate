@@ -34,7 +34,7 @@ public class AwardNumberUtil {
 		for (Entry<String, List<String>> map : typeByAwardNumber.entrySet()) {
 
 			// 從cache中拿取 每一種玩法最小中獎投注方式
-			AwardSample sample = cache.getAwardSampleByKey(KillrateConstant.allGameTypeMap.get(order.getLottery()));
+			AwardSample sample = cache.getAwardSampleByKey(KillrateConstant.allGameTypeMap.get(order.getLottery()) + ":" + order.getMethod() + ":" + map.getKey());
 			// 拿投注項目 中獎號碼
 			String awardNumber = sample.getAwardNumber();
 			String betNumber = sample.getBetNumber();
@@ -42,7 +42,7 @@ public class AwardNumberUtil {
 			// FIXME 中獎金額 
 			order.setContent(betNumber);
 			order.setOpenCode(awardNumber);
-			LotteryResult ltResult = dataFactory.doCacluate(order);ltResult.getWinMoney();
+			LotteryResult ltResult = dataFactory.doCacluate(order);
 			BigDecimal awardMoney = getAwardMoney(order);//ltResult.getWinMoney()
 			
 			// FIXME 目前暫時假定以money的正負來判斷
