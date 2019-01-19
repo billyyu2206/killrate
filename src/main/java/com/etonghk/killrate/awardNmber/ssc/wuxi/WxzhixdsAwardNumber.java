@@ -21,7 +21,7 @@ public class WxzhixdsAwardNumber implements AwardNumber{
 	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] items = order.getContent().split(BetItemSplit);
+		String[] items = order.getContent().split(BetDsSplit);
 		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(items, 0, 0);
 		
 		result.put(typeKey+"", resultList);

@@ -25,7 +25,7 @@ public class SxhhzxAwardNumber extends SxzhiBase implements AwardNumber{
 		// FIXME
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		
-		String[] items = order.getContent().split(BetLineSplit); // 001,012
+		String[] items = order.getContent().split(BetDsSplit);
 		Map<String,List<String>> awardNumMap = arrayToListMap(items);
 
 		int[] sxzhi = getSxzhiPos(order.getMethod());

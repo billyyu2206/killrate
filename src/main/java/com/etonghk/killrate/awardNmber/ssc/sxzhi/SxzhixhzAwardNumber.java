@@ -17,13 +17,13 @@ import com.jack.entity.GameLotteryOrder;
  *
  */
 @AwardComponent(name={"sxzhixhzh","sxzhixhzz","sxzhixhzq"})
-public class SxzhixhAwardNumber extends SxzhiBase implements AwardNumber {
+public class SxzhixhzAwardNumber extends SxzhiBase implements AwardNumber {
 
 	@Override
 	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] cols = order.getContent().split(BetItemSplit);
+		String[] cols = order.getContent().split(BetHgSplit);
 		List<String> resultList = new ArrayList<String>();
 		for (String c : cols) {
 			Map<String, String> ssc3HG = SSCConfig.SSC3HG;

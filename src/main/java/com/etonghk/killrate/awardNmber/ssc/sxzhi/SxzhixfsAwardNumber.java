@@ -15,7 +15,7 @@ import com.jack.entity.GameLotteryOrder;
  *
  */
 @AwardComponent(name={"sxzhixfsh","sxzhixfsz","sxzhixfsq"})
-public class SxzhixfAwardNumber extends SxzhiBase implements AwardNumber {
+public class SxzhixfsAwardNumber extends SxzhiBase implements AwardNumber {
 
 	@Override
 	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
@@ -23,8 +23,16 @@ public class SxzhixfAwardNumber extends SxzhiBase implements AwardNumber {
 		int typeKey = TypeStartIndex;
 		String[][] rowcols = new String[3][];
 		String[] rows = order.getContent().split(BetLineSplit);
+		
+		int setIndex = 0;
 		for (int i = 0; i < rows.length; i++) {
-			rowcols[i] = rows[i].split(BetItemSplit);
+			if(!BetNoPickItem.equals(rows[i])) {
+				continue;
+			}else {
+				rowcols[setIndex] = rows[i].split(BetItemSplit);
+				setIndex++;
+			}
+			
 		}
 		List<String> itemlist = new ArrayList<String>();
 		AwardNumberGenerateUtils.betItemPermutation(rowcols, 0, "", itemlist);

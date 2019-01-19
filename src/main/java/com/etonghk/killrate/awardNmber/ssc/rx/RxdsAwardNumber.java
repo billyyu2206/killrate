@@ -24,7 +24,7 @@ public class RxdsAwardNumber extends RxBase implements AwardNumber {
 		int rxNum = getRxNum(order.getMethod());
 		
 		String[] betDatas = order.getContent().split("]");
-		String[] numsData = betDatas[1].split(BetLineSplit);
+		String[] numsData = betDatas[1].split(BetDsSplit);
 		String[] pos = getBetPos(order.getContent());
 
 		List<String[]> betPermutations = new ArrayList<String[]>();

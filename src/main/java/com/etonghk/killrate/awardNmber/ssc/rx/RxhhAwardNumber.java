@@ -24,7 +24,7 @@ public class RxhhAwardNumber extends RxBase implements AwardNumber {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		int rxNum = getRxNum(order.getMethod());
 		String[] betDatas = order.getContent().split("]");
-		String[] numsDataTemp = betDatas[1].split(",");
+		String[] numsDataTemp = betDatas[1].split(BetDsSplit);
 		List<String> type1List = new ArrayList<String>(); // 組三下注項清單
 		List<String> type2List = new ArrayList<String>(); // 組六下注項清單
 		for(String betNum : numsDataTemp) {

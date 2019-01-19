@@ -26,10 +26,47 @@ public interface AwardNumber {
 	
 	/**
 	 * 
-	 *	 直選單式
+	 *	 單式切分符號
 	 */
-	String BetZhSplit="[,]";
+	String BetDsSplit="[ ]";
 	
+	/**
+	 * 
+	 *	 不定位
+	 */
+	String BetBdwSplit="[,]";
+	/**
+	 * 
+	 *	沒選號碼的符號
+	 */
+	String BetNoPickItem="[-]";
+	
+	/**
+	 * 
+	 *	和值切分符號
+	 */
+	String BetHgSplit = "[,]";
+	/**
+	 * 
+	 *	組選切分符號
+	 */
+	String BetZxSplit = "[,]";
+	/**
+	 * 
+	 *	跨度切分符號
+	 */
+	String BetKdSplit = "[,]";
+	/**
+	 * 
+	 *	和值大小單雙切分符號
+	 */
+	String BetHgdxdsSplit = "[|]";
+	
+	/**
+	 * 
+	 *	趣味切分符號
+	 */
+	String BetQwSplit = "[,]";
 	/**
 	 * 
 	 *	 類型開始Index

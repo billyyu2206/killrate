@@ -22,7 +22,7 @@ public class ExzuxdsAwardNumber extends ErxiBase implements AwardNumber{
 	@Override
 	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		String[] items = order.getContent().split(BetItemSplit);
+		String[] items = order.getContent().split(BetDsSplit);
 		List<String> resultList = SSCAwardUtils.arrayToList(items);
 		int size = resultList.size();
 		for (int i = 0; i < size; i++) {

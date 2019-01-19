@@ -19,7 +19,7 @@ public class QwAwardNumber extends QwBase implements AwardNumber {
 	@Override
 	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		String[] cols = order.getContent().split(BetItemSplit);
+		String[] cols = order.getContent().split(BetQwSplit);
 		int methodNumber = getQwNumber(order.getMethod());
 		List<String> resultList = AwardNumberGenerateUtils.getChiuWei(cols, methodNumber, 5);
 		

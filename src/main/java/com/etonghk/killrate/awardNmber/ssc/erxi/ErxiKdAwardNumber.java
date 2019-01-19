@@ -22,7 +22,7 @@ public class ErxiKdAwardNumber extends ErxiBase implements AwardNumber {
 	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 		
-		String[] cols = order.getContent().split(BetItemSplit);
+		String[] cols = order.getContent().split(BetKdSplit);
 		List<String> resultList = new ArrayList<String>();
 		int[] pos = getErxiKdPos(order.getMethod());
 		for (String c : cols) {

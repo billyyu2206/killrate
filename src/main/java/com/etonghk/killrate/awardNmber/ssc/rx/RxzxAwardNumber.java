@@ -25,7 +25,7 @@ public class RxzxAwardNumber extends RxBase implements AwardNumber {
 		int rxNum = getRxNum(order.getMethod());
 		
 		String[] betDatas = order.getContent().split("]");
-		String[] numsData = betDatas[1].split(BetItemSplit);
+		String[] numsData = betDatas[1].split(BetZxSplit);
 		String[] pos = getBetPos(order.getContent());
 		
 		Map<Integer, String> betDataMap = new HashMap<Integer, String>();

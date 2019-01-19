@@ -23,7 +23,7 @@ public class ExzhixhzAwardNumber extends ErxiBase implements AwardNumber{
 	@Override
 	public Map<String, List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
-		String[] cols = order.getContent().split(BetItemSplit);
+		String[] cols = order.getContent().split(BetHgSplit);
 		List<String> resultList = new ArrayList<String>();
 		for (String c : cols) {
 			Map<String, String> ssc2HG = SSCConfig.SSC2HG;

@@ -22,7 +22,7 @@ public class SxzhiKdAwardNumber extends SxzhiBase implements AwardNumber {
 	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] cols = order.getContent().split(BetItemSplit);
+		String[] cols = order.getContent().split(BetKdSplit);
 		List<String> resultList = new ArrayList<String>();
 		int[] sxzhi = getSxzhiPos(order.getMethod());
 		

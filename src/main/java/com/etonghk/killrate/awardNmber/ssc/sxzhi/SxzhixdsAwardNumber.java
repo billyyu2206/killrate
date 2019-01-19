@@ -14,14 +14,13 @@ import com.jack.entity.GameLotteryOrder;
  *
  */
 @AwardComponent(name={"sxzhixdsh","sxzhixdsz","sxzhixdsq"})
-public class SxzhixdAwardNumber extends SxzhiBase implements AwardNumber {
+public class SxzhixdsAwardNumber extends SxzhiBase implements AwardNumber {
 
 	@Override
 	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
-		// FIXME 投注內容需重新確認
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] items = order.getContent().split(BetZhSplit);
+		String[] items = order.getContent().split(BetDsSplit);
 		int[] sxzhi = getSxzhiPos(order.getMethod());
 		List<String> resultList = AwardNumberGenerateUtils.getCompleteAwardList(items, sxzhi[0], sxzhi[1]); 
 		result.put(typeKey+"", resultList);

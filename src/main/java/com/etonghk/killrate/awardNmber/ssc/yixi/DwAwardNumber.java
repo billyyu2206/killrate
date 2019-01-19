@@ -26,7 +26,7 @@ public class DwAwardNumber implements AwardNumber {
 		String[] rows = order.getContent().split(BetLineSplit, -1);
 		List<String> resultList = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
-			if (!StringUtils.isEmpty(rows[i])) {
+			if (!StringUtils.isEmpty(rows[i]) && !BetNoPickItem.equals(rows[i])) {
 				String[] cols = rows[i].split(BetItemSplit);
 				for (String c : cols) {
 					AwardNumberGenerateUtils.addPreAndAfter(c, i, 4 - i, resultList);

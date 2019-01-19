@@ -22,7 +22,7 @@ public class SxzhiBdwAwardNumber extends SxzhiBase implements AwardNumber{
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
 		
-		String[] items = order.getContent().split(BetItemSplit);
+		String[] items = order.getContent().split(BetBdwSplit);
 		
 		int bdwNum = getBdwNum(order.getMethod());
 		List<String> resultList = AwardNumberGenerateUtils.getBuDingWeiPermutation(items, bdwNum, 3);

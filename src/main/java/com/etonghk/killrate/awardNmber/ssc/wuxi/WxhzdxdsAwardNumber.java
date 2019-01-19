@@ -23,7 +23,7 @@ public class WxhzdxdsAwardNumber implements AwardNumber {
 	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		int typeKey = TypeStartIndex;
-		String[] rows = order.getContent().split(BetLineSplit);
+		String[] rows = order.getContent().split(BetHgdxdsSplit);
 		List<String> resultList = new ArrayList<String>();
 		for(String betItem : rows) {
 			List<Integer[]> numsCombineList = SSCConfig.SSC5HG.get(betItem);
