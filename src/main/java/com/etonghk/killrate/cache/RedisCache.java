@@ -1,10 +1,13 @@
 package com.etonghk.killrate.cache;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
@@ -15,12 +18,12 @@ import com.google.gson.reflect.TypeToken;
  * @author Ami
  *
  */
-@Component
+@Component("redisCache")
 public class RedisCache implements Cache{
 
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
-
+	
 	private Gson gson = new Gson();
 
 	@Override
@@ -96,4 +99,18 @@ public class RedisCache implements Cache{
 		return redisTemplate.opsForValue().increment(key);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public RedisSerializer<String> getRedisKeySerializer() {
+		return (RedisSerializer<String>) redisTemplate.getKeySerializer();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.etonghk.killrate.cache.Cache#excutePipeline(org.springframework.data.redis.core.RedisCallback)
+	 */
+	@Override
+	public List<?> excutePipeline(RedisCallback<?> pipelineCallback) {
+		return redisTemplate.executePipelined(pipelineCallback);
+	}
+	
 }

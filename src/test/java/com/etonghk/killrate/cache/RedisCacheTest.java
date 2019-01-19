@@ -1,9 +1,17 @@
 package com.etonghk.killrate.cache;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
@@ -15,13 +23,32 @@ public class RedisCacheTest {
 	private RedisCache cache;
 	
 	@Test
-	public void tesSteCache() {
-		long l1 = System.currentTimeMillis();
-		for(long i=1l;i<100000l;i++) {
-			cache.incr("123456");
+	public void tesCachePipeline() {
+		
+		//取出key序列化元件
+		RedisSerializer<String> redisSerializer = cache.getRedisKeySerializer();
+		//要處理的key
+		byte[] key = redisSerializer.serialize("123");
+		//裝載號碼及金額資料
+		Map<String,Double> aa = new HashMap<>();
+		for(Integer i=1 ;i<=100000;i++) {
+			aa.put(i.toString(), i*1.0);
 		}
-		long l2 = System.currentTimeMillis();
-		System.out.println((l2-l1)/1000);
+		//撰寫RedisCallBack物件
+		RedisCallback<Void> pipelineCallback = new RedisCallback<Void>() {
+			//每一個pipeline需要實作自己準備批量放入的方式
+			@Override
+			public Void doInRedis(RedisConnection connection) throws DataAccessException {
+				//迴圈裝入物件
+				aa.entrySet().forEach(entry->{
+					byte[] field = redisSerializer.serialize(entry.getKey());
+					connection.hIncrBy(key, field, entry.getValue());
+				});
+				return null;
+			}
+		};
+		List<?> result = cache.excutePipeline(pipelineCallback);
+		System.out.println(123);
 	}
 	
 }
