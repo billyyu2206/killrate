@@ -115,6 +115,7 @@
 		<if test='isPush != null and isPush'>
 		and b.is_push = 1
 		</if>
+		order by a.full_issue
 	</select>
 	
 	<select id="selectForCalNumber" resultMap="BaseResultMap">
