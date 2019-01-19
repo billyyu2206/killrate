@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.etonghk.killrate.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
+import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.service.killrateAward.KillrateAwardService;
 
@@ -31,13 +32,16 @@ public class KillrateSettingController {
 		cond.setGameId(gameId);
 		cond.setIssueEndTime(new Date());
 		
-		//TODO 分頁
-		List<KillrateAward> list = killrateAwardService.selectForSettingPage(cond);
+		Page page=new Page();
+		page.setPage(pageNo);
+		page.setPageSize(pageSize);
+		List<KillrateAward> list = killrateAwardService.selectForSettingPage(cond,page);
 		
 		
 		model.addAttribute("list", list);
 		model.addAttribute("gameId", gameId);
 		model.addAttribute("allGameData", KillrateConstant.allGameMap);
+		model.addAttribute("page", page);
 		return "/killrate/killrateSetting/index";
 	}
 	

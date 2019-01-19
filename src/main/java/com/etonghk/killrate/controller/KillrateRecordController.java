@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.etonghk.killrate.controller.dto.request.KillrateRecordRequest;
+import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.service.killrateAward.KillrateAwardService;
 
@@ -33,29 +35,29 @@ public class KillrateRecordController {
 	
 	private final static String PAGE = "killrate/awardRecord/index";
 	
+	private static List<String> gameList = new ArrayList<String>();
+	static {
+		gameList.add("vipssc");
+	}
+	
 	@RequestMapping()
 	public String index(@ModelAttribute(value = "killRateReq")KillrateRecordRequest killRateReq,Model model) {
-		// TODO 拿取遊戲List
-		List<String> gameList = new ArrayList<String>();
-		gameList.add("vipssc");
-		gameList.add("ssc");
-		
 		model.addAttribute("gameList",gameList);
 		model.addAttribute("killRate",killRateReq);
 		return PAGE;
 	}
 	
 	@RequestMapping("search")
-	public String search(@ModelAttribute(value = "killRateReq")KillrateRecordRequest killRateReq,Model model) {
-		// TODO 拿取遊戲List
-		List<String> gameList = new ArrayList<String>();
-		gameList.add("vipssc");
-		gameList.add("ssc");
+	public String search(@ModelAttribute(value = "killRateReq")KillrateRecordRequest killRateReq, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, Model model) {
+		Page page = new Page();
+		page.setPageNo(pageNo);
+		List<KillrateAward> killAwardList= killrateAwardService.selectForRecord(killRateReq.getGameId(), killRateReq.getIssueDate(), killRateReq.getIsKillRate(), page);
 		
-		List<KillrateAward> killAwardList= killrateAwardService.selectForRecord(killRateReq.getGameId(), killRateReq.getIssueDate(), killRateReq.getIsKillRate());
 		model.addAttribute("gameList",gameList);
 		model.addAttribute("killRate",killRateReq);
 		model.addAttribute("killAwardList", killAwardList);
+		model.addAttribute("page",page);
+		
 		return PAGE;
 	}
 	

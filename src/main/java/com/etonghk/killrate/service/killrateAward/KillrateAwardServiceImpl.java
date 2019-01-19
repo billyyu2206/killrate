@@ -17,6 +17,7 @@ import com.etonghk.killrate.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;
+import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.utils.CommonUtils;
@@ -40,8 +41,8 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 * 	@param KillrateAward.issueEndDate
 	 */
 	@Override
-	public List<KillrateAward> selectForSettingPage(KillrateAward cond) {
-		return killrateAwardDao.selectForSettingPage(cond);
+	public List<KillrateAward> selectForSettingPage(KillrateAward cond,Page page) {
+		return killrateAwardDao.selectForSettingPage(cond,page);
 	}
 	
 	/**
@@ -104,8 +105,8 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	}
 
 	@Override
-	public List<KillrateAward> selectForRecord(String gameId, Date issueDate, Boolean isPush) {
-		return killrateAwardDao.selectForRecord(gameId, issueDate, isPush);
+	public List<KillrateAward> selectForRecord(String gameId, Date issueDate, Boolean isPush, Page<KillrateAward> page) {
+		return killrateAwardDao.selectForRecord(gameId, issueDate, isPush, page);
 	}
 
 	/**
