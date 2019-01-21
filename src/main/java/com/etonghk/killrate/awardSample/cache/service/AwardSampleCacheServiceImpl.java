@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.etonghk.killrate.awardSample.cache.AwardSampleCache;
 import com.etonghk.killrate.dao.AwardSampleDao;
 import com.etonghk.killrate.domain.AwardSample;
 
