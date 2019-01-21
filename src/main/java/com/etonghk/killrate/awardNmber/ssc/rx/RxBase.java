@@ -14,7 +14,7 @@ public class RxBase {
 		String posStr = "";
 		for(int i = 0; i < posTemp.length; i++) {
 			if(posTemp[i].equals(AwardNumber.BetPosItem)) {
-				posStr += i;
+				posStr += (i + 1);
 			}
 		}
 		return posStr.split("");
