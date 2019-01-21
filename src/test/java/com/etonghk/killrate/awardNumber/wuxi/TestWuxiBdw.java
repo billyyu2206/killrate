@@ -1,0 +1,46 @@
+/**
+ * 
+ */
+package com.etonghk.killrate.awardNumber.wuxi;
+
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.etonghk.killrate.awardNmber.AwardNumber;
+import com.etonghk.killrate.awardNmber.AwardNumberFactory;
+import com.etonghk.killrate.mq.sender.KillRateBetSender;
+import com.jack.entity.GameLotteryOrder;
+
+/**
+ * 	五星X碼不定位
+ * @author Peter.Hong
+ * @date 2019年1月21日
+ */
+public class TestWuxiBdw {
+
+	@Autowired
+	private KillRateBetSender killRateBetSender;
+	
+	@Autowired
+	private AwardNumberFactory awardNumberFactory;
+	
+	protected GameLotteryOrder order = new GameLotteryOrder();
+	
+	@Test
+	public void testWuxiBdw() {
+		killRateBetSender.senderGameLotteryOrder(order);
+	}
+	
+	@Test
+	public void testSixzhixzhAwardNumber() {
+		
+		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
+		Map<String, List<String>> numberResult = awardNumber.getAwardNumberWithType(order);
+		for(Map.Entry<String, List<String>> entry : numberResult.entrySet()) {
+			System.out.println("TYPE: " + entry.getKey() + "  SIZE: " + entry.getValue().size());
+		}
+	}
+}
