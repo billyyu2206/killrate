@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.etonghk.killrate.awardNumber.rx;
 
 import org.junit.Before;
@@ -8,18 +11,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
 
 /**
- * 	任选_任三混合 rx3hh
+ *	 任选_任三组六
  * @author Peter.Hong
  * @date 2019年1月21日
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestRxhhAwardNumber extends TestAwardNumberBasic{
+public class TestRxz6AwardNumber extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
-		order.setContent("[√,√,√,-,-]036");
-		order.setMethod("rx3hh");
+		order.setContent("[√,-,√,-,√]0,3,6");
+		order.setMethod("rx3z6");
 		order.setLottery("vipssc");
 		order.setMultiple(100);
 		order.setMoney(1);

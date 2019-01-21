@@ -6,14 +6,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
-
+/**
+ * 	任选_任二直选复式 rx2fs
+ * @author Peter.Hong
+ * @date 2019年1月21日
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestRx2fsAwardNumber extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
-		order.setContent("0,2,-,-,-");
+		order.setContent("1,1,-,-,-");
 		order.setMethod("rx2fs");
 		order.setLottery("vipssc");
 		order.setMultiple(100);
