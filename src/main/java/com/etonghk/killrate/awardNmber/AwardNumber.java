@@ -18,7 +18,7 @@ public interface AwardNumber {
 	/**
 	 * 	選位數符號
 	 */
-	String BetPosItem = "[√]";
+	String BetPosItem = "√";
 	/**
 	 * 	龍虎鬥下注項目切分符號
 	 */
