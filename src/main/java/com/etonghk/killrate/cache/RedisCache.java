@@ -116,12 +116,9 @@ public class RedisCache implements Cache{
 	}
 	
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public <T1, T2> Map<T1, T2> hgetAll(String key, Class<T1> hkeyClass, Class<T2> hvalueClass) {
-		redisTemplate.setHashKeySerializer(new GenericToStringSerializer<>(hkeyClass));
-		redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(hvalueClass));
-		return (Map<T1, T2>) redisTemplate.opsForHash().entries(key);
+	public Map<Object, Object> hgetAll(String key) {
+		return redisTemplate.opsForHash().entries(key);
 	}
 
 	

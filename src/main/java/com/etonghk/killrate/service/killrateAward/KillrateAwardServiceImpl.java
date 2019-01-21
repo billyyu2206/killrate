@@ -21,7 +21,6 @@ import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.utils.CommonUtils;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Service
@@ -129,7 +128,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		}
 		
 		String redisKey = gameId + ":" + fullIssue;
-		Map<String, Double> redisData = redisCache.hgetAll(redisKey, String.class, Double.class);
+		Map<Object, Object> redisData = redisCache.hgetAll(redisKey);
 		String tempStr = redisCache.getGson().toJson(redisData);
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
 		Map<String, BigDecimal> data = redisCache.getGson().fromJson(tempStr, type);

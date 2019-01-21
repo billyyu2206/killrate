@@ -43,7 +43,7 @@ public interface Cache {
 	
 	List<?> excutePipeline(RedisCallback<?> pipelineCallback);
 	
-	<T1, T2> Map<T1, T2> hgetAll(String key, Class<T1> hkeyClass, Class<T2> hvalueClass);
+	Map<Object, Object> hgetAll(String key);
 
 	
 }
