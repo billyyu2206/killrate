@@ -75,7 +75,7 @@
 											</td>
 											<td width="30%">
 												<a th:id="'editBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-hide" th:onclick="'edit(\'' + ${item.id} + '\')'" >编辑</a>
-												<a th:id="'removeBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-hide" th:onclick="'remove(\'' + ${item.id} + '\')'" >删除</a>
+												<a th:id="'removeBtn' + ${item.id}" href="javascript:void(0);" th:data-issue="${item.issue}" th:data-id="${item.id}" class="btn btn-primary btn-xs btn-t edit-hide" onclick="remove(this)" >删除</a>
 	 											<a th:id="'saveBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-show" style="display:none;" th:onclick="'save(\'' + ${item.id} + '\')'">储存</a> 
 												<a th:id="'cancelBtn' + ${item.id}" href="javascript:void(0);" class="btn btn-primary btn-xs btn-t edit-show" style="display:none;" th:onclick="'cancel(\'' + ${item.id} + '\')'" >取消</a>
 											</td>
@@ -176,7 +176,9 @@
 		originInput = $("#killrateInput" + id).val();
 	}
 	
-	function remove(id, issue){
+	function remove(element){
+		var id = $(element).attr("data-id");
+		var issue = $(element).attr("data-issue");
 		$.altDialog({
 			title : "温馨提示",
 			content : "是否刪除此筆殺率設定 獎期 : " + issue,
