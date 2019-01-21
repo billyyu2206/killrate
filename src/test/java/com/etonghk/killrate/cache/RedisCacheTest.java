@@ -25,7 +25,7 @@ public class RedisCacheTest {
 	@SuppressWarnings("unused")
 	@Test
 	public void tesCachePipeline() {
-		
+		long a1 = System.currentTimeMillis();
 		//取出key序列化元件
 		RedisSerializer<String> redisSerializer = cache.getRedisKeySerializer();
 		//要處理的key
@@ -49,7 +49,10 @@ public class RedisCacheTest {
 				return null;
 			}
 		};
+		
 		List<?> result = cache.excutePipeline(pipelineCallback);
+		long a2 = System.currentTimeMillis();
+		System.out.println((a2-a1)/1000);
 		System.out.println(123);
 //		Map<Object, Object> tesmp = cache.hgetAll("vipssc:201901191001");
 //		String temp = cache.getGson().toJson(tesmp);

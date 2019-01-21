@@ -44,7 +44,7 @@ public class OrderCalculateServiceImpl implements OrderCalculateService{
 	 * 	計算注單個開獎號碼金額
 	 */
 	@Override
-	public void doCalOrder(GameLotteryOrder order) {
+	public Map<String,BigDecimal> doCalOrder(GameLotteryOrder order) {
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
 		Map<String,List<String>> typeByAwardNumber = awardNumber.getAwardNumberWithType(order);
 		Map<String,BigDecimal> resultToSet = AwardNumberUtil.getCalcAwardMoney(order, typeByAwardNumber, awardSampleCache, dataFactory);
@@ -61,12 +61,13 @@ public class OrderCalculateServiceImpl implements OrderCalculateService{
 				//迴圈裝入物件
 				resultToSet.entrySet().forEach(entry->{
 					byte[] field = redisSerializer.serialize(entry.getKey());
-					connection.hIncrBy(key, field, entry.getValue().longValue());
+					connection.hIncrBy(key, field, entry.getValue().doubleValue());
 				});
 				return null;
 			}
 		};
-		List<?> resultRedis = redisCache.excutePipeline(pipelineCallback);
+		redisCache.excutePipeline(pipelineCallback);
+		return resultToSet;
 	}
 
 }

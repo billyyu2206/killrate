@@ -1,5 +1,8 @@
 package com.etonghk.killrate.service.orderCalculate;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 import com.jack.entity.GameLotteryOrder;
 
 /**
@@ -7,5 +10,5 @@ import com.jack.entity.GameLotteryOrder;
  * @date 2019年1月18日
  */
 public interface OrderCalculateService {
-	public void doCalOrder(GameLotteryOrder order);
+	public Map<String,BigDecimal> doCalOrder(GameLotteryOrder order);
 }
