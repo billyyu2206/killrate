@@ -6,24 +6,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
-
 /**
- * 	任选_任三混合 rx3hh
+ * 	任选_任二直选复式 rx4fs
  * @author Peter.Hong
  * @date 2019年1月21日
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestRxhhAwardNumber extends TestAwardNumberBasic{
+public class TestRx4fsAwardNumber extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
-		order.setContent("[√,√,√,-,-]036");
-		order.setMethod("rx3hh");
+		order.setContent("1,1,1,1,-");
+		order.setMethod("rx4fs");
 		order.setLottery("vipssc");
 		order.setMultiple(100);
 		order.setMoney(1);
 		order.setModel("yuan");
 		order.setIssue("201901191002");
 	}
+	
 }

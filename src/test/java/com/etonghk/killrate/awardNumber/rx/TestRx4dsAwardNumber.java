@@ -8,18 +8,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
 
 /**
- * 	任选_任三混合 rx3hh
+ * 	任选_任三直选单式 rx4ds
  * @author Peter.Hong
  * @date 2019年1月21日
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestRxhhAwardNumber extends TestAwardNumberBasic{
+public class TestRx4dsAwardNumber extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
-		order.setContent("[√,√,√,-,-]036");
-		order.setMethod("rx3hh");
+		order.setContent("[√,√,√,√,-]0000");
+		order.setMethod("rx4ds");
 		order.setLottery("vipssc");
 		order.setMultiple(100);
 		order.setMoney(1);
