@@ -12,6 +12,16 @@ public class ApiResult<T>{
 	private T data;
 	private String code;
 	private String msg;
+	
+	public ApiResult (){
+		
+	}
+	
+	public ApiResult (String code, String msg, T data){
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+	}
 	public T getData() {
 		return data;
 	}
