@@ -134,7 +134,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		}
 		
 		String redisKey = gameId + ":" + fullIssue;
-		Map<String, Double> redisData = redisCache.hgetAll(redisKey, String.class, Double.class);
+		Map<Object, Object> redisData = redisCache.hgetAll(redisKey);
 		String tempStr = redisCache.getGson().toJson(redisData);
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
 		Map<String, BigDecimal> data = redisCache.getGson().fromJson(tempStr, type);

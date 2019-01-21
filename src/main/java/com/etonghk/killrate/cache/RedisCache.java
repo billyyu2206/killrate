@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
@@ -116,12 +115,9 @@ public class RedisCache implements Cache{
 	}
 	
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public <T1, T2> Map<T1, T2> hgetAll(String key, Class<T1> hkeyClass, Class<T2> hvalueClass) {
-		redisTemplate.setHashKeySerializer(new GenericToStringSerializer<>(hkeyClass));
-		redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(hvalueClass));
-		return (Map<T1, T2>) redisTemplate.opsForHash().entries(key);
+	public Map<Object, Object> hgetAll(String key) {
+		return redisTemplate.opsForHash().entries(key);
 	}
 
 	
