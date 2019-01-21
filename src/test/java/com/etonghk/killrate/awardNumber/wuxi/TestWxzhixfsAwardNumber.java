@@ -1,14 +1,11 @@
 package com.etonghk.killrate.awardNumber.wuxi;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.etonghk.killrate.mq.sender.KillRateBetSender;
-import com.jack.entity.GameLotteryOrder;
+import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
 
 /**
  * 	五星_直选复式 wxzhixfs
@@ -17,13 +14,8 @@ import com.jack.entity.GameLotteryOrder;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestWxzhixfsAwardNumber {
+public class TestWxzhixfsAwardNumber extends TestAwardNumberBasic{
 
-	@Autowired
-	private KillRateBetSender killRateBetSender;
-	
-	private GameLotteryOrder order = new GameLotteryOrder();
-	
 	@Before
 	public void beforeTest() {
 		order.setContent("1,2,3,4,5");
@@ -33,11 +25,6 @@ public class TestWxzhixfsAwardNumber {
 		order.setMoney(1);
 		order.setModel("yuan");
 		order.setIssue("201901191002");
-	}
-	
-	@Test
-	public void testWxzhixfsAwardNumber() {
-		killRateBetSender.senderGameLotteryOrder(order);
 	}
 	
 }

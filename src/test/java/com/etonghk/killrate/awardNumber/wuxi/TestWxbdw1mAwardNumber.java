@@ -8,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
+
 /**
  * 	五星一碼不定位  wxbdw1m
  * @author Peter.Hong
@@ -15,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestWxbdw1mAwardNumber extends TestWuxiBdw{
+public class TestWxbdw1mAwardNumber extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
@@ -27,7 +29,4 @@ public class TestWxbdw1mAwardNumber extends TestWuxiBdw{
 		order.setModel("yuan");
 		order.setIssue("201901191002");
 	}
-	
-	
-	
 }
