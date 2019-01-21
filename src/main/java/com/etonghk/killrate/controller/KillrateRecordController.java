@@ -6,8 +6,6 @@ package com.etonghk.killrate.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +26,6 @@ import com.etonghk.killrate.service.killrateAward.KillrateAwardService;
 @RequestMapping("killrate/awardRecord")
 public class KillrateRecordController {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
 	@Autowired
 	private KillrateAwardService killrateAwardService;
 	
@@ -49,13 +45,14 @@ public class KillrateRecordController {
 	
 	@RequestMapping("search")
 	public String search(@ModelAttribute(value = "killRateReq")KillrateRecordRequest killRateReq, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, Model model) {
-		Page page = new Page();
+		Page<KillrateAward> page = new Page<KillrateAward>();
 		page.setPageNo(pageNo);
-		List<KillrateAward> killAwardList= killrateAwardService.selectForRecord(killRateReq.getGameId(), killRateReq.getIssueDate(), killRateReq.getIsKillRate(), page);
+		page.setPageSize(100);
+		page= killrateAwardService.selectForRecord(killRateReq.getGameId(), killRateReq.getIssueDate(), killRateReq.getIsKillRate(), page);
 		
 		model.addAttribute("gameList",gameList);
 		model.addAttribute("killRate",killRateReq);
-		model.addAttribute("killAwardList", killAwardList);
+		model.addAttribute("killAwardList", page.getRecords());
 		model.addAttribute("page",page);
 		
 		return PAGE;

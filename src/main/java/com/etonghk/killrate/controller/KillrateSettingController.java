@@ -1,7 +1,6 @@
 package com.etonghk.killrate.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,13 +31,13 @@ public class KillrateSettingController {
 		cond.setGameId(gameId);
 		cond.setIssueEndTime(new Date());
 		
-		Page page=new Page();
+		Page<KillrateAward> page=new Page<KillrateAward>();
 		page.setPage(pageNo);
 		page.setPageSize(pageSize);
-		List<KillrateAward> list = killrateAwardService.selectForSettingPage(cond,page);
+		page = killrateAwardService.selectForSettingPage(cond,page);
 		
 		
-		model.addAttribute("list", list);
+		model.addAttribute("list", page.getRecords());
 		model.addAttribute("gameId", gameId);
 		model.addAttribute("allGameData", KillrateConstant.allGameMap);
 		model.addAttribute("page", page);
