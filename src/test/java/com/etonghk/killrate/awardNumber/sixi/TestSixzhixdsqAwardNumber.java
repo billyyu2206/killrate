@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.etonghk.killrate.awardNumber.sixi;
 
 import org.junit.Before;
@@ -6,19 +9,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
+
 /**
- *	后四星_直选组合 sixzhixzhh
+ * 	前四星 直選單式 sixzhixdsq
  * @author Peter.Hong
  * @date 2019年1月21日
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestSixzhixzhhAwardNumber extends TestAwardNumberBasic{
+public class TestSixzhixdsqAwardNumber extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
-		order.setContent("-,0,0,0,0");
-		order.setMethod("sixzhixzhh");
+		order.setContent("0000");
+		order.setMethod("sixzhixdsq");
 		order.setLottery("vipssc");
 		order.setMultiple(100);
 		order.setMoney(1);

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import com.etonghk.killrate.anootations.AwardComponent;
 import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.jack.entity.GameLotteryOrder;
@@ -16,7 +17,7 @@ import com.jack.entity.GameLotteryOrder;
  * @author Ami
  *
  */
-@Component("wxzux30")
+@AwardComponent(name={"wxzux30"})
 public class Wxzux30AwardNumber implements AwardNumber{
 
 	@Override

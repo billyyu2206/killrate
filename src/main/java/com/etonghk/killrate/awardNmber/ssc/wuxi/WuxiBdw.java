@@ -9,7 +9,7 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.jack.entity.GameLotteryOrder;
 /**
- * 五星x碼不定位
+ * 	五星x碼不定位
  * @author Peter
  *
  */
