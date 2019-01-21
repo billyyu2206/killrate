@@ -21,7 +21,6 @@ import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.utils.CommonUtils;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Service
@@ -41,8 +40,11 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 * 	@param KillrateAward.issueEndDate
 	 */
 	@Override
-	public List<KillrateAward> selectForSettingPage(KillrateAward cond,Page page) {
-		return killrateAwardDao.selectForSettingPage(cond,page);
+	public Page<KillrateAward> selectForSettingPage(KillrateAward cond,Page<KillrateAward> page) {
+		List<KillrateAward> result = killrateAwardDao.selectForSettingPage(cond,page);
+		page.setRecords(result);
+		
+		return page;
 	}
 	
 	/**
@@ -105,8 +107,11 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	}
 
 	@Override
-	public List<KillrateAward> selectForRecord(String gameId, Date issueDate, Boolean isPush, Page<KillrateAward> page) {
-		return killrateAwardDao.selectForRecord(gameId, issueDate, isPush, page);
+	public Page<KillrateAward> selectForRecord(String gameId, Date issueDate, Boolean isPush, Page<KillrateAward> page) {
+		List<KillrateAward> result = killrateAwardDao.selectForRecord(gameId, issueDate, isPush, page);
+		page.setRecords(result);
+		
+		return page;
 	}
 
 	/**
