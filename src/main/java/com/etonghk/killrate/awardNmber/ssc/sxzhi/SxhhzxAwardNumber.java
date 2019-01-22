@@ -22,7 +22,6 @@ public class SxhhzxAwardNumber extends SxzhiBase implements AwardNumber{
 
 	@Override
 	public Map<String,List<String>> getAwardNumberWithType(GameLotteryOrder order) {
-		// FIXME
 		Map<String,List<String>> result = new HashMap<String,List<String>>();
 		
 		String[] items = order.getContent().split(BetDsSplit);
@@ -33,6 +32,7 @@ public class SxhhzxAwardNumber extends SxzhiBase implements AwardNumber{
 		for (Map.Entry<String,List<String>> mapEntry : awardNumMap.entrySet()) {
 			awardNumMap.put(mapEntry.getKey(), getAwardNumber(mapEntry.getValue(),sxzhi));
 		}
+		result.putAll(awardNumMap);
 		
 		return result;
 	}

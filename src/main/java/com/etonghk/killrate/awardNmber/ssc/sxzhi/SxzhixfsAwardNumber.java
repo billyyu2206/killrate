@@ -26,7 +26,7 @@ public class SxzhixfsAwardNumber extends SxzhiBase implements AwardNumber {
 		
 		int setIndex = 0;
 		for (int i = 0; i < rows.length; i++) {
-			if(!BetNoPickItem.equals(rows[i])) {
+			if(BetNoPickItem.equals(rows[i])) {
 				continue;
 			}else {
 				rowcols[setIndex] = rows[i].split(BetItemSplit);
