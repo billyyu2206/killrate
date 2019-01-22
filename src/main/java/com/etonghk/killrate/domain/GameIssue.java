@@ -14,6 +14,8 @@ public class GameIssue {
     private Date issueStartTime;
 
     private Date issueEndTime;
+    
+    private Date issueOpenTime;
 
     private Date issueDate;
 
@@ -82,4 +84,14 @@ public class GameIssue {
     public void setPlayId(String playId) {
         this.playId = playId == null ? null : playId.trim();
     }
+
+	public Date getIssueOpenTime() {
+		return issueOpenTime;
+	}
+
+	public void setIssueOpenTime(Date issueOpenTime) {
+		this.issueOpenTime = issueOpenTime;
+	}
+    
+    
 }
