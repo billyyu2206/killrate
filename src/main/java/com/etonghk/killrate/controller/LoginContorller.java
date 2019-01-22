@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.etonghk.killrate.domain.Account;
 import com.etonghk.killrate.service.account.AccountService;
@@ -32,20 +32,20 @@ public class LoginContorller {
 		return "login";
 	}
 	
-	@PostMapping("/loginAcc")
+	@RequestMapping(value = "/loginAcc", method = RequestMethod.POST)
 	public String login(Account account, Model model, HttpServletRequest request) {
 		HttpSession session =  request.getSession();
 		 request.getRemoteAddr();
 		try {
-			model.addAttribute("errorMsg", null);
+			model.addAttribute("errorMsg", "");
 			String ip = getFisrtRemoteHost(request);
 			account = accountService.login(account.getAccount(), account.getPassword(),ip);
 			session.setAttribute(session.getId(), account);
 		} catch (RuntimeException e) {
-			model.addAttribute("errorMsg", "帳號密碼錯誤");
+			model.addAttribute("errorMsg", "帐号密码错误");
 			return "login";
 		} catch (Exception e) {
-			model.addAttribute("errorMsg", "錯誤");
+			model.addAttribute("errorMsg", "错误");
 			return "login";
 		}
 

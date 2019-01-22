@@ -7,7 +7,7 @@
 <body>
 <div th:fragment="page" >
 	<div class="row" th:if="${page!=null}">
-		<div th:if="${page.pages <= 10}" class="form-group col-md-11 pagination-centered">
+		<div th:if="${page.pages <= 10 && page.count != 0 }" class="form-group col-md-11 pagination-centered">
 			<ul class="pagination">
 				<li class="pageLink" th:each="num : ${#numbers.sequence(1, page.pages)}"
 				 th:class="${page.page == num} ? 'page-item active'" >
