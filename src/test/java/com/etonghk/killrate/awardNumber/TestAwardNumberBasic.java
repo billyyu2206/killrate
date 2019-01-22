@@ -34,12 +34,16 @@ public class TestAwardNumberBasic {
 	 */
 	@Test
 	public void testAwardNumber() {
+		long statTime = System.currentTimeMillis();
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
 		Map<String, List<String>> numberResult = awardNumber.getAwardNumberWithType(order);
+		
 		for (Map.Entry<String, List<String>> entry : numberResult.entrySet()) {
 			System.out.println("TYPE: " + entry.getKey() + "  SIZE: " + entry.getValue().size());
 			System.out.println("Value: "+entry.getValue());
 		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("Time : "+(endTime-statTime));
 	}
 
 	/**
