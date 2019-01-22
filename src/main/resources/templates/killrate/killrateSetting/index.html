@@ -15,10 +15,10 @@
 			<div class="col-md-12">
 				<h3>杀率设定</h3>
 				<div class="tabbable" id="tabs-206948">
-					<ul class="nav nav-tabs">
-						<li class="nav-item" th:each="game : ${allGameData}">
-							<a th:if="${game.key == gameId}" class="nav-link active show" href="javascript:void(0);" th:text="${game.value}">時時彩</a>
-							<a th:unless="${game.key == gameId}" class="nav-link" th:href="@{'/killrateSetting/index/' + ${game.key}}" th:text="${game.value}">時時彩</a>
+					<ul class="nav nav-pills">
+						<li class="" th:each="game : ${allGameData}" th:classappend="${game.key} == ${gameId} ? active : ''">
+							<a th:if="${game.key == gameId}" href="javascript:void(0);" th:text="${game.value}">時時彩</a>
+							<a th:unless="${game.key == gameId}" th:href="@{'/killrateSetting/index/' + ${game.key}}" th:text="${game.value}">時時彩</a>
 						</li>
 					</ul>
 					<div class="tab-content mt-3">
@@ -54,7 +54,7 @@
 									</div>
 								</form>
 							</div>
-							<div>
+							<div style="margin-top: 10px;">
 								<table class="table table-bordered mt-3 ">
 									<thead>
 										<tr>
@@ -86,9 +86,9 @@
 						</div>
 					</div>
 				</div>
-				</div>
-				<div th:include="page :: page"></div>
+			</div>
 		</div>
+		<div th:include="page :: page"></div>
 	</div>
   </body>
   <div layout:fragment="contentJs">
@@ -125,11 +125,9 @@
   	  			errorMsg = "杀率区间段开始时间必须小于结束时间";
   			}
   		}
-  		console.log(isPass)
   		return isPass;
   	}
   	function doGenerate(){
-  		console.log(123)
   		var targetPoint = $("#killrate").val();
   		if(!checkIssueAndTime()){
   			myToast(errorMsg);
@@ -147,7 +145,7 @@
   		datas += "&gameId=" + gameId;
   		$.ajax({
 			type: "POST",
-			url: "/killrateSetting/generate/",
+			url: "/killrateSetting/generate",
 			data: datas, // serializes 
 			success: function(data)
 			{
@@ -155,7 +153,7 @@
 					myToast(data.msg);
 					location.reload();
 				}else{
-					myToast(data.msg);
+					myToastError(data.msg);
 				}
 			}
 		});
@@ -187,15 +185,18 @@
 				datas = "id=" + id;
 				$.ajax({
 					type: "POST",
-					url: "/killrateSetting/delete/",
+					url: "/killrateSetting/delete",
 					data: datas, 
 					success: function(data)
 					{
 						if("200" == data.code){
 							myToast(data.msg);
 							$("#dataTr" + id).remove();
+						}else if( "201" == data.code){
+							myToastError(data.msg);
+							$("#dataTr" + id).remove();
 						}else{
-							myToast(data.msg);
+							myToastError(data.msg);
 						}
 					}
 				});
@@ -261,6 +262,12 @@
 					$("#killrateShow" + id).html(targetPoint + "%");
 					$("#killrateShow" + id).show();
 					$("#killrateInput" + id).hide();
+				}else if("201" == data.code){
+					myToast(data.msg);
+					$(".edit-hide").each(function(){
+						$(this).removeAttr("disabled");
+					})
+					$("#dataTr" + id).remove();
 				}else{
 					myToast(data.msg);
 				}

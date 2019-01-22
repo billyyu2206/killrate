@@ -98,13 +98,19 @@
 	</delete>
 	  
 	<update id="updateByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
-		update killrate_award set killrate = #{killrate,jdbcType=INTEGER} 
-		where id = #{id,jdbcType=INTEGER}
+		update killrate_award set killrate = #{record.killrate,jdbcType=INTEGER} 
+		where id = #{record.id,jdbcType=INTEGER} 
+		 <![CDATA[ 
+	    and issue_end_time >= #{operateTime,jdbcType=TIMESTAMP} 
+	    ]]>
 	</update>
 	
 	<delete id="deleteByPK" parameterType="com.etonghk.killrate.domain.KillrateAward">
 		delete from killrate_award 
-		where id = #{id,jdbcType=INTEGER}
+		where id = #{record.id,jdbcType=INTEGER}
+		 <![CDATA[ 
+	    and issue_end_time > #{operateTime,jdbcType=TIMESTAMP} 
+	    ]]>
 	</delete>
 	
 	<select id="selectForRecord" resultMap="BaseResultMap">

@@ -3,7 +3,7 @@
 function myToast(msg) {
 	$.toast({
 		text: msg,
-		hideAfter: 1000,
+		hideAfter: 5000,
 		position: {
 			right: 20,
 			top: 110
@@ -13,6 +13,22 @@ function myToast(msg) {
 		loader: false,
 	});
 }
+
+function myToastError(errMsg) {
+	$.toast({
+		text: errMsg,
+		hideAfter: 5000,
+		position: {
+			right: 20,
+			top: 110
+	    },
+	    textAlign: 'center', 
+		stack: false,
+		loader: false,
+		textColor: 'red',
+	});
+}
+
 function myToastDeposit(msg) {
 	$.toast({
 		text: msg,

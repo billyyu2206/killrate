@@ -17,9 +17,9 @@ public interface KillrateAwardDao {
     List<KillrateAward> selectForSettingPage(@Param("cond")KillrateAward cond,@Param("page")Page<KillrateAward> page);
     List<KillrateAward> selectForGenerateKillrate(KillrateSetting setting);
     
-    int updateByPK(KillrateAward record);
+    int updateByPK(@Param("record")KillrateAward record, @Param("operateTime") Date operateTime);
     
-    int deleteByPK(KillrateAward record);
+    int deleteByPK(@Param("record")KillrateAward record, @Param("operateTime") Date operateTime);
     
     public List<KillrateAward> selectForRecord(@Param("gameId") String gameId,@Param("issueDate") Date issueDate,@Param("isPush") Boolean isPush,@Param("page") Page<KillrateAward> page);
     
