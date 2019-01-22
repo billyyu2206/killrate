@@ -41,6 +41,7 @@ public class GlobalExceptionHandler {
 			result.setCode(ApiResult.FAILD_CODE);
 			result.setMsg(errMsg);
 			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
 			resp.getWriter().write(gson.toJson(result));
 			return null;
 		}else {
