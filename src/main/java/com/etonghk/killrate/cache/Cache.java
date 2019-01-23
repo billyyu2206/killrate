@@ -45,5 +45,6 @@ public interface Cache {
 	
 	Map<Object, Object> hgetAll(String key);
 
+	void hset(String key,Object field,Object value);
 	
 }

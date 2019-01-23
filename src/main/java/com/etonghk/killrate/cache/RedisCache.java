@@ -120,5 +120,12 @@ public class RedisCache implements Cache{
 		return redisTemplate.opsForHash().entries(key);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.etonghk.killrate.cache.Cache#hset(java.lang.String, java.lang.String, java.lang.Object)
+	 */
+	@Override
+	public void hset(String key, Object field, Object value) {
+		redisTemplate.opsForHash().put(key, field, value);
+	}
 	
 }
