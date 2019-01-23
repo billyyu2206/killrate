@@ -21,6 +21,20 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByCondition" parameterType="com.etonghk.killrate.domain.Account" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where 1 = 1 
+    <if test='account != null and account != ""'>
+		and account = #{account,jdbcType=VARCHAR}
+	</if>
+	<if test='name != null and name != ""'>
+		and name = #{name,jdbcType=VARCHAR}
+	</if>
+    	
+  </select>
+  
   <insert id="insert" parameterType="com.etonghk.killrate.domain.Account">
     insert into account (id, account, password, 
       name, create_time, last_login_time, 

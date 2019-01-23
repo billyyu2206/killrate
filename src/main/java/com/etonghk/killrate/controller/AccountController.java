@@ -5,15 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.domain.Account;
 import com.etonghk.killrate.service.account.AccountService;
 
 @Controller
-@RequestMapping("account")
+@RequestMapping("/account")
 public class AccountController {
 
 	@Autowired
@@ -25,12 +26,14 @@ public class AccountController {
 		return "/account/createAcc";
 	}
 	
-	@PostMapping("create")
-	public String createAccount(Account account) {
-		
+	@ResponseBody
+	@RequestMapping("/create")
+	public ApiResult<Void> createAccount(Account account) {
+		ApiResult<Void> result = new ApiResult<Void>();
 		accountService.creat(account);
-		
-		return "redirect:/";
+		result.setCode(ApiResult.SUCCESS_CODE);
+		result.setMsg("帐号建立成功");
+		return result;
 	}
 	
 	@RequestMapping("detail/{accid}")
@@ -50,15 +53,10 @@ public class AccountController {
 		return "redirect:detail?"+accId;
 	}
 	
-	@RequestMapping("list")
-	public String accountList(Model model) {
-		List<Account> list =  accountService.getAccList();
+	@RequestMapping("/index")
+	public String index(Account account, Model model) {
+		List<Account> list =  accountService.getAccList(account);
 		model.addAttribute("accList", list);
-		return "list";
-	}
-	
-	@RequestMapping("index")
-	public String index() {
-		return "account/index";
+		return "/account/index";
 	}
 }
