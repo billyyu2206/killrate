@@ -20,6 +20,7 @@ import com.etonghk.killrate.dao.KillrateAwardDao;
 import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
+import com.etonghk.killrate.exception.ServiceException;
 import com.etonghk.killrate.utils.CommonUtils;
 import com.google.gson.reflect.TypeToken;
 
@@ -43,7 +44,6 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	public Page<KillrateAward> selectForSettingPage(KillrateAward cond,Page<KillrateAward> page) {
 		List<KillrateAward> result = killrateAwardDao.selectForSettingPage(cond,page);
 		page.setRecords(result);
-		
 		return page;
 	}
 	
@@ -54,12 +54,13 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 */
 	@Override
 	public int generateKillrateAward(KillrateSetting setting) {
-		//FIXME issue 跟 startTime endTime判斷
-		
+		if(StringUtils.isNotBlank(setting.getIssue()) && setting.getStartTime() != null && setting.getEndTime() != null) {
+			throw new ServiceException("杀率区间段与杀率奖期不可同时输入");
+		}
 		setting.setOperateTime(new Date());
 		List<GameIssue> matchGameIssues = gameIssueDao.selectForGenerateKillrate(setting);
 		if(matchGameIssues == null || matchGameIssues.size() == 0){
-			return 0;
+			throw new ServiceException("找不到符合的奖期资料!");
 		}
 		
 		List<KillrateAward> existKillrateAward = killrateAwardDao.selectForGenerateKillrate(setting);
@@ -94,7 +95,8 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 */
 	@Override
 	public int updateKillrateAward(KillrateAward record) {
-		return killrateAwardDao.updateByPK(record);
+		int result = killrateAwardDao.updateByPK(record, new Date());
+		return result;
 	}
 
 	/**
@@ -103,7 +105,8 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 */
 	@Override
 	public int deleteKillrateAward(KillrateAward record) {
-		return killrateAwardDao.deleteByPK(record);
+		int result = killrateAwardDao.deleteByPK(record, new Date());
+		return result;
 	}
 
 	@Override

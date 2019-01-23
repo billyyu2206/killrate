@@ -39,7 +39,7 @@ public interface AwardNumber {
 	 * 
 	 *	沒選號碼的符號
 	 */
-	String BetNoPickItem="[-]";
+	String BetNoPickItem="-";
 	
 	/**
 	 * 

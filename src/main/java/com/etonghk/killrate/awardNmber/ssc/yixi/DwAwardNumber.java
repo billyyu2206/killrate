@@ -12,7 +12,7 @@ import com.etonghk.killrate.awardNmber.AwardNumber;
 import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
 import com.jack.entity.GameLotteryOrder;
 /**
- * 定位膽
+ * 	定位膽 dw
  * @author Peter
  *
  */

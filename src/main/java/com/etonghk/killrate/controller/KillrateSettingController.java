@@ -58,9 +58,16 @@ public class KillrateSettingController {
 	@RequestMapping("/update")
 	public ApiResult<Void> update(KillrateAward record, Model model) {
 		ApiResult<Void> result = new ApiResult<Void>();
-		killrateAwardService.updateKillrateAward(record);
-		result.setCode(ApiResult.SUCCESS_CODE);
-		result.setMsg("编辑成功");
+		String code = ApiResult.SUCCESS_CODE;
+		String msg = "修改成功";
+		int count = killrateAwardService.deleteKillrateAward(record);
+		if(count <= 0) {
+			code = "201";
+			msg = "修改失败，奖期时间已结束";
+		}
+		
+		result.setCode(code);
+		result.setMsg(msg);
 		return result;
 	}
 	
@@ -68,9 +75,16 @@ public class KillrateSettingController {
 	@RequestMapping("/delete")
 	public ApiResult<Void> delete(KillrateAward record, Model model) {
 		ApiResult<Void> result = new ApiResult<Void>();
-		killrateAwardService.deleteKillrateAward(record);
-		result.setCode(ApiResult.SUCCESS_CODE);
-		result.setMsg("删除成功");
+		String code = ApiResult.SUCCESS_CODE;
+		String msg = "删除成功";
+		int count = killrateAwardService.deleteKillrateAward(record);
+		if(count <= 0) {
+			code = "201";
+			msg = "删除失败，奖期时间已结束";
+		}
+		
+		result.setCode(code);
+		result.setMsg(msg);
 		return result;
 	}
 }
