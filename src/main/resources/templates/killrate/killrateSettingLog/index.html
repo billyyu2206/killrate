@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="/layout">
+  <head layout:fragment="contentHead">
+    <title>殺率設定纪录</title>
+    
+  </head>
+  <body>
+  	<div layout:fragment="contentCss">
+  		<link th:href="@{/css/jquery-ui.css}" rel="stylesheet"/>
+    	<link th:href="@{/css/jquery-ui-timepicker-addon.css}" rel="stylesheet"/>
+    	<link th:href="@{/css/jquery.toast.css}" rel="stylesheet"/>
+  	</div>
+    <div layout:fragment="content">
+		<div class="row">
+			<h3>杀率设定纪录</h3>
+		</div>
+		<div class="row mt-10">
+			<form id='queryForm' role="form" th:action="@{/killrateSettingLog/index}">
+				<input type="hidden" name="pageNo" id="pageNo">
+				<div class="row">
+					<div class="form-group form-inline col-md-6">
+						<div class="col-md-4 custom-label">彩種:</div>
+					  	<div class="col-md-8">
+					  		<select class="form-control">
+								<option value="">全部</option>
+								<option th:each="game : ${allGameData}" th:value="${game.key}">[[${game.value}]]</option>
+							</select>
+					  	</div>
+					</div>
+					<div class="form-group form-inline col-md-6">
+						<div class="col-md-4 custom-label">设定时间:</div>
+					  	<div class="col-md-8">
+						    <input class="form-control mr-3" type="text" th:value="${#dates.format(cond.startTime, 'yyyy-MM-dd HH:mm:ss')}" id="startTime" name='startTime' readonly>
+						    -
+						    <input class="form-control ml-3" type="text" th:value="${#dates.format(cond.endTime, 'yyyy-MM-dd HH:mm:ss')}" id="endTime" name='endTime' readonly>
+					  	</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<div class="col-md-4 custom-label">帐号:</div>
+						<div class="col-md-4">
+							<input type="text" class="form-control" name="updateUser" th:value="${cond.updateUser}">
+						</div>
+					</div>
+				
+					<div class="form-group col-md-6">
+						<div class="col-md-4 custom-label">操作类型:</div>
+						<div class="col-md-4">
+							<select class="form-control" name="operateType">
+								<option value="">全部</option>
+								<option value="0" th:selected='${cond.operateType == 0}'>生成</option>
+								<option value="1" th:selected='${cond.operateType == 1}'>修改</option>
+								<option value="2" th:selected='${cond.operateType == 2}'>刪除</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<div class="col-md-4 custom-label">排序:</div>
+						<div class="col-md-4">
+							<select class="form-control" name="sort">
+								<option value="desc" th:selected='${cond.sort == "desc"}'>降序</option>
+								<option value="asc" th:selected='${cond.sort == "asc"}'>升序</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="text-align:center">
+					<div class="btn btn-primary" onclick='doQuery();' >
+						查询
+					</div>
+				</div>
+			</form>
+		</div>
+		<div style="margin-top: 10px;">
+			<table class="table table-bordered mt-3 ">
+				<thead>
+					<tr>
+						<th width="5%">序号</th>
+						<th width="5%">彩种</th>
+						<th width="20%">设定时间</th>
+						<th width="5%">操作者</th>
+						<th width="10%">操作类型</th>
+						<th width="55%">操作内容</th>
+					</tr>
+				</thead>
+				<tbody id="sortable">
+					<tr th:if="${#lists.isEmpty(list)}" class="indexData">
+						<td colspan="6" style="text-align: center;">尚无数据</td>
+					</tr>
+					<tr th:unless="${#lists.isEmpty(list)}" class="indexData" th:each="item : ${list}" th:id="'dataTr' + ${item.id}">
+						<td>[[${item.id}]]</td>
+						<td>[[${item.gameId}]]</td>
+						<td>[[${item.updateTime}]]</td>
+						<td>[[${item.updateUser}]]</td>
+						<td>[[${item.operateType}]]</td>
+						<td>[[${item.description}]]</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<form id='pageForm' role="form" th:action="@{/killrateSettingLog/index}">
+			<input type="hidden" name="pageNo" id="pageNo">
+			<input type="hidden" name="startTime" th:value="${cond.startTime}">
+			<input type="hidden" name="endTime" th:value="${cond.endTime}">
+			<input type="hidden" name="operateType" th:value="${cond.operateType}">
+			<input type="hidden" name="updateUser" th:value="${cond.updateUser}">
+			<input type="hidden" name="sort" th:value="${cond.sort}">
+		</form>
+		<div th:include="page :: page"></div>
+	</div>
+  </body>
+  <div layout:fragment="contentJs">
+	<script th:src="@{/js/jquery-ui-1.11.0.min.js}" type="text/javascript"></script>
+	<script th:src="@{/js/jquery-ui-timepicker-addon.js}" type="text/javascript"></script>
+	<script th:src="@{/js/i18n/jquery-ui-timepicker-addon-i18n.min.js}" type="text/javascript"></script>
+	<script th:src="@{/js/jquery-ui-sliderAccess.js}" type="text/javascript"></script>
+    <script th:src="@{/js/altDialog.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.toast.js}" type="text/javascript"></script>
+    <script th:src="@{/js/myToast.js}" type="text/javascript"></script>
+  <script type="text/javascript" th:inline="javascript">
+  	function doQuery(){
+  		if(checkDate()){
+  			$("#queryForm").submit();
+  		}
+  	}
+  	
+  	function checkDate(){
+  		var isPass = true;
+  		var startTime = $('#startTime').val();
+  		var endTime = $('#endTime').val();
+  		
+  		if(startTime != "" && endTime != ""){
+  			var startTimeDate = new Date(startTime);
+  			var endTimeDate = new Date(endTime);
+  			if(startTimeDate >= endTimeDate){
+  				myToastError("开始时间必须小于结束时间");
+  				isPass = false;
+  			}
+  		}
+  		
+  		return isPass;
+  	}
+	
+  	
+	$('#startTime').datetimepicker({
+		dateFormat : "yy-mm-dd",
+		timeFormat : "HH:mm:00",
+		beforeShow: function() {
+	        setTimeout(function(){
+	            $('.ui-datepicker').css('z-index', 2000);
+	        }, 0);
+	    }
+	});
+  	$('#endTime').datetimepicker({
+		dateFormat : "yy-mm-dd",
+		timeFormat : "HH:mm:00",
+		beforeShow: function() {
+	        setTimeout(function(){
+	            $('.ui-datepicker').css('z-index', 2000);
+	        }, 0);
+	    }
+	});
+  	
+  	function pagination(page){
+  		$("#pageNo").val(page);
+  		$("#pageForm").submit();
+  	}
+  </script>
+  </div>
+</html>
