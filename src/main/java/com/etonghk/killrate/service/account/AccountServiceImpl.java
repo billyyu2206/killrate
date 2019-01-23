@@ -30,9 +30,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<Account> getAccList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Account> getAccList(Account account) {
+		return accountDao.selectByCondition(account);
 	}
 
 	@Override
