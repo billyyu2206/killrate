@@ -8,5 +8,5 @@ import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
  */
 public interface ClearKillRate {
 
-	void clear(ClearEvent event);
+	void handler(ClearEvent event);
 }

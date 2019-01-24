@@ -53,10 +53,8 @@ public class BaseClearListener {
 		}
 	}
 	
-	//@RabbitListener(queues= {RabbitMqConfig.CLEAR_RATE_QUEUE})
-	public void pushAwardNumberToRedis(String gameIssueKey) {
+	protected void pushAwardNumberToRedis(String gameIssueKey) {
 		System.out.println(123456);
-		/*
 		Map<String,BigDecimal> awardResult = awardNumber.get(gameIssueKey);
 		if(awardResult==null) {
 			return;
@@ -78,7 +76,7 @@ public class BaseClearListener {
 				}
 			};
 			cache.excutePipeline(pipelineCallback);
-		}*/
+		}
 	}
 	
 }

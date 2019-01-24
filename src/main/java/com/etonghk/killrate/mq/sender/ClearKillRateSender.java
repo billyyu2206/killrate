@@ -27,7 +27,7 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
     public void sendClearGameIssue(String gameIssueKey) {
     	logger.info("clear gameIssueKey => "+gameIssueKey);
     	
-    	rabbitTemplate.convertAndSend(RabbitMqConfig.CLEAR_RATE_EXCHANGE, gameIssueKey);
+    	rabbitTemplate.convertAndSend(RabbitMqConfig.CLEAR_RATE_EXCHANGE,"", gameIssueKey);
     }
 	
 }

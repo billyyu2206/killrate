@@ -22,11 +22,11 @@ public class T6S180ClearListener extends BaseClearListener implements ClearKillR
 
 	@Async
 	@EventListener(condition="#event.clearKillRateVo.lottery == t6s180")
-	public void clear(ClearEvent event) {
+	public void handler(ClearEvent event) {
 		resultQueue.add(event);
 		clearIssueKillRate();
 	}
-	/*
+	
 	@Bean
 	public Queue t6S180ClearQueue() {
         return new AnonymousQueue();
@@ -35,34 +35,11 @@ public class T6S180ClearListener extends BaseClearListener implements ClearKillR
 	@Bean
     public Binding bindingT6S180(FanoutExchange fanoutExchange, Queue t6S180ClearQueue) {
         return BindingBuilder.bind(t6S180ClearQueue).to(fanoutExchange);
-    }*/
+    }
 	
-	//@RabbitListener(queues= "#{t6S180ClearQueue.name}")
-	public void pushAwardNumberToRedis(String gameIssueKey) {
-		System.out.println(123456);
-		/*
-		Map<String,BigDecimal> awardResult = awardNumber.get(gameIssueKey);
-		if(awardResult==null) {
-			return;
-		}else {
-			//取出key序列化元件
-			RedisSerializer<String> redisSerializer = cache.getRedisKeySerializer();
-			//要處理的key
-			byte[] key = redisSerializer.serialize(gameIssueKey);
-			RedisCallback<Void> pipelineCallback = new RedisCallback<Void>() {
-				//每一個pipeline需要實作自己準備批量放入的方式
-				@Override
-				public Void doInRedis(RedisConnection connection) throws DataAccessException {
-					//迴圈裝入物件
-					awardResult.entrySet().forEach(entry->{
-						byte[] field = redisSerializer.serialize(entry.getKey());
-						connection.hIncrBy(key, field, entry.getValue().doubleValue());
-					});
-					return null;
-				}
-			};
-			cache.excutePipeline(pipelineCallback);
-		}*/
+	@RabbitListener(queues= "#{t6S180ClearQueue.name}")
+	public void clearResult(String gameIssueKey) {
+		pushAwardNumberToRedis(gameIssueKey);
 	}
 
 }

@@ -1,8 +1,5 @@
 package com.etonghk.killrate.mq.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -25,7 +22,7 @@ public class RabbitMqConfig {
 	
 	public static final String CLEAR_RATE_QUEUE="CLEAR_RATE_QUEUE.A";
 	
-	public static final String CLEAR_RATE_EXCHANGE="CLEAR_RATE_EXCHANGE";
+	public static final String CLEAR_RATE_EXCHANGE="CLEAR_RATE_EXCHANGE_Ami";
 	
 	@Bean(name= {KILL_RATE_BET_QUEUE})
 	public Queue killRateBetQueue() {
@@ -34,8 +31,6 @@ public class RabbitMqConfig {
 	
 	@Bean(name= {CLEAR_RATE_QUEUE})
 	public Queue clearRateQueue() {
-//		 Map<String, Object> map = new HashMap<String, Object>();
-//	     map.put("x-dead-letter-exchange", CLEAR_RATE_EXCHANGE);//设置死信交换机
 		return new Queue(CLEAR_RATE_QUEUE);
 	}
 	
