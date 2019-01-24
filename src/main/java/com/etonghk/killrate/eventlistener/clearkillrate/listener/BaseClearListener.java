@@ -46,9 +46,8 @@ public class BaseClearListener {
 					issueAward.put(number,value.add(issueAward.get(number)));
 				}
 			});
-		}else {
-			awardNumber.put(gameIssue, issueAward);
 		}
+		awardNumber.put(gameIssue, issueAward);
 	}
 	
 	protected void pushAwardNumberToRedis(String gameIssueKey) {
