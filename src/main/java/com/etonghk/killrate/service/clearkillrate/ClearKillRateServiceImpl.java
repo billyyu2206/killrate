@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.stereotype.Service;
 
 import com.etonghk.killrate.cache.Cache;
 import com.etonghk.killrate.cache.key.RedisKey;
@@ -17,6 +18,7 @@ import com.etonghk.killrate.service.killrateaward.KillrateAwardService;
  * @author Ami.Tsai
  * @date 2019年1月24日
  */
+@Service
 public class ClearKillRateServiceImpl implements ClearKillRateService{
 
 	@Autowired
