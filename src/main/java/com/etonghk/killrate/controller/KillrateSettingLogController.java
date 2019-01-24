@@ -10,7 +10,7 @@ import com.etonghk.killrate.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.request.KillrateSettingLogRequest;
 import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.KillrateSettingLog;
-import com.etonghk.killrate.service.killrateSettingLog.KillrateSettingLogService;
+import com.etonghk.killrate.service.killratesettinglog.KillrateSettingLogService;
 
 @Controller
 @RequestMapping("/killrateSettingLog")

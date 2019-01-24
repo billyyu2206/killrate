@@ -11,9 +11,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
-import com.etonghk.killrate.eventlistener.clearkillrate.vo.ClearKillRateVo;
 import com.etonghk.killrate.mq.config.KillRateBetMqConfig;
-import com.etonghk.killrate.service.orderCalculate.OrderCalculateService;
+import com.etonghk.killrate.service.ordercalculate.OrderCalculateService;
+import com.etonghk.killrate.vo.ClearKillRateVo;
 import com.jack.entity.GameLotteryOrder;
 
 /**

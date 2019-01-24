@@ -1,0 +1,84 @@
+package com.etonghk.killrate.service.clearkillrate;
+
+import java.math.BigDecimal;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.serializer.RedisSerializer;
+
+import com.etonghk.killrate.cache.Cache;
+import com.etonghk.killrate.cache.key.RedisKey;
+import com.etonghk.killrate.service.killrateaward.KillrateAwardService;
+
+/**
+ * @author Ami.Tsai
+ * @date 2019年1月24日
+ */
+public class ClearKillRateServiceImpl implements ClearKillRateService{
+
+	@Autowired
+	private KillrateAwardService killrateAwardService;
+	
+	@Autowired
+	private Cache cache;
+	
+	@Override
+	public void pushClearRateToRedis(Map<String,BigDecimal> awardResult,String lotteryIssueKey) {
+		if(awardResult==null) {
+			return;
+		}else {
+			//取出key序列化元件
+			RedisSerializer<String> redisSerializer = cache.getRedisKeySerializer();
+			//要處理的key
+			byte[] key = redisSerializer.serialize(lotteryIssueKey);
+			RedisCallback<Void> pipelineCallback = new RedisCallback<Void>() {
+				//每一個pipeline需要實作自己準備批量放入的方式
+				@Override
+				public Void doInRedis(RedisConnection connection) throws DataAccessException {
+					//迴圈裝入物件
+					awardResult.entrySet().forEach(entry->{
+						byte[] field = redisSerializer.serialize(entry.getKey());
+						connection.hIncrBy(key, field, entry.getValue().doubleValue());
+					});
+					return null;
+				}
+			};
+			cache.excutePipeline(pipelineCallback);
+		}
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see com.etonghk.killrate.service.clearkillrate.ClearKillRateService#doClearRateFinishMark(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void doClearRateFinishMark(String lottery, String issue) {
+		String clearFinishKey = RedisKey.getLotteryIssueClearFinishKey(lottery, issue);
+		//在redis註冊執行完成數量
+		cache.incr(clearFinishKey);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.etonghk.killrate.service.clearkillrate.ClearKillRateService#clearFinishCalKillNumber(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void clearFinishCalKillNumber(String lottery, String issue) {
+		String clearFinishNumKey = RedisKey.getLotteryIssueClearFinishKey(lottery, issue);
+		String serverCountKey = RedisKey.getServerCount();
+		Integer serverCount = cache.getObj(serverCountKey,Integer.class);
+		Integer lotteryIssueClearCount = cache.getObj(clearFinishNumKey,Integer.class);
+		if(lotteryIssueClearCount>=serverCount) {
+			String lockKey = RedisKey.getLotteryIssueLockKey(lottery, issue);
+			Boolean isLock= cache.setLock(lockKey, "0");
+			//因為殺率是多台計算,設計分布式鎖,統一由一台進行開獎
+			if(isLock) {
+				killrateAwardService.calAwardNumber(lottery, issue, false);
+			}
+			cache.del(lockKey);
+		}
+	}
+}

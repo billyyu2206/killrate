@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.etonghk.killrate.awardNmber.config.SSCConfig;
+import com.etonghk.killrate.awardnmber.config.SSCConfig;
 
 public class AwardNumberGenerateUtils {
 	public static void betItemPermutation(String[][] arr, int pos, String prefix, List<String> resultList) {

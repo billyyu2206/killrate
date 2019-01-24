@@ -9,14 +9,11 @@ import java.util.Queue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.serializer.RedisSerializer;
 
-import com.etonghk.killrate.cache.RedisCache;
+import com.etonghk.killrate.cache.key.RedisKey;
 import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
-import com.etonghk.killrate.eventlistener.clearkillrate.vo.ClearKillRateVo;
+import com.etonghk.killrate.service.clearkillrate.ClearKillRateService;
+import com.etonghk.killrate.vo.ClearKillRateVo;
 
 import groovy.transform.Synchronized;
 
@@ -28,22 +25,22 @@ public class BaseClearListener {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	private RedisCache cache;
-	
 	protected Map<String,Map<String,BigDecimal>> awardNumber = new HashMap<>();
 	
 	protected Queue<ClearEvent> resultQueue = new LinkedList<>();
 
+	@Autowired
+	private ClearKillRateService clearKillRateService;
+	
 	@Synchronized
 	protected void clearIssueKillRate() {
 		ClearEvent event = resultQueue.poll();
 		ClearKillRateVo vo = event.getClearKillRateVo();
 		logger.info("receiver==>lottery={},billno={},issue{}",vo.getLottery(),vo.getBillNo(),vo.getIssue());
 		Map<String,BigDecimal> issueAward = vo.getAwardNumber();
-		String gameIssue = vo.getLottery()+":"+vo.getIssue();
-		if(awardNumber.get(gameIssue)!=null) {
-			Map<String,BigDecimal> issueResult = awardNumber.get(gameIssue);
+		String lotteryIssueKey = RedisKey.getLotteryIssueKey(vo.getLottery(), vo.getIssue());
+		if(awardNumber.get(lotteryIssueKey)!=null) {
+			Map<String,BigDecimal> issueResult = awardNumber.get(lotteryIssueKey);
 			issueResult.entrySet().forEach(entry->{
 				String number = entry.getKey();
 				BigDecimal value = entry.getValue();
@@ -52,35 +49,22 @@ public class BaseClearListener {
 				}
 			});
 		}
-		awardNumber.put(gameIssue, issueAward);
+		awardNumber.put(lotteryIssueKey, issueAward);
 	}
 	
-	protected void pushAwardNumberToRedis(String gameIssueKey) {
-		System.out.println(123456);
-		Map<String,BigDecimal> awardResult = awardNumber.get(gameIssueKey);
-		if(awardResult==null) {
-			return;
-		}else {
-			//取出key序列化元件
-			RedisSerializer<String> redisSerializer = cache.getRedisKeySerializer();
-			//要處理的key
-			byte[] key = redisSerializer.serialize(gameIssueKey);
-			RedisCallback<Void> pipelineCallback = new RedisCallback<Void>() {
-				//每一個pipeline需要實作自己準備批量放入的方式
-				@Override
-				public Void doInRedis(RedisConnection connection) throws DataAccessException {
-					//迴圈裝入物件
-					awardResult.entrySet().forEach(entry->{
-						byte[] field = redisSerializer.serialize(entry.getKey());
-						connection.hIncrBy(key, field, entry.getValue().doubleValue());
-					});
-					return null;
-				}
-			};
-			cache.excutePipeline(pipelineCallback);
-		}
+	protected void pushAwardNumberToRedis(ClearKillRateVo vo) {
+		String lottery = vo.getLottery();
+		String issue = vo.getIssue();
+		String lotteryIssueKey = RedisKey.getLotteryIssueKey(lottery, issue);
+		Map<String,BigDecimal> awardResult = awardNumber.get(lotteryIssueKey);
+		//將該獎期資料存入redis
+		clearKillRateService.pushClearRateToRedis(awardResult, lotteryIssueKey);
 		//移除資料
-		awardNumber.remove(gameIssueKey);
+		awardNumber.remove(lotteryIssueKey);
+		//進行該獎期分區完成通知
+		clearKillRateService.doClearRateFinishMark(lottery, issue);
+		//進行殺率開獎流程
+		clearKillRateService.clearFinishCalKillNumber(lottery, issue);
 	}
 	
 }

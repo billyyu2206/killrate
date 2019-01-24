@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.etonghk.killrate.vo.ClearKillRateVo;
+
 /**
  * @author Ami.Tsai
  * @date 2019年1月23日
@@ -19,7 +21,10 @@ public class ClearKillRateSenderTest {
 	
 	@Test
 	public void clearKillRate() throws InterruptedException {
-		clearKillRateSender.sendClearGameIssue("t1s30:201901191002");
+		ClearKillRateVo vo = new ClearKillRateVo();
+		vo.setIssue("201901191002");
+		vo.setLottery("t1s30");
+		clearKillRateSender.sendClearLotteryIssue(vo);
 	}
 	
 }
