@@ -45,7 +45,7 @@ public class GameIssueServiceImpl implements GameIssueService{
 		
 		for (GamePeriod gamePeriod : gamelist) {
 		
-			String gameId = gamePeriod.getGameId();
+			String lottery = gamePeriod.getLottery();
 			int totoalPeriod = gamePeriod.getTotalPeriod();
 			int openSeconds =  gamePeriod.getOpenSeconds();
 			int periodSeconds = gamePeriod.getPeriodSeconds();
@@ -58,8 +58,8 @@ public class GameIssueServiceImpl implements GameIssueService{
 			
 			for(int i = 1; i <= totoalPeriod; i++) {
 				issue = new GameIssue();
-				issue.setPlayId(KillrateConstant.allGameTypeMap.get(gameId));
-				issue.setGameId(gameId);
+				issue.setPlayId(KillrateConstant.allGameTypeMap.get(lottery));
+				issue.setLottery(lottery);
 				issue.setIssueDate(calendar.getTime());
 				issue.setIssue(StringUtils.leftPad(i+"", 4, "0"));
 				issue.setFullIssue("" + calendar.get(Calendar.YEAR) + "0" + (calendar.get(Calendar.MONTH) + 1) + calendar.get(Calendar.DAY_OF_MONTH)+"-"+ issue.getIssue());
@@ -69,7 +69,7 @@ public class GameIssueServiceImpl implements GameIssueService{
 				issue.setIssueOpenTime(DateUtils.addSeconds(calendar.getTime(), openSeconds));
 				gameIssueList.add(issue);
 			}
-			gameIssueDao.batchInsert(gameIssueList, gamePeriod.getGameId());
+			gameIssueDao.batchInsert(gameIssueList, gamePeriod.getLottery());
 		}
 		
 	}

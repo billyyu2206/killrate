@@ -6,7 +6,7 @@ import java.util.Date;
 public class KillrateAward {
     private Integer id;
 
-    private String gameId;
+    private String lottery;
 
     private String issue;
 
@@ -32,12 +32,12 @@ public class KillrateAward {
         this.id = id;
     }
 
-    public String getGameId() {
-        return gameId;
+    public String getLottery() {
+        return lottery;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId == null ? null : gameId.trim();
+    public void setLottery(String lottery) {
+        this.lottery = lottery == null ? null : lottery.trim();
     }
 
     public String getIssue() {

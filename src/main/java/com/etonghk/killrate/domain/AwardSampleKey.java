@@ -5,26 +5,26 @@ package com.etonghk.killrate.domain;
  * @date 2019年1月18日
  */
 public class AwardSampleKey {
-    private String gameType;
+    private String lotteryType;
 
-    private String gamePlayId;
+    private String method;
 
     private Integer type;
 
-    public String getGameType() {
-        return gameType;
+    public String getLotteryType() {
+        return lotteryType;
     }
 
-    public void setGameType(String gameType) {
-        this.gameType = gameType == null ? null : gameType.trim();
+    public void setLotteryType(String lotteryType) {
+        this.lotteryType = lotteryType == null ? null : lotteryType.trim();
     }
 
-    public String getGamePlayId() {
-        return gamePlayId;
+    public String getMethod() {
+        return method;
     }
 
-    public void setGamePlayId(String gamePlayId) {
-        this.gamePlayId = gamePlayId == null ? null : gamePlayId.trim();
+    public void setMethod(String method) {
+        this.method = method == null ? null : method.trim();
     }
 
     public Integer getType() {

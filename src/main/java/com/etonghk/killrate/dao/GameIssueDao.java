@@ -10,7 +10,7 @@ import com.etonghk.killrate.domain.GameIssue;
 public interface GameIssueDao {
     int insert(GameIssue record);
 
-    int batchInsert(@Param("dataList") List<GameIssue> dataList, @Param("gameId") String gameId);
+    int batchInsert(@Param("dataList") List<GameIssue> dataList, @Param("lottery") String lottery);
     
     GameIssue selectByPrimaryKey(Integer id);
     

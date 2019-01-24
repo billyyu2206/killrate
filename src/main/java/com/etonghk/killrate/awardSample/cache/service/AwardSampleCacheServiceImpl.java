@@ -29,7 +29,7 @@ public class AwardSampleCacheServiceImpl implements AwardSampleCacheService{
 		List<AwardSample> datas = awardSampleDao.selectAll();
 		Map<String, AwardSample> result = new HashMap<String, AwardSample>();
 		for(AwardSample data : datas) {
-			String key = data.getGameType() + ":" + data.getGamePlayId() + ":" + data.getType();
+			String key = data.getLotteryType() + ":" + data.getMethod() + ":" + data.getType();
 			result.put(key, data);
 		}
 		return result;

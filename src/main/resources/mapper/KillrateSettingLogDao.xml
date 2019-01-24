@@ -3,14 +3,14 @@
 <mapper namespace="com.etonghk.killrate.dao.KillrateSettingLogDao">
   <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.KillrateSettingLog">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+    <result column="lottery" jdbcType="VARCHAR" property="lottery" />
     <result column="operate_type" jdbcType="INTEGER" property="operateType" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, game_id, operate_type, description, update_user, update_time
+    id, lottery, operate_type, description, update_user, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -19,10 +19,10 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <insert id="insert" parameterType="com.etonghk.killrate.domain.KillrateSettingLog">
-    insert into killrate_setting_log (id, game_id, operate_type, 
+    insert into killrate_setting_log (id, lottery, operate_type, 
       description, update_user, update_time
       )
-    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{operateType,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{lottery,jdbcType=VARCHAR}, #{operateType,jdbcType=INTEGER}, 
       #{description,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -32,8 +32,8 @@
     <include refid="Base_Column_List" />
     from killrate_setting_log
     where 1 = 1
-    <if test='cond.gameId != null'>
-    	and game_id = #{cond.gameId,jdbcType=VARCHAR}
+    <if test='cond.lottery != null'>
+    	and lottery = #{cond.lottery,jdbcType=VARCHAR}
     </if>
     <if test='cond.operateType != null'>
     	and operate_type = #{cond.operateType,jdbcType=INTEGER}

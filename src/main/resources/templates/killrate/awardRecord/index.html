@@ -16,8 +16,8 @@
 				<form id="search" th:object="${killRateReq}" th:action="@{/killrate/awardRecord/search}">
 					<div class="form-row col-auto form-inline">
 						<div class="form-group col-sm-3 my-1">
-						  <label for="gameId">彩种</label>
-						  <select th:field="*{gameId}" id="gameId" class="form-control">
+						  <label for="lottery">彩种</label>
+						  <select th:field="*{lottery}" id="lottery" class="form-control">
 						      <option th:each="game:${gameList}" th:value="${game}" th:text="${game}"></option>
 						  </select>
 						</div>

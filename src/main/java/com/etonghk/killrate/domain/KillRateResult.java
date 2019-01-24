@@ -13,7 +13,7 @@ public class KillRateResult extends HashMap<String,BigDecimal>{
 
 	private String issueCode;
 	
-	private String gameId;
+	private String lottery;
 
 	public String getIssueCode() {
 		return issueCode;
@@ -23,12 +23,12 @@ public class KillRateResult extends HashMap<String,BigDecimal>{
 		this.issueCode = issueCode;
 	}
 
-	public String getGameId() {
-		return gameId;
+	public String getLottery() {
+		return lottery;
 	}
 
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
+	public void setLottery(String lottery) {
+		this.lottery = lottery;
 	}
 	
 }

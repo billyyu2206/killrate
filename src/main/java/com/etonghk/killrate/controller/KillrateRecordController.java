@@ -48,7 +48,7 @@ public class KillrateRecordController {
 		Page<KillrateAward> page = new Page<KillrateAward>();
 		page.setPageNo(pageNo);
 		page.setPageSize(100);
-		page= killrateAwardService.selectForRecord(killRateReq.getGameId(), killRateReq.getIssueDate(), killRateReq.getIsKillRate(), page);
+		page= killrateAwardService.selectForRecord(killRateReq.getLottery(), killRateReq.getIssueDate(), killRateReq.getIsKillRate(), page);
 		
 		model.addAttribute("gameList",gameList);
 		model.addAttribute("killRate",killRateReq);

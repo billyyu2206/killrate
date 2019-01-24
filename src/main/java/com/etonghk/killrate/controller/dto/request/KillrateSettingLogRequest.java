@@ -7,17 +7,17 @@ import java.util.Date;
  * @date 2019年1月23日
  */
 public class KillrateSettingLogRequest {
-	private String gameId;
+	private String lottery;
     private Integer operateType;
     private String updateUser;
     private Date startTime;
     private Date endTime;
     private String sort = "desc";
-	public String getGameId() {
-		return gameId;
+	public String getLottery() {
+		return lottery;
 	}
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
+	public void setLottery(String lottery) {
+		this.lottery = lottery;
 	}
 	public Integer getOperateType() {
 		return operateType;

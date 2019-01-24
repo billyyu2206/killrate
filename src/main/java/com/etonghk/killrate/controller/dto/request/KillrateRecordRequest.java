@@ -16,7 +16,7 @@ public class KillrateRecordRequest {
 	@DateTimeFormat (pattern="YYYY-MM-dd")
 	private Date issueDate;
 	
-	private String gameId;
+	private String lottery;
 	
 	private Boolean isKillRate;
 
@@ -28,12 +28,12 @@ public class KillrateRecordRequest {
 		this.issueDate = issueDate;
 	}
 
-	public String getGameId() {
-		return gameId;
+	public String getLottery() {
+		return lottery;
 	}
 
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
+	public void setLottery(String lottery) {
+		this.lottery = lottery;
 	}
 
 	public Boolean getIsKillRate() {

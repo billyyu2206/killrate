@@ -16,7 +16,7 @@ public class GamePeriod {
 	/**
 	 * 	遊戲id
 	 */
-	private String gameId;
+	private String lottery;
 
 	/**
 	 * 	開始時間
@@ -31,7 +31,7 @@ public class GamePeriod {
 	/**
 	 * 	遊戲名稱
 	 */
-	private String gameName;
+	private String lotteryName;
 	
 	/**
 	 * 	總期數
@@ -57,12 +57,12 @@ public class GamePeriod {
 		this.id = id;
 	}
 
-	public String getGameId() {
-		return gameId;
+	public String getLottery() {
+		return lottery;
 	}
 
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
+	public void setLottery(String lottery) {
+		this.lottery = lottery;
 	}
 
 	public String getStartTime() {
@@ -81,12 +81,12 @@ public class GamePeriod {
 		this.periodSeconds = periodSeconds;
 	}
 
-	public String getGameName() {
-		return gameName;
+	public String getLotteryName() {
+		return lotteryName;
 	}
 
-	public void setGameName(String gameName) {
-		this.gameName = gameName;
+	public void setLotteryName(String lotteryName) {
+		this.lotteryName = lotteryName;
 	}
 
 	public Boolean getStatus() {

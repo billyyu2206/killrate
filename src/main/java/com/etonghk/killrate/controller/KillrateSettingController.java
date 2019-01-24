@@ -28,11 +28,11 @@ public class KillrateSettingController {
 	@Autowired
 	private KillrateAwardService killrateAwardService;
 	
-	@RequestMapping("/index/{gameId}")
-	public String index(@PathVariable String gameId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+	@RequestMapping("/index/{lottery}")
+	public String index(@PathVariable String lottery, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
 			Model model) {
 		KillrateAward cond = new KillrateAward();
-		cond.setGameId(gameId);
+		cond.setLottery(lottery);
 		cond.setIssueEndTime(new Date());
 		
 		Page<KillrateAward> page=new Page<KillrateAward>();
@@ -42,7 +42,7 @@ public class KillrateSettingController {
 		
 		
 		model.addAttribute("list", page.getRecords());
-		model.addAttribute("gameId", gameId);
+		model.addAttribute("lottery", lottery);
 		model.addAttribute("allGameData", KillrateConstant.allGameMap);
 		model.addAttribute("page", page);
 		return "/killrate/killrateSetting/index";

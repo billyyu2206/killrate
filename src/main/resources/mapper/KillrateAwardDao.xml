@@ -4,7 +4,7 @@
 	<resultMap id="BaseResultMap"
 		type="com.etonghk.killrate.domain.KillrateAward">
 		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="game_id" jdbcType="VARCHAR" property="gameId" />
+		<result column="lottery" jdbcType="VARCHAR" property="lottery" />
 		<result column="issue" jdbcType="VARCHAR" property="issue" />
 		<result column="award_number" jdbcType="VARCHAR" property="awardNumber" />
 		<result column="award_time" jdbcType="TIMESTAMP" property="awardTime" />
@@ -16,7 +16,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		id, game_id, issue, award_number, award_time, issue_end_time, is_push, killrate, award_money, bet_money
+		id, lottery, issue, award_number, award_time, issue_end_time, is_push, killrate, award_money, bet_money
 	</sql>
 
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,7 +30,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from killrate_award
-		where game_id = #{cond.gameId,jdbcType=INTEGER}
+		where lottery = #{cond.lottery,jdbcType=INTEGER}
 		<![CDATA[ 
 		and issue_end_time > #{cond.issueEndTime,jdbcType=TIMESTAMP}
 		]]>
@@ -38,9 +38,9 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.etonghk.killrate.domain.KillrateAward">
-		insert into killrate_award (id, game_id, issue,
+		insert into killrate_award (id, lottery, issue,
 		award_number, award_time, issue_end_time, is_push, killrate, award_money, bet_money)
-		values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR},
+		values (#{id,jdbcType=INTEGER}, #{lottery,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR},
 		#{awardNumber,jdbcType=VARCHAR}, #{awardTime,jdbcType=TIMESTAMP},
 		#{issueEndTime,jdbcType=TIMESTAMP}, #{isPush,jdbcType=INTEGER}, #{killrate,jdbcType=INTEGER}
 		, #{award_money}, #{bet_money}
@@ -48,12 +48,12 @@
 	</insert>
 	
 	<insert id="batchInsert" parameterType="java.util.List">
-		insert into killrate_award (id, game_id, issue,
+		insert into killrate_award (id, lottery, issue,
 		award_number, award_time, issue_end_time, is_push, killrate)
 		values 
 		<foreach collection="dataList" item="record" index="index"
 			separator=",">
-		(#{record.id,jdbcType=INTEGER}, #{record.gameId,jdbcType=VARCHAR}, #{record.issue,jdbcType=VARCHAR},
+		(#{record.id,jdbcType=INTEGER}, #{record.lottery,jdbcType=VARCHAR}, #{record.issue,jdbcType=VARCHAR},
 		#{record.awardNumber,jdbcType=VARCHAR}, #{record.awardTime,jdbcType=TIMESTAMP},
 		#{record.issueEndTime,jdbcType=TIMESTAMP}, #{record.isPush,jdbcType=INTEGER}, #{record.killrate,jdbcType=INTEGER}
 		)
@@ -64,7 +64,7 @@
     	select 
     	<include refid="Base_Column_List" />
 	    from killrate_award
-	    where game_id = #{gameId,jdbcType=VARCHAR}
+	    where lottery = #{lottery,jdbcType=VARCHAR}
 	    <![CDATA[ 
 	    and issue_end_time > #{operateTime,jdbcType=TIMESTAMP} 
 	    ]]>
@@ -82,7 +82,7 @@
 	  
  	<delete id="deleteForGenerateKillrate" parameterType="com.etonghk.killrate.controller.dto.request.KillrateSetting">
     	delete from killrate_award 
-	    where game_id = #{gameId,jdbcType=VARCHAR}
+	    where lottery = #{lottery,jdbcType=VARCHAR}
 	    <![CDATA[ 
 	    and issue_end_time > #{operateTime,jdbcType=TIMESTAMP} 
 	    ]]>
@@ -114,9 +114,9 @@
 	</delete>
 	
 	<select id="selectForRecord" resultMap="BaseResultMap">
-		select a.full_issue as issue , b.game_id, b.is_push, b.award_number,b.award_money,b.bet_money,b.killrate from game_issue_${gameId} a
-		left join killrate_award b on a.game_id = b.game_id and a.full_issue = b.issue
-		where a.game_id = #{gameId}
+		select a.full_issue as issue , b.lottery, b.is_push, b.award_number,b.award_money,b.bet_money,b.killrate from game_issue_${lottery} a
+		left join killrate_award b on a.lottery = b.lottery and a.full_issue = b.issue
+		where a.lottery = #{lottery}
 		and a.issue_date = #{issueDate,jdbcType=DATE}
 		<if test='isPush != null and isPush'>
 		and b.is_push = 1
@@ -128,7 +128,7 @@
 		select 
 		<include refid="Base_Column_List" />
 		from killrate_award
-	    where game_id = #{gameId,jdbcType=VARCHAR}
+	    where lottery = #{lottery,jdbcType=VARCHAR}
 		and issue = #{issue,jdbcType=VARCHAR}
 	</select>
 	

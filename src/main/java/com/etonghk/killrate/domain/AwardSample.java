@@ -5,7 +5,7 @@ package com.etonghk.killrate.domain;
  * @date 2019年1月18日
  */
 public class AwardSample extends AwardSampleKey {
-    private String gamePlayName;
+    private String methodName;
 
     private String betNumber;
 
@@ -13,12 +13,12 @@ public class AwardSample extends AwardSampleKey {
 
     private String remarks;
 
-    public String getGamePlayName() {
-        return gamePlayName;
+    public String getMethodName() {
+        return methodName;
     }
 
-    public void setGamePlayName(String gamePlayName) {
-        this.gamePlayName = gamePlayName == null ? null : gamePlayName.trim();
+    public void setMethodName(String methodName) {
+        this.methodName = methodName == null ? null : methodName.trim();
     }
 
     public String getBetNumber() {

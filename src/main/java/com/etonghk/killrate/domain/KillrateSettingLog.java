@@ -5,7 +5,7 @@ import java.util.Date;
 public class KillrateSettingLog {
     private Integer id;
 
-    private String gameId;
+    private String lottery;
 
     private Integer operateType;
 
@@ -23,12 +23,12 @@ public class KillrateSettingLog {
         this.id = id;
     }
 
-    public String getGameId() {
-        return gameId;
+    public String getLottery() {
+        return lottery;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId == null ? null : gameId.trim();
+    public void setLottery(String lottery) {
+        this.lottery = lottery == null ? null : lottery.trim();
     }
 
     public Integer getOperateType() {

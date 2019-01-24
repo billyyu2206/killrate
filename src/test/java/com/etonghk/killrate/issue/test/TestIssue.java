@@ -29,7 +29,7 @@ public class TestIssue {
 	
 //	@Test
 	public void testInsertIssue() {
-		String gameId = "tls90";
+		String lottery = "tls90";
 		Calendar c = Calendar.getInstance();
 		
 		c.set(2019, 0, 23, 0, 0, 0);
@@ -42,7 +42,7 @@ public class TestIssue {
 		for(int i = 1; i <= 960; i++) {
 			issue = new GameIssue();
 			issue.setPlayId("ssc");
-			issue.setGameId(gameId);
+			issue.setLottery(lottery);
 			issue.setIssueDate(dateStart);
 			issue.setIssue(StringUtils.leftPad(i+"", 3, "0"));
 			issue.setFullIssue("" + c.get(Calendar.YEAR) + "0" + (c.get(Calendar.MONTH) + 1) + c.get(Calendar.DAY_OF_MONTH) + issue.getIssue());
@@ -53,7 +53,7 @@ public class TestIssue {
 			data.add(issue);
 		}
 		System.out.println(data);
-		gameIssueDao.batchInsert(data, gameId);
+		gameIssueDao.batchInsert(data, lottery);
 		System.out.println("test end");
 	}
 	

@@ -44,7 +44,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	private RedisCache redisCache;
 	/**
 	 * 	取得殺率設定獎期
-	 * 	@param KillrateAward.gameId
+	 * 	@param KillrateAward.lottery
 	 * 	@param KillrateAward.issueEndDate
 	 */
 	@Override
@@ -56,7 +56,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	
 	/**
 	 * 	生成殺率設定獎期
-	 * 	@param KillrateSetting.gameId
+	 * 	@param KillrateSetting.lottery
 	 * 	@param KillrateSetting.issueEndDate
 	 */
 	@Override
@@ -78,7 +78,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		for(GameIssue issueData : matchGameIssues) {
 			insertData = new KillrateAward();
 			insertData.setAwardNumber("");
-			insertData.setGameId(setting.getGameId());
+			insertData.setLottery(setting.getLottery());
 			insertData.setIssue(issueData.getFullIssue());
 			insertData.setIssueEndTime(issueData.getIssueEndTime());
 			insertData.setKillrate(setting.getKillrate());
@@ -94,7 +94,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		}
 		
 		KillrateSettingLog settingLog = new KillrateSettingLog();
-		settingLog.setGameId(setting.getGameId());
+		settingLog.setLottery(setting.getLottery());
 		settingLog.setOperateType(0);
 		settingLog.setUpdateTime(setting.getOperateTime());
 		settingLog.setUpdateUser(account.getAccount());
@@ -115,7 +115,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		int result = killrateAwardDao.updateByPK(record, operateTime);
 		if(result > 0) {
 			KillrateSettingLog settingLog = new KillrateSettingLog();
-			settingLog.setGameId(dataForLog.getGameId());
+			settingLog.setLottery(dataForLog.getLottery());
 			settingLog.setOperateType(1);
 			settingLog.setUpdateTime(operateTime);
 			settingLog.setUpdateUser(account.getAccount());
@@ -139,7 +139,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		
 		if(result > 0) {
 			KillrateSettingLog settingLog = new KillrateSettingLog();
-			settingLog.setGameId(dataForLog.getGameId());
+			settingLog.setLottery(dataForLog.getLottery());
 			settingLog.setOperateType(2);
 			settingLog.setUpdateTime(operateTime);
 			settingLog.setUpdateUser(account.getAccount());
@@ -150,8 +150,8 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	}
 
 	@Override
-	public Page<KillrateAward> selectForRecord(String gameId, Date issueDate, Boolean isPush, Page<KillrateAward> page) {
-		List<KillrateAward> result = killrateAwardDao.selectForRecord(gameId, issueDate, isPush, page);
+	public Page<KillrateAward> selectForRecord(String lottery, Date issueDate, Boolean isPush, Page<KillrateAward> page) {
+		List<KillrateAward> result = killrateAwardDao.selectForRecord(lottery, issueDate, isPush, page);
 		page.setRecords(result);
 		
 		return page;
@@ -162,8 +162,8 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 * 	@param KillrateAward.id
 	 */
 	@Override
-	public KillrateAward calAwardNumber(String gameId, String fullIssue, Boolean isTask) {
-		KillrateAward award = killrateAwardDao.selectForCalNumber(gameId, fullIssue);
+	public KillrateAward calAwardNumber(String lottery, String fullIssue, Boolean isTask) {
+		KillrateAward award = killrateAwardDao.selectForCalNumber(lottery, fullIssue);
 		if(award == null) {
 			// 沒有設定的殺率獎期
 			return null;
@@ -176,7 +176,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 			}
 		}
 		
-		String redisKey = gameId + ":" + fullIssue;
+		String redisKey = lottery + ":" + fullIssue;
 		Map<Object, Object> redisData = redisCache.hgetAll(redisKey);
 		String tempStr = redisCache.getGson().toJson(redisData);
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();

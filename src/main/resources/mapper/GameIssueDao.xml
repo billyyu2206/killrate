@@ -3,7 +3,7 @@
 <mapper namespace="com.etonghk.killrate.dao.GameIssueDao">
   <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.GameIssue">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+    <result column="lottery" jdbcType="VARCHAR" property="lottery" />
     <result column="issue" jdbcType="VARCHAR" property="issue" />
     <result column="full_issue" jdbcType="VARCHAR" property="fullIssue" />
     <result column="issue_start_time" jdbcType="TIMESTAMP" property="issueStartTime" />
@@ -14,42 +14,42 @@
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, game_id, issue, full_issue, issue_start_time, issue_end_time, issue_open_time, issue_date, play_id
+    id, lottery, issue, full_issue, issue_start_time, issue_end_time, issue_open_time, issue_date, play_id
   </sql>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from game_issue_${gameId}
+    from game_issue_${lottery}
     where id = #{id,jdbcType=INTEGER}
   </select>
   
   <insert id="insert" parameterType="com.etonghk.killrate.domain.GameIssue">
-    insert into game_issue_${gameId} (id, game_id, issue, 
+    insert into game_issue_${lottery} (id, lottery, issue, 
       full_issue, issue_start_time, issue_end_time, issue_open_time,
       issue_date, play_id)
-    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{lottery,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
       #{fullIssue,jdbcType=VARCHAR}, #{issueStartTime,jdbcType=TIMESTAMP}, #{issueEndTime,jdbcType=TIMESTAMP}, 
       #{issueOpenTime,jdbcType=TIMESTAMP}, #{issueDate,jdbcType=DATE}, #{playId,jdbcType=VARCHAR})
   </insert>
   
   <insert id="batchInsertnsert" parameterType="com.etonghk.killrate.domain.GameIssue">
-    insert into game_issue_${gameId} (id, game_id, issue, 
+    insert into game_issue_${lottery} (id, lottery, issue, 
       full_issue, issue_start_time, issue_end_time, issue_open_time,
       issue_date, play_id)
-    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{lottery,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
       #{fullIssue,jdbcType=VARCHAR}, #{issueStartTime,jdbcType=TIMESTAMP}, #{issueEndTime,jdbcType=TIMESTAMP}, 
       #{issueOpenTime,jdbcType=TIMESTAMP}, #{issueDate,jdbcType=DATE}, #{playId,jdbcType=VARCHAR})
   </insert>
   
   <insert id="batchInsert" parameterType="java.util.List">
-		insert into game_issue_${gameId} (id, game_id, issue, 
+		insert into game_issue_${lottery} (id, lottery, issue, 
       		full_issue, issue_start_time, issue_end_time, issue_open_time,
       		issue_date, play_id)
 		values 
 		<foreach collection="dataList" item="record" index="index"
 			separator=",">
-		(#{record.id,jdbcType=INTEGER}, #{record.gameId,jdbcType=VARCHAR}, #{record.issue,jdbcType=VARCHAR}, 
+		(#{record.id,jdbcType=INTEGER}, #{record.lottery,jdbcType=VARCHAR}, #{record.issue,jdbcType=VARCHAR}, 
       	#{record.fullIssue,jdbcType=VARCHAR}, #{record.issueStartTime,jdbcType=TIMESTAMP}, #{record.issueEndTime,jdbcType=TIMESTAMP}, 
       	#{record.issueOpenTime,jdbcType=TIMESTAMP}, #{record.issueDate,jdbcType=DATE}, #{record.playId,jdbcType=VARCHAR})
 		</foreach>
@@ -58,7 +58,7 @@
   <select id="selectForGenerateKillrate" parameterType="com.etonghk.killrate.controller.dto.request.KillrateSetting" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from game_issue_${gameId}
+    from game_issue_${lottery}
     where 1 = 1
     <![CDATA[ 
 	    and issue_end_time > #{operateTime,jdbcType=TIMESTAMP} 

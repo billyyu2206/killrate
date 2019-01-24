@@ -3,7 +3,7 @@
 <mapper namespace="com.etonghk.killrate.dao.KillrateSettingDao">
   <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.KillrateSetting">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+    <result column="lottery" jdbcType="VARCHAR" property="lottery" />
     <result column="issue" jdbcType="VARCHAR" property="issue" />
     <result column="time_start" jdbcType="TIMESTAMP" property="timeStart" />
     <result column="time_end" jdbcType="TIMESTAMP" property="timeEnd" />
@@ -12,7 +12,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, game_id, issue, time_start, time_end, killrate, update_user, update_time
+    id, lottery, issue, time_start, time_end, killrate, update_user, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,10 +21,10 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <insert id="insert" parameterType="com.etonghk.killrate.domain.KillrateSetting">
-    insert into killrate_setting (id, game_id, issue, 
+    insert into killrate_setting (id, lottery, issue, 
       time_start, time_end, killrate, 
       update_user, update_time)
-    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{lottery,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
       #{timeStart,jdbcType=TIMESTAMP}, #{timeEnd,jdbcType=TIMESTAMP}, #{killrate,jdbcType=VARCHAR}, 
       #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>

@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class KillrateSetting {
 	
-	private String gameId;
+	private String lottery;
 	private String issue;
 	private Integer killrate;
 	private Date startTime;
@@ -16,11 +16,11 @@ public class KillrateSetting {
 	
 	private Date operateTime;
 	
-	public String getGameId() {
-		return gameId;
+	public String getLottery() {
+		return lottery;
 	}
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
+	public void setLottery(String lottery) {
+		this.lottery = lottery;
 	}
 	public String getIssue() {
 		return issue;

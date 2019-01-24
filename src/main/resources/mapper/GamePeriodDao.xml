@@ -3,15 +3,15 @@
 <mapper namespace="com.etonghk.killrate.dao.GamePeriodDao">
   <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.GamePeriod">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+    <result column="lottery" jdbcType="VARCHAR" property="lottery" />
     <result column="period_seconds" jdbcType="INTEGER" property="periodSeconds" />
     <result column="total_period" jdbcType="INTEGER" property="totalPeriod" />
-    <result column="game_name" jdbcType="VARCHAR" property="gameName" />
+    <result column="lottery_name" jdbcType="VARCHAR" property="lotteryName" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="open_seconds" jdbcType="INTEGER" property="openSeconds" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, game_id, period_seconds, total_period, game_name, status, open_seconds
+    id, lottery, period_seconds, total_period, lottery_name, status, open_seconds
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

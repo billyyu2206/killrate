@@ -6,7 +6,7 @@ public class AwardNumberResponse implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private String gameId;
+	private String lottery;
 	
 	private String issue;
 	
@@ -16,12 +16,12 @@ public class AwardNumberResponse implements Serializable{
 	
 	private String time;
 
-	public String getGameId() {
-		return gameId;
+	public String getLottery() {
+		return lottery;
 	}
 
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
+	public void setLottery(String lottery) {
+		this.lottery = lottery;
 	}
 
 	public String getIssue() {

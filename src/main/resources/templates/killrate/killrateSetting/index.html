@@ -16,15 +16,15 @@
 				<h3>杀率设定</h3>
 				<div>
 					<ul class="nav nav-pills">
-						<li class="" th:each="game : ${allGameData}" th:classappend="${game.key} == ${gameId} ? active : ''">
-							<a th:if="${game.key == gameId}" href="javascript:void(0);" th:text="${game.value}">時時彩</a>
-							<a th:unless="${game.key == gameId}" th:href="@{'/killrateSetting/index/' + ${game.key}}" th:text="${game.value}">時時彩</a>
+						<li class="" th:each="game : ${allGameData}" th:classappend="${game.key} == ${lottery} ? active : ''">
+							<a th:if="${game.key == lottery}" href="javascript:void(0);" th:text="${game.value}">時時彩</a>
+							<a th:unless="${game.key == lottery}" th:href="@{'/killrateSetting/index/' + ${game.key}}" th:text="${game.value}">時時彩</a>
 						</li>
 					</ul>
 					<div class="tab-content mt-3">
 						<div class="tab-pane active" id="tab1">
 							<div>
-								<form id='settingForm' role="form" th:action="@{/killrateSetting/index/__${gameId}__}">
+								<form id='settingForm' role="form" th:action="@{/killrateSetting/index/__${lottery}__}">
 									<input type="hidden" name="pageNo" id="pageNo">
 									<div class="form-group form-inline mt20">
 										<font color="red">*杀率区间段与杀率奖期请择一输入</font>
@@ -101,7 +101,7 @@
     <script th:src="@{/js/myToast.js}" type="text/javascript"></script>
   <script type="text/javascript" th:inline="javascript">
   	
-	var gameId = [[${gameId}]];
+	var lottery = [[${lottery}]];
 	var errorNumber = "杀率比例可输入的数值范围是：0到100";
 	var errorMsg = "";
 	
@@ -142,7 +142,7 @@
 		}
   		
   		var datas = $("#settingForm").serialize();
-  		datas += "&gameId=" + gameId;
+  		datas += "&lottery=" + lottery;
   		$.ajax({
 			type: "POST",
 			url: "/killrateSetting/generate",

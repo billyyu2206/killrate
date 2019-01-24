@@ -22,7 +22,7 @@ public class AwardNumberController {
 	private KillrateAwardService killrateAwardService;
 	
 	@PostMapping
-	public ApiResult<AwardNumberResponse> getAwardNumber(@RequestParam String gameId,@RequestParam String issue) {
+	public ApiResult<AwardNumberResponse> getAwardNumber(@RequestParam String lottery,@RequestParam String issue) {
 		
 		/* 檢查 awardNumber 是否有期號獎號
 		 * 沒有期號:殺率沒有開放 返回
@@ -31,7 +31,7 @@ public class AwardNumberController {
 		ApiResult<AwardNumberResponse> result = new ApiResult<AwardNumberResponse>();
 		AwardNumberResponse awardResult = new AwardNumberResponse();
 		awardResult.setAwardNumber("1,2,3,4,5");
-		awardResult.setGameId(gameId);
+		awardResult.setLottery(lottery);
 		awardResult.setIssue(issue);
 		Date date = new Date();
 		DateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");  
