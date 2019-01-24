@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.etonghk.killrate.anootations.AwardComponent;
+import com.etonghk.killrate.awardnmber.anootations.AwardComponent;
 
 /**
  * 獎號元件工廠

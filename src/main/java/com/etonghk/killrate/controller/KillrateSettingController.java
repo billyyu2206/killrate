@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.etonghk.killrate.constant.KillrateConstant;
+import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.page.Page;

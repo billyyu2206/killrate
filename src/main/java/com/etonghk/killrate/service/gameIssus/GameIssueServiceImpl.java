@@ -13,7 +13,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.etonghk.killrate.constant.KillrateConstant;
+import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.GamePeriodDao;
 import com.etonghk.killrate.domain.GameIssue;

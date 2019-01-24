@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.etonghk.killrate.anootations.AwardComponent;
+import com.etonghk.killrate.awardnmber.anootations.AwardComponent;
 import com.etonghk.killrate.awardnmber.AwardNumber;
-import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
+import com.etonghk.killrate.awardnmber.utils.AwardNumberGenerateUtils;
 import com.jack.entity.GameLotteryOrder;
 /**
  * 趣味  一帆风顺qwyffs 好事成双qwhscs 三星报喜qwsxbx 四季发财qwsjfc

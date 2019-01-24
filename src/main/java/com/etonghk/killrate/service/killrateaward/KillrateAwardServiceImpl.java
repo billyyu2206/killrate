@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.cache.key.RedisKey;
-import com.etonghk.killrate.constant.KillrateConstant;
+import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;

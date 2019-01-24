@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.etonghk.killrate.constant;
+package com.etonghk.killrate.awardnmber.constant;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
+import com.etonghk.killrate.awardnmber.utils.AwardNumberGenerateUtils;
 
 
 public class SSCConfig {

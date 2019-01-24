@@ -1,4 +1,4 @@
-package com.etonghk.killrate.awardsample.cache.service;
+package com.etonghk.killrate.service.awardsample;
 
 import java.util.HashMap;
 import java.util.List;

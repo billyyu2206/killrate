@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import com.etonghk.killrate.awardnmber.ssc.SSCAwardUtils;
 import com.etonghk.killrate.awardsample.cache.AwardSampleCache;
-import com.etonghk.killrate.constant.KillrateConstant;
+import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.domain.AwardSample;
 import com.jack.entity.GameLotteryOrder;
 import com.jack.pool.DataFactory;

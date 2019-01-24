@@ -1,4 +1,4 @@
-package com.etonghk.killrate.killerUtils;
+package com.etonghk.killrate.awardnmber.utils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;

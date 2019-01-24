@@ -17,7 +17,8 @@ public class ReflectHelper {
      * @param fieldName
      * @return
      */
-    public static Object isPage(Object obj, String fieldName) {
+    @SuppressWarnings("rawtypes")
+	public static Object isPage(Object obj, String fieldName) {
     	
 		if (obj instanceof Map) {
 			Map map = (Map)obj;

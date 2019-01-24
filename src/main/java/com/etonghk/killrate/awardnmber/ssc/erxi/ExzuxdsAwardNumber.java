@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.etonghk.killrate.anootations.AwardComponent;
+import com.etonghk.killrate.awardnmber.anootations.AwardComponent;
 import com.etonghk.killrate.awardnmber.AwardNumber;
 import com.etonghk.killrate.awardnmber.ssc.SSCAwardUtils;
-import com.etonghk.killrate.killerUtils.AwardNumberGenerateUtils;
+import com.etonghk.killrate.awardnmber.utils.AwardNumberGenerateUtils;
 import com.jack.entity.GameLotteryOrder;
 
 /**
