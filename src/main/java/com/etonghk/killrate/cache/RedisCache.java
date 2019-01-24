@@ -128,4 +128,9 @@ public class RedisCache implements Cache{
 		redisTemplate.opsForHash().put(key, field, value);
 	}
 	
+	@Override
+	public Boolean setLock(String key,Object value) {
+		return redisTemplate.opsForValue().setIfAbsent(key, value);
+	}
+	
 }

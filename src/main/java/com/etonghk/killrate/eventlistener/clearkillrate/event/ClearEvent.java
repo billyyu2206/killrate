@@ -2,7 +2,7 @@ package com.etonghk.killrate.eventlistener.clearkillrate.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.etonghk.killrate.eventlistener.clearkillrate.vo.ClearKillRateVo;
+import com.etonghk.killrate.vo.ClearKillRateVo;
 
 /**
  * @author Ami.Tsai

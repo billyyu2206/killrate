@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.response.AwardNumberResponse;
-import com.etonghk.killrate.service.killrateAward.KillrateAwardService;
+import com.etonghk.killrate.mq.sender.ClearKillRateSender;
+import com.etonghk.killrate.vo.ClearKillRateVo;
 
 @RestController
 @RequestMapping("awardNumber")
 public class AwardNumberController {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
-	private KillrateAwardService killrateAwardService;
+	private ClearKillRateSender clearKillRateSender;
 	
 	@PostMapping
 	public ApiResult<AwardNumberResponse> getAwardNumber(@RequestParam String lottery,@RequestParam String issue) {
@@ -44,11 +49,14 @@ public class AwardNumberController {
 		return result;
 	}
 	
-	@PostMapping("job")
-	public String getAwardNumberByJob(@RequestParam String gameId,@RequestParam String issue) {
-		killrateAwardService.calAwardNumber(gameId, issue, true);
+	@PostMapping("clearKillRate")
+	public String clearKillRate(@RequestParam String lottery,@RequestParam String issue) {
+		logger.info("get lottery = {} , issue ={} to open kill-rate-number",lottery,issue);
+		ClearKillRateVo vo = new ClearKillRateVo();
+		vo.setLottery(lottery);
+		vo.setIssue(issue);
+		clearKillRateSender.sendClearLotteryIssue(vo);
 		return "success";
 	}
-	
 	
 }

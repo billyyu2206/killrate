@@ -19,7 +19,7 @@ import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.Account;
 import com.etonghk.killrate.domain.KillrateAward;
-import com.etonghk.killrate.service.killrateAward.KillrateAwardService;
+import com.etonghk.killrate.service.killrateaward.KillrateAwardService;
 
 @Controller
 @RequestMapping("/killrateSetting")

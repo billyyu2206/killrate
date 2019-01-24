@@ -9,8 +9,8 @@ import java.util.Map;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.etonghk.killrate.awardNmber.AwardNumber;
-import com.etonghk.killrate.awardNmber.AwardNumberFactory;
+import com.etonghk.killrate.awardnmber.AwardNumber;
+import com.etonghk.killrate.awardnmber.AwardNumberFactory;
 import com.etonghk.killrate.mq.sender.KillRateBetSender;
 import com.jack.entity.GameLotteryOrder;
 
