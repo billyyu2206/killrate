@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -24,6 +26,8 @@ import groovy.transform.Synchronized;
  */
 public class BaseClearListener {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private RedisCache cache;
 	
@@ -35,6 +39,7 @@ public class BaseClearListener {
 	protected void clearIssueKillRate() {
 		ClearEvent event = resultQueue.poll();
 		ClearKillRateVo vo = event.getClearKillRateVo();
+		logger.info("receiver==>lottery={},billno={},issue{}",vo.getLottery(),vo.getBillNo(),vo.getIssue());
 		Map<String,BigDecimal> issueAward = vo.getAwardNumber();
 		String gameIssue = vo.getLottery()+":"+vo.getIssue();
 		if(awardNumber.get(gameIssue)!=null) {
@@ -46,9 +51,8 @@ public class BaseClearListener {
 					issueAward.put(number,value.add(issueAward.get(number)));
 				}
 			});
-		}else {
-			awardNumber.put(gameIssue, issueAward);
 		}
+		awardNumber.put(gameIssue, issueAward);
 	}
 	
 	protected void pushAwardNumberToRedis(String gameIssueKey) {
@@ -75,6 +79,8 @@ public class BaseClearListener {
 			};
 			cache.excutePipeline(pipelineCallback);
 		}
+		//移除資料
+		awardNumber.remove(gameIssueKey);
 	}
 	
 }

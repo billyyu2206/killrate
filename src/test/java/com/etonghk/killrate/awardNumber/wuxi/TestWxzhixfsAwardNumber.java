@@ -18,7 +18,7 @@ public class TestWxzhixfsAwardNumber extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
-		order.setContent("1,2,3,4,5");
+		order.setContent("01234,0123,0,0,0");
 		order.setMethod("wxzhixfs");
 		order.setLottery("t1s30");
 		order.setMultiple(1);

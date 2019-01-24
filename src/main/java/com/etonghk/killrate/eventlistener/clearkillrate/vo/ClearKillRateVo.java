@@ -15,6 +15,8 @@ public class ClearKillRateVo implements Serializable{
 	
 	private String issue;
 	
+	private String billNo;
+	
 	private Map<String,BigDecimal> awardNumber ;
 
 	public String getLottery() {
@@ -40,5 +42,14 @@ public class ClearKillRateVo implements Serializable{
 	public void setAwardNumber(Map<String, BigDecimal> awardNumber) {
 		this.awardNumber = awardNumber;
 	}
+
+	public String getBillNo() {
+		return billNo;
+	}
+
+	public void setBillNo(String billNo) {
+		this.billNo = billNo;
+	}
+	
 	
 }
