@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
 import com.etonghk.killrate.eventlistener.clearkillrate.vo.ClearKillRateVo;
-import com.etonghk.killrate.mq.config.RabbitMqConfig;
+import com.etonghk.killrate.mq.config.KillRateBetMqConfig;
 import com.etonghk.killrate.service.orderCalculate.OrderCalculateService;
 import com.jack.entity.GameLotteryOrder;
 
@@ -35,7 +35,7 @@ public class KillRateBetReceiver {
 	 * 注單計算consumer,計算完畢存在本身內存
 	 * @param order
 	 */
-	@RabbitListener(queues = RabbitMqConfig.KILL_RATE_BET_QUEUE,concurrency="10")
+	@RabbitListener(queues = KillRateBetMqConfig.KILL_RATE_BET_QUEUE,concurrency="10")
     public void receive(GameLotteryOrder order) {
 		logger.info("receiver==> " + order.toString());
 		Map<String,BigDecimal> orderResult = orderCalculateService.doCalOrder(order);
