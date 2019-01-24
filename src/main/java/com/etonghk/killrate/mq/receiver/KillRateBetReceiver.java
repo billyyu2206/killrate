@@ -37,8 +37,7 @@ public class KillRateBetReceiver {
 	 */
 	@RabbitListener(queues = KillRateBetMqConfig.KILL_RATE_BET_QUEUE,concurrency="10")
     public void receive(GameLotteryOrder order) {
-		logger.info("receiver==> " + order.toString());
-		logger.info("receiver billNo==> " + order.getBillno());
+    	logger.info("receiver==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
 		Map<String,BigDecimal> orderResult = orderCalculateService.doCalOrder(order);
 		ClearKillRateVo vo = new ClearKillRateVo();
 		vo.setAwardNumber(orderResult);

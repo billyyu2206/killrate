@@ -38,10 +38,8 @@ public class BaseClearListener {
 	@Synchronized
 	protected void clearIssueKillRate() {
 		ClearEvent event = resultQueue.poll();
-		logger.info("vo info");
-		System.out.println(event.getClearKillRateVo());
-
 		ClearKillRateVo vo = event.getClearKillRateVo();
+		logger.info("receiver==>lottery={},billno={},issue{}",vo.getLottery(),vo.getBillNo(),vo.getIssue());
 		Map<String,BigDecimal> issueAward = vo.getAwardNumber();
 		String gameIssue = vo.getLottery()+":"+vo.getIssue();
 		if(awardNumber.get(gameIssue)!=null) {
