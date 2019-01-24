@@ -38,11 +38,13 @@ public class KillRateBetReceiver {
 	@RabbitListener(queues = KillRateBetMqConfig.KILL_RATE_BET_QUEUE,concurrency="10")
     public void receive(GameLotteryOrder order) {
 		logger.info("receiver==> " + order.toString());
+		logger.info("receiver billNo==> " + order.getBillno());
 		Map<String,BigDecimal> orderResult = orderCalculateService.doCalOrder(order);
 		ClearKillRateVo vo = new ClearKillRateVo();
 		vo.setAwardNumber(orderResult);
 		vo.setIssue(order.getIssue());
 		vo.setLottery(order.getLottery());
+		vo.setBillNo(order.getBillno());
 		applicationContext.publishEvent(new ClearEvent(vo));
     }
 	
