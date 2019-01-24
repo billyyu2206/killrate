@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
+import com.etonghk.killrate.vo.ClearKillRateVo;
 
 /**
  * @author Ami.Tsai
@@ -38,7 +39,7 @@ public class T1S60ClearListener extends BaseClearListener implements ClearKillRa
     }
 	
 	@RabbitListener(queues= "#{t1S60ClearQueue.name}")
-	public void clearResult(String gameIssueKey) {
+	public void clearResult(ClearKillRateVo vo) {
 		pushAwardNumberToRedis(vo);
 	}
 }
