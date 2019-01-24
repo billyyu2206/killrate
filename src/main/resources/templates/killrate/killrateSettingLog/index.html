@@ -93,10 +93,10 @@
 					<tr th:unless="${#lists.isEmpty(list)}" class="indexData" th:each="item : ${list}" th:id="'dataTr' + ${item.id}">
 						<td>[[${item.id}]]</td>
 						<td>[[${item.gameId}]]</td>
-						<td>[[${item.updateTime}]]</td>
+						<td>[[${#dates.format(item.updateTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
 						<td>[[${item.updateUser}]]</td>
 						<td>[[${item.operateType}]]</td>
-						<td>[[${item.description}]]</td>
+						<td><div th:remove="tag" th:utext="${item.description}"></div></td>
 					</tr>
 				</tbody>
 			</table>

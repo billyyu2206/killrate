@@ -2,6 +2,7 @@ package com.etonghk.killrate.service.killrateAward;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -17,9 +18,12 @@ import com.etonghk.killrate.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;
+import com.etonghk.killrate.dao.KillrateSettingLogDao;
 import com.etonghk.killrate.dao.page.Page;
+import com.etonghk.killrate.domain.Account;
 import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
+import com.etonghk.killrate.domain.KillrateSettingLog;
 import com.etonghk.killrate.exception.ServiceException;
 import com.etonghk.killrate.utils.CommonUtils;
 import com.google.gson.reflect.TypeToken;
@@ -32,6 +36,9 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	
 	@Autowired
 	private GameIssueDao gameIssueDao;
+	
+	@Autowired
+	private KillrateSettingLogDao killrateSettingLogDao;
 	
 	@Autowired
 	private RedisCache redisCache;
@@ -53,7 +60,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 * 	@param KillrateSetting.issueEndDate
 	 */
 	@Override
-	public int generateKillrateAward(KillrateSetting setting) {
+	public int generateKillrateAward(KillrateSetting setting, Account account) {
 		if(StringUtils.isNotBlank(setting.getIssue()) && setting.getStartTime() != null && setting.getEndTime() != null) {
 			throw new ServiceException("杀率区间段与杀率奖期不可同时输入");
 		}
@@ -85,6 +92,14 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		if(insertList != null && insertList.size() > 0) {
 			killrateAwardDao.batchInsert(insertList);
 		}
+		
+		KillrateSettingLog settingLog = new KillrateSettingLog();
+		settingLog.setGameId(setting.getGameId());
+		settingLog.setOperateType(0);
+		settingLog.setUpdateTime(setting.getOperateTime());
+		settingLog.setUpdateUser(account.getAccount());
+		settingLog.setDescription(getSettingLogContent(setting, insertList));
+		killrateSettingLogDao.insert(settingLog);
 		return 0;
 	}
 
@@ -94,8 +109,20 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 * 	@param KillrateAward.killrate
 	 */
 	@Override
-	public int updateKillrateAward(KillrateAward record) {
-		int result = killrateAwardDao.updateByPK(record, new Date());
+	public int updateKillrateAward(KillrateAward record, Account account) {
+		Date operateTime = new Date();
+		KillrateAward dataForLog = killrateAwardDao.selectByPrimaryKey(record.getId());
+		int result = killrateAwardDao.updateByPK(record, operateTime);
+		if(result > 0) {
+			KillrateSettingLog settingLog = new KillrateSettingLog();
+			settingLog.setGameId(dataForLog.getGameId());
+			settingLog.setOperateType(1);
+			settingLog.setUpdateTime(operateTime);
+			settingLog.setUpdateUser(account.getAccount());
+			settingLog.setDescription("修改杀率奖期 " + dataForLog.getIssue() + "<br/>杀率比例: " + dataForLog.getKillrate() + " --> " + record.getKillrate());
+			killrateSettingLogDao.insert(settingLog);
+		}
+		
 		return result;
 	}
 
@@ -104,8 +131,21 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 * 	@param KillrateAward.id
 	 */
 	@Override
-	public int deleteKillrateAward(KillrateAward record) {
-		int result = killrateAwardDao.deleteByPK(record, new Date());
+	public int deleteKillrateAward(KillrateAward record, Account account) {
+		Date operateTime = new Date();
+		KillrateAward dataForLog = killrateAwardDao.selectByPrimaryKey(record.getId());
+		
+		int result = killrateAwardDao.deleteByPK(record, operateTime);
+		
+		if(result > 0) {
+			KillrateSettingLog settingLog = new KillrateSettingLog();
+			settingLog.setGameId(dataForLog.getGameId());
+			settingLog.setOperateType(2);
+			settingLog.setUpdateTime(operateTime);
+			settingLog.setUpdateUser(account.getAccount());
+			settingLog.setDescription("删除杀率奖期 " + dataForLog.getIssue());
+			killrateSettingLogDao.insert(settingLog);
+		}
 		return result;
 	}
 
@@ -190,4 +230,28 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		return award;
 	}
 
+	private String getSettingLogContent(KillrateSetting setting, List<KillrateAward> insertList) {
+		StringBuilder result = new StringBuilder();
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if(setting.getStartTime() != null && setting.getEndTime() != null) {
+			result.append("杀率区间段: ").append(formatter.format(setting.getStartTime())).append(" ~ ")
+				.append(formatter.format(setting.getEndTime())).append("<br/>");
+		}
+		
+		if(setting.getStartTime() != null && setting.getEndTime() != null) {
+			result.append("杀率奖期: ").append(setting.getIssue()).append("<br/>");
+		}
+		result.append("杀率比例: ").append(setting.getKillrate()).append("<br/>");
+		
+		result.append("生成結果: ").append(setting.getKillrate()).append("<br/>");
+		result.append("奖期  ");
+		if(insertList.size() == 1) {
+			result.append(insertList.get(0).getIssue());
+		}else {
+			result.append(insertList.get(0).getIssue()).append(" ~ ").append(insertList.get(insertList.size() - 1).getIssue());
+		}
+		
+		return result.toString();
+	}
 }
