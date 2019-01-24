@@ -26,6 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		allowUrls.add("/betRecord/send");
 		allowUrls.add("/awardNumber");
 		allowUrls.add("/awardNumber/job");
+		allowUrls.add("/gameIssus/job/batchInsert");
 	}
 	
 	@Override

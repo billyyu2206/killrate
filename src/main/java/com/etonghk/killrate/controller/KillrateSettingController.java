@@ -25,7 +25,7 @@ public class KillrateSettingController {
 	private KillrateAwardService killrateAwardService;
 	
 	@RequestMapping("/index/{gameId}")
-	public String index(@PathVariable String gameId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,@RequestParam(value = "pageSize", defaultValue = "100") Integer pageSize,
+	public String index(@PathVariable String gameId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
 			Model model) {
 		KillrateAward cond = new KillrateAward();
 		cond.setGameId(gameId);
@@ -33,7 +33,7 @@ public class KillrateSettingController {
 		
 		Page<KillrateAward> page=new Page<KillrateAward>();
 		page.setPage(pageNo);
-		page.setPageSize(pageSize);
+		page.setPageSize(100);
 		page = killrateAwardService.selectForSettingPage(cond,page);
 		
 		

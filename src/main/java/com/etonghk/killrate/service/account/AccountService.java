@@ -11,7 +11,7 @@ public interface AccountService {
 	
 	public void update(Account account);
 	
-	public List<Account> getAccList();
+	public List<Account> getAccList(Account account);
 	
 	public Account getAccById(Integer id);
 

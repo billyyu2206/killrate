@@ -1,5 +1,7 @@
 package com.etonghk.killrate.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.etonghk.killrate.domain.Account;
@@ -21,4 +23,6 @@ public interface AccountDao {
     Account login(String account,String password);
     
     void updateLogin(Account account);
+    
+    List<Account> selectByCondition(Account account);
 }
