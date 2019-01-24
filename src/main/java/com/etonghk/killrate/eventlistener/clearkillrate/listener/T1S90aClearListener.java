@@ -21,7 +21,7 @@ import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
 public class T1S90aClearListener extends BaseClearListener implements ClearKillRate{
 
 	@Async
-	@EventListener(condition="#event.clearKillRateVo.lottery == t1s90a")
+	@EventListener(condition="#event.clearKillRateVo.lottery == 't1s90a'")
 	public void handler(ClearEvent event) {
 		resultQueue.add(event);
 		clearIssueKillRate();

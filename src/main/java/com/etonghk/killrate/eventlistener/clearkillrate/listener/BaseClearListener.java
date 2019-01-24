@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -16,7 +15,6 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
 import com.etonghk.killrate.eventlistener.clearkillrate.vo.ClearKillRateVo;
-import com.etonghk.killrate.mq.config.RabbitMqConfig;
 
 import groovy.transform.Synchronized;
 
