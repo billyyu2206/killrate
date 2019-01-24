@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.etonghk.killrate.awardNumber.lh;
+package com.etonghk.killrate.awardNumber.sixi;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -11,18 +11,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.etonghk.killrate.awardNumber.TestAwardNumberBasic;
 
 /**
- * 	龙虎_万百 lhwg
+ * 	後四星_组选24 sixzux24h
  * @author Peter.Hong
- * @date 2019年1月22日
+ * @date 2019年1月21日
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestLhwgAwardNumber extends TestAwardNumberBasic{
+public class Sixzux24hAwardNumberTest extends TestAwardNumberBasic{
 
 	@Before
 	public void beforeTest() {
-		order.setContent("龙|虎|和");
-		order.setMethod("lhwb");
+		order.setContent("0,1,2,3");
+		order.setMethod("sixzux24h");
 		order.setLottery("t1s30");
 		order.setMultiple(100);
 		order.setMoney(1);
