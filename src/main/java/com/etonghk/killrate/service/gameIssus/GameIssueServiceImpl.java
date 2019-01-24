@@ -61,8 +61,8 @@ public class GameIssueServiceImpl implements GameIssueService{
 				issue.setPlayId(KillrateConstant.allGameTypeMap.get(gameId));
 				issue.setGameId(gameId);
 				issue.setIssueDate(calendar.getTime());
-				issue.setIssue(StringUtils.leftPad(i+"", 3, "0"));
-				issue.setFullIssue("" + calendar.get(Calendar.YEAR) + "0" + (calendar.get(Calendar.MONTH) + 1) + calendar.get(Calendar.DAY_OF_MONTH) + issue.getIssue());
+				issue.setIssue(StringUtils.leftPad(i+"", 4, "0"));
+				issue.setFullIssue("" + calendar.get(Calendar.YEAR) + "0" + (calendar.get(Calendar.MONTH) + 1) + calendar.get(Calendar.DAY_OF_MONTH)+"-"+ issue.getIssue());
 				issue.setIssueStartTime(calendar.getTime());
 				calendar.add(Calendar.SECOND, periodSeconds);
 				issue.setIssueEndTime(calendar.getTime());
