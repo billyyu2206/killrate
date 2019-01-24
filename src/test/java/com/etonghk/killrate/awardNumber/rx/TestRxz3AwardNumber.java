@@ -23,7 +23,7 @@ public class TestRxz3AwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("[√,-,√,-,√]0,3");
 		order.setMethod("rx3z3");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(100);
 		order.setMoney(1);
 		order.setModel("yuan");

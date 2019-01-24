@@ -23,7 +23,7 @@ public class TestLhsgAwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("龙|虎|和");
 		order.setMethod("lhsg");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(100);
 		order.setMoney(1);
 		order.setModel("yuan");

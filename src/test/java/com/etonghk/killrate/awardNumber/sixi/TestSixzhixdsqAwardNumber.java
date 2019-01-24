@@ -23,7 +23,7 @@ public class TestSixzhixdsqAwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("0000");
 		order.setMethod("sixzhixdsq");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(100);
 		order.setMoney(1);
 		order.setModel("yuan");

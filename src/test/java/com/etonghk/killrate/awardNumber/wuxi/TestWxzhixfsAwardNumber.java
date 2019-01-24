@@ -20,7 +20,7 @@ public class TestWxzhixfsAwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("1,2,3,4,5");
 		order.setMethod("wxzhixfs");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(1);
 		order.setMoney(1);
 		order.setModel("yuan");

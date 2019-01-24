@@ -28,7 +28,7 @@ public class TestErxiKdheAwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("6");
 		order.setMethod("kdhe");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(100);
 		order.setMoney(1);
 		order.setModel("yuan");

@@ -23,7 +23,7 @@ public class TestWxzux5AwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("0,12");
 		order.setMethod("wxzux5");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(1);
 		order.setMoney(1);
 		order.setModel("yuan");

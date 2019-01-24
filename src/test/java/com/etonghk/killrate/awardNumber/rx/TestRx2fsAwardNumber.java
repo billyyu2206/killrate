@@ -19,7 +19,7 @@ public class TestRx2fsAwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("1,1,-,-,-");
 		order.setMethod("rx2fs");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(100);
 		order.setMoney(1);
 		order.setModel("yuan");

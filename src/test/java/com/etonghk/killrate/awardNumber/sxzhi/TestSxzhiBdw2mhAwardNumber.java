@@ -23,7 +23,7 @@ public class TestSxzhiBdw2mhAwardNumber extends TestAwardNumberBasic{
 	public void beforeTest() {
 		order.setContent("0,1");
 		order.setMethod("bdw2mh");
-		order.setLottery("vipssc");
+		order.setLottery("t1s30");
 		order.setMultiple(100);
 		order.setMoney(1);
 		order.setModel("yuan");
