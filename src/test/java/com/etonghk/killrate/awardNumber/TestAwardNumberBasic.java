@@ -28,11 +28,12 @@ public class TestAwardNumberBasic {
 
 	@Autowired
 	private KillRateBetSender killRateBetSender;
+	
 
 	/**
 	 * 	每個類型的 號碼
 	 */
-	@Test
+//	@Test
 	public void testAwardNumber() {
 		long statTime = System.currentTimeMillis();
 		AwardNumber awardNumber = awardNumberFactory.getAwardNumber(order.getMethod());
@@ -51,6 +52,8 @@ public class TestAwardNumberBasic {
 	 */
 	@Test
 	public void testOrderSender() {
-		killRateBetSender.senderGameLotteryOrder(order);
+		for(int i=1;i<=100;i++) {
+			killRateBetSender.senderGameLotteryOrder(order);			
+		}
 	}
 }

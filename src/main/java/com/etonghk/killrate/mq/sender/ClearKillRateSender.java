@@ -15,7 +15,7 @@ import com.etonghk.killrate.mq.config.ClearRateMqConfig;
 @Component
 public class ClearKillRateSender {
 
-private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
     private RabbitTemplate rabbitTemplate;

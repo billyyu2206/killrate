@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -24,6 +26,8 @@ import groovy.transform.Synchronized;
  */
 public class BaseClearListener {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private RedisCache cache;
 	
@@ -34,6 +38,9 @@ public class BaseClearListener {
 	@Synchronized
 	protected void clearIssueKillRate() {
 		ClearEvent event = resultQueue.poll();
+		logger.info("vo info");
+		System.out.println(event.getClearKillRateVo());
+
 		ClearKillRateVo vo = event.getClearKillRateVo();
 		Map<String,BigDecimal> issueAward = vo.getAwardNumber();
 		String gameIssue = vo.getLottery()+":"+vo.getIssue();
@@ -74,6 +81,8 @@ public class BaseClearListener {
 			};
 			cache.excutePipeline(pipelineCallback);
 		}
+		//移除資料
+		awardNumber.remove(gameIssueKey);
 	}
 	
 }

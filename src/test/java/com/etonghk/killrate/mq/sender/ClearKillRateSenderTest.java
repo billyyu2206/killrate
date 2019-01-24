@@ -19,7 +19,7 @@ public class ClearKillRateSenderTest {
 	
 	@Test
 	public void clearKillRate() throws InterruptedException {
-		clearKillRateSender.sendClearGameIssue("12345");
+		clearKillRateSender.sendClearGameIssue("t1s30:201901191002");
 	}
 	
 }

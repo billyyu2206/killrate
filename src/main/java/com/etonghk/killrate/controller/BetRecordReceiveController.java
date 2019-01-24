@@ -26,7 +26,6 @@ public class BetRecordReceiveController {
 			killRateBetSender.senderGameLotteryOrder(order);
 		});
 		
-		// TODO send MQ
 		result.setCode(ApiResult.SUCCESS_CODE);
 		result.setMsg("success");
 		return result;
