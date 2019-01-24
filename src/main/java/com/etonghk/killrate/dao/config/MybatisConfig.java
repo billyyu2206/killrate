@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.etonghk.killrate.config;
+package com.etonghk.killrate.dao.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,4 +1,4 @@
-package com.etonghk.killrate.config;
+package com.etonghk.killrate.cache.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
