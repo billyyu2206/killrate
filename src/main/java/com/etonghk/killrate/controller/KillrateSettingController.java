@@ -3,7 +3,6 @@ package com.etonghk.killrate.controller;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +16,9 @@ import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.page.Page;
-import com.etonghk.killrate.domain.Account;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.service.killrateaward.KillrateAwardService;
+import com.etonghk.killrate.utils.RequestUtils;
 
 @Controller
 @RequestMapping("/killrateSetting")
@@ -52,7 +51,7 @@ public class KillrateSettingController {
 	@RequestMapping("/generate")
 	public ApiResult<Void> generate(KillrateSetting setting, HttpServletRequest req) {
 		ApiResult<Void> result = new ApiResult<Void>();
-		killrateAwardService.generateKillrateAward(setting, getSessoinAccount(req));
+		killrateAwardService.generateKillrateAward(setting, RequestUtils.getSessoinAccount(req));
 		result.setCode(ApiResult.SUCCESS_CODE);
 		result.setMsg("生成成功");
 		return result;
@@ -64,7 +63,7 @@ public class KillrateSettingController {
 		ApiResult<Void> result = new ApiResult<Void>();
 		String code = ApiResult.SUCCESS_CODE;
 		String msg = "修改成功";
-		int count = killrateAwardService.updateKillrateAward(record, getSessoinAccount(req));
+		int count = killrateAwardService.updateKillrateAward(record, RequestUtils.getSessoinAccount(req));
 		if(count <= 0) {
 			code = "201";
 			msg = "修改失败，奖期时间已结束";
@@ -81,7 +80,7 @@ public class KillrateSettingController {
 		ApiResult<Void> result = new ApiResult<Void>();
 		String code = ApiResult.SUCCESS_CODE;
 		String msg = "删除成功";
-		int count = killrateAwardService.deleteKillrateAward(record, getSessoinAccount(req));
+		int count = killrateAwardService.deleteKillrateAward(record, RequestUtils.getSessoinAccount(req));
 		if(count <= 0) {
 			code = "201";
 			msg = "删除失败，奖期时间已结束";
@@ -92,9 +91,5 @@ public class KillrateSettingController {
 		return result;
 	}
 	
-	private Account getSessoinAccount(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Account acc = (Account) session.getAttribute(session.getId());
-		return acc;
-	}
+	
 }
