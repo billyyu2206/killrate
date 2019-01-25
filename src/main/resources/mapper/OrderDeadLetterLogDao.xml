@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etonghk.killrate.dao.OrderDeadLetterLogDao">
+  <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.OrderDeadLetterLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="lottery" jdbcType="VARCHAR" property="lottery" />
+    <result column="issue" jdbcType="VARCHAR" property="issue" />
+    <result column="bill_no" jdbcType="VARCHAR" property="billNo" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.etonghk.killrate.domain.OrderDeadLetterLog">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lottery, issue, bill_no, method
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_dead_letter_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.etonghk.killrate.domain.OrderDeadLetterLog">
+    insert into order_dead_letter_log (id, lottery, issue, 
+      bill_no, content, method)
+    values (#{id,jdbcType=INTEGER}, #{lottery,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+      #{billNo,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{method,jdbcType=VARCHAR})
+  </insert>
+</mapper>

@@ -19,7 +19,7 @@
 				<input type="hidden" name="pageNo" id="pageNo">
 				<div class="row">
 					<div class="form-group form-inline col-md-6">
-						<div class="col-md-4 custom-label">彩種:</div>
+						<div class="col-md-4 custom-label">彩种:</div>
 					  	<div class="col-md-8">
 					  		<select class="form-control">
 								<option value="">全部</option>
@@ -38,7 +38,7 @@
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6">
-						<div class="col-md-4 custom-label">帐号:</div>
+						<div class="col-md-4 custom-label">操作者帐号:</div>
 						<div class="col-md-4">
 							<input type="text" class="form-control" name="updateUser" th:value="${cond.updateUser}">
 						</div>
@@ -51,7 +51,7 @@
 								<option value="">全部</option>
 								<option value="0" th:selected='${cond.operateType == 0}'>生成</option>
 								<option value="1" th:selected='${cond.operateType == 1}'>修改</option>
-								<option value="2" th:selected='${cond.operateType == 2}'>刪除</option>
+								<option value="2" th:selected='${cond.operateType == 2}'>删除</option>
 							</select>
 						</div>
 					</div>
@@ -95,7 +95,17 @@
 						<td>[[${item.lottery}]]</td>
 						<td>[[${#dates.format(item.updateTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
 						<td>[[${item.updateUser}]]</td>
-						<td>[[${item.operateType}]]</td>
+						<th:block th:switch="${item.operateType}">
+						    <td th:case="0">
+						    	生成
+						    </td>
+						    <td th:case="1">
+						    	修改
+						    </td>
+						    <td th:case="2">
+						    	删除
+						    </td>
+						</th:block>
 						<td><div th:remove="tag" th:utext="${item.description}"></div></td>
 					</tr>
 				</tbody>

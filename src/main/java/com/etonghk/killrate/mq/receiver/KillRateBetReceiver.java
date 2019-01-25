@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
 import com.etonghk.killrate.mq.config.KillRateBetMqConfig;
 import com.etonghk.killrate.service.ordercalculate.OrderCalculateService;
+import com.etonghk.killrate.service.orderdeadletterlog.OrderDeadLetterLogService;
 import com.etonghk.killrate.vo.ClearKillRateVo;
 import com.jack.entity.GameLotteryOrder;
 import com.rabbitmq.client.Channel;
@@ -33,6 +34,9 @@ public class KillRateBetReceiver {
 	
 	@Autowired
 	private ApplicationContext applicationContext;
+	
+	@Autowired
+	private OrderDeadLetterLogService orderDeadLetterLogService;
 	
 	/**
 	 * 注單計算consumer,計算完畢存在本身內存
@@ -65,8 +69,8 @@ public class KillRateBetReceiver {
 	@RabbitListener(queues = KillRateBetMqConfig.KILL_RATE_BET_QUEUE_DEAD, concurrency="3")
     public void receiveDead(GameLotteryOrder order, Message message, Channel channel) throws IOException {
 		try {
-			logger.info("receiver dead ==> " + order.toString());
-			
+			logger.info("receiver dead==>lottery={},billno={},issue{}", order.getLottery(),order.getBillno(),order.getIssue());
+			orderDeadLetterLogService.insertOrder(order);
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}catch (Exception ex) {
 			logger.error("receiver dead error: ", ex);
