@@ -24,6 +24,9 @@ public class ExcludeSessionRepositoryFilter extends OncePerRequestFilter{
 	static List<String> excludeSessionUrls = new ArrayList<>();
 	static {
 		excludeSessionUrls.add("/betRecord/send");
+		excludeSessionUrls.add("/awardNumber/clearKillRate");
+		excludeSessionUrls.add("/gameIssus/job/batchInsert");
+		excludeSessionUrls.add("/gameIssus/job/selectOpenIssue");
 	}
 	
 	@Override
