@@ -39,4 +39,14 @@ public class GameIssueController {
 		return new ApiResult<String>(ApiResult.SUCCESS_CODE,ApiResult.SUCCESS_MSG,"SUCCESS");
 	}
 	
+	
+	@RequestMapping("job/selectOpenIssue")
+	@ResponseBody
+	public ApiResult<String> getIssueByDate(@RequestParam("lottery")String lottery,@RequestParam("date")Date date){
+		
+		String lotteryIssue = gameIssueService.getIssueByDate(lottery, date);
+		
+		return new ApiResult<String>(ApiResult.SUCCESS_CODE,ApiResult.SUCCESS_MSG,lotteryIssue);
+	}
+	
 }

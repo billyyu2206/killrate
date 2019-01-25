@@ -17,4 +17,12 @@ public interface GameIssueService {
 	 * @param afterDay 
 	 */
 	public void batchInsert(Date date ,int afterDay);
+	
+	/**
+	 *	查詢此時間段的獎期
+	 * @param lottery
+	 * @param date
+	 * @return
+	 */
+	public String getIssueByDate(String lottery,Date date);
 }
