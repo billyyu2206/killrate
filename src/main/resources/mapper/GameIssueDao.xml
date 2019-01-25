@@ -74,4 +74,11 @@
     </if>
     order by issue_end_time
   </select>
+  
+  <select id="selectIssueByDate" resultType="String">
+    select full_issue
+    from game_issue_${lottery}
+    where #{date} BETWEEN issue_end_time and issue_open_time
+  </select>
+  
 </mapper>

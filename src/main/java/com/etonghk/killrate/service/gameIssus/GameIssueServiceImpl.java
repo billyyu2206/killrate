@@ -73,5 +73,10 @@ public class GameIssueServiceImpl implements GameIssueService{
 		}
 		
 	}
+	
+	@Override
+	public String getIssueByDate(String lottery, Date date) {
+		return gameIssueDao.selectIssueByDate(lottery, date);
+	}
 
 }
