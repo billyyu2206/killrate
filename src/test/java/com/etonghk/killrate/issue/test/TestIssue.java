@@ -62,5 +62,14 @@ public class TestIssue {
 		gameIssueService.batchInsert(new Date(),0);
 	}
 	
+	@Test
+	public void testGetIssuByDate() {
+		String lottery = "t1s60";
+		Date date = new Date();
+		String issue = gameIssueService.getIssueByDate(lottery, date);
+		
+		System.out.println(issue);
+	}
+	
 	
 }
