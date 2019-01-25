@@ -17,6 +17,7 @@ public class TestAccountDao {
 	
 	@Test
 	public void testSelect() {
+		@SuppressWarnings("unused")
 		Account account = accountDao.selectByPrimaryKey(12);
 	}
 	

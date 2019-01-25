@@ -30,6 +30,7 @@ public class TestAwardRecord {
 	
 	@Test
 	public void testSelect() throws ParseException {
+		@SuppressWarnings("rawtypes")
 		Page page = new Page();
 		page.setPage(0);
 		String gameId = "vipssc";

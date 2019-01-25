@@ -81,6 +81,7 @@ public class ClearKillRateServiceImpl implements ClearKillRateService{
 				killrateAwardService.calAwardNumber(lottery, issue, false);
 			}
 			cache.del(lockKey);
+			cache.del(clearFinishNumKey);
 		}
 	}
 }
