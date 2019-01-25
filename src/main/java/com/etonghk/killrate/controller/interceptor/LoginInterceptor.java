@@ -29,6 +29,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 		allowUrls.add("/gameIssus/job/batchInsert");
 		allowUrls.add("/cache/reset");
 		allowUrls.add("/gameIssus/job/selectOpenIssue");
+		allowUrls.add("/killrateSetting/switch");
+		allowUrls.add("/killrateSetting/changeSwitch");
 	}
 	
 	@Override

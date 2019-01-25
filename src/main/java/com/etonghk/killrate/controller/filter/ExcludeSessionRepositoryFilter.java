@@ -28,6 +28,8 @@ public class ExcludeSessionRepositoryFilter extends OncePerRequestFilter{
 		excludeSessionUrls.add("/gameIssus/job/batchInsert");
 		excludeSessionUrls.add("/gameIssus/job/selectOpenIssue");
 		excludeSessionUrls.add("/cache/reset");
+		excludeSessionUrls.add("/killrateSetting/switch");
+		excludeSessionUrls.add("/killrateSetting/changeSwitch");
 	}
 	
 	@Override

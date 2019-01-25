@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
+import com.etonghk.killrate.cache.Cache;
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.page.Page;
@@ -26,6 +28,11 @@ public class KillrateSettingController {
 
 	@Autowired
 	private KillrateAwardService killrateAwardService;
+	
+	@Autowired
+	private Cache cache;
+	
+	private static final String SWITCH_KEY = "killrateSwitch";
 	
 	@RequestMapping("/index/{lottery}")
 	public String index(@PathVariable String lottery, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -91,5 +98,23 @@ public class KillrateSettingController {
 		return result;
 	}
 	
+	@RequestMapping("/switch")
+	public String switchPage(Model model) {
+		String switchValue = cache.getObj(SWITCH_KEY, String.class);
+		if(StringUtils.isBlank(switchValue)) {
+			switchValue = "0";
+		}
+		model.addAttribute("switchValue", switchValue);
+		return "/killrate/killrateSetting/switch";
+	}
 	
+	@ResponseBody
+	@RequestMapping("/changeSwitch")
+	public ApiResult<Void> delete(String switchValue) {
+		ApiResult<Void> result = new ApiResult<Void>();
+		cache.set(SWITCH_KEY, switchValue);
+		result.setCode(ApiResult.SUCCESS_CODE);
+		result.setMsg(ApiResult.SUCCESS_MSG);
+		return result;
+	}
 }
