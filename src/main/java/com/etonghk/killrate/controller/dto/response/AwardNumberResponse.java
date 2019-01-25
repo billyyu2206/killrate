@@ -1,6 +1,7 @@
 package com.etonghk.killrate.controller.dto.response;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class AwardNumberResponse implements Serializable{
 
@@ -12,10 +13,8 @@ public class AwardNumberResponse implements Serializable{
 	
 	private String awardNumber;
 	
-	private Long timeStamp;
+	private Date openTime;
 	
-	private String time;
-
 	public String getLottery() {
 		return lottery;
 	}
@@ -40,20 +39,12 @@ public class AwardNumberResponse implements Serializable{
 		this.awardNumber = awardNumber;
 	}
 
-	public Long getTimeStamp() {
-		return timeStamp;
+	public Date getOpenTime() {
+		return openTime;
 	}
 
-	public void setTimeStamp(Long timeStamp) {
-		this.timeStamp = timeStamp;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
+	public void setOpenTime(Date openTime) {
+		this.openTime = openTime;
 	}
 	
 }

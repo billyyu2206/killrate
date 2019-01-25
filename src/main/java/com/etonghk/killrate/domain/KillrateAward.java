@@ -1,10 +1,18 @@
 package com.etonghk.killrate.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class KillrateAward {
-    private Integer id;
+/**
+ * 
+ * @author Ami.Tsai
+ * @date 2019年1月25日
+ */
+@SuppressWarnings("serial")
+public class KillrateAward implements Serializable{
+
+	private Integer id;
 
     private String lottery;
 

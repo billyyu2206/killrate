@@ -10,6 +10,7 @@ import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.KillrateAward;
 
 public interface KillrateAwardDao {
+	
     int insert(KillrateAward record);
     int batchInsert(@Param("dataList") List<KillrateAward> dataList);
     KillrateAward selectByPrimaryKey(Integer id);
