@@ -279,12 +279,22 @@
 	$('#startTime').datetimepicker({
 		dateFormat : "yy-mm-dd",
 		timeFormat : "HH:mm:00",
-		minDateTime: new Date()
+		minDateTime: new Date(),
+		beforeShow: function() {
+	        setTimeout(function(){
+	            $('.ui-datepicker').css('z-index', 2000);
+	        }, 0);
+	    }
 	});
   	$('#endTime').datetimepicker({
 		dateFormat : "yy-mm-dd",
 		timeFormat : "HH:mm:00",
-		minDateTime: new Date()
+		minDateTime: new Date(),
+		beforeShow: function() {
+	        setTimeout(function(){
+	            $('.ui-datepicker').css('z-index', 2000);
+	        }, 0);
+	    }
 	});
   	
   	function pagination(page){

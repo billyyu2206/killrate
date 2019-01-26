@@ -64,8 +64,7 @@ public class RedisCache implements Cache{
 		redisTemplate.opsForValue().set(key, value, liveTime, unit);
 	}
 
-	@Override
-	public String get(final String key) {
+	private String get(final String key) {
 		return gson.toJson(redisTemplate.opsForValue().get(key));
 	}
 

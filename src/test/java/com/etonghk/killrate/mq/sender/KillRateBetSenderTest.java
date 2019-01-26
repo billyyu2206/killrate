@@ -23,7 +23,11 @@ public class KillRateBetSenderTest {
 	public void testSenderGameLotteryOrder() {
 		GameLotteryOrder order = new GameLotteryOrder();
 		order.setAccountId(123);
-		order.setLottery("vipssc");
+		order.setLottery("t1s60");
+		order.setBillno("B100012");
+		order.setIssue("20190201-1000");
+		order.setMethod("wxzhixfs");
+		order.setContent("123,0,0,0,0");
 		killRateBetSender.senderGameLotteryOrder(order);
 	}
 	

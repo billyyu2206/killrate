@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>杀率总开关</title>
+    <meta charset="utf-8"></meta>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+  </head>
+  <body>
+    <div>
+    	<div class="row">
+    		<h3>杀率总开关</h3>
+    	</div>
+    	<div class="row">
+    		<input type="radio" name="killrateSwitch" value="0" onchange="changeSwitch(this.value)" th:checked="${switchValue == '0'}"/> 开
+    		<input type="radio" name="killrateSwitch" value="1" onchange="changeSwitch(this.value)" th:checked="${switchValue == '1'}"/> 关
+    	</div>
+	</div>
+  </body>
+  
+  
+  <script type="text/javascript">
+  	function changeSwitch(value){
+  		var datas = "switchValue=" + value;
+  		
+		$.ajax({
+			type: "POST",
+			url: "/killrateSetting/changeSwitch",
+			data: datas,
+			success: function(data)
+			{
+				alert(data.msg)
+			}
+		});
+  	}
+  </script>
+</html>

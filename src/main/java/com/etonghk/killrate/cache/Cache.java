@@ -31,8 +31,6 @@ public interface Cache {
 	
 	void putObj(String key, Object value,int liveTime,TimeUnit unit);
 	
-	String get(final String key);
-	
 	Set<String> keys(final String pattern);
 	
 	boolean exists(final String key);
