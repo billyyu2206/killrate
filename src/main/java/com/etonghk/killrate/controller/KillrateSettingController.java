@@ -1,6 +1,6 @@
 package com.etonghk.killrate.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,7 +33,7 @@ public class KillrateSettingController {
 			Model model) {
 		KillrateAward cond = new KillrateAward();
 		cond.setLottery(lottery);
-		cond.setIssueEndTime(new Date());
+		cond.setIssueEndTime(LocalDateTime.now());
 		
 		Page<KillrateAward> page=new Page<KillrateAward>();
 		page.setPage(pageNo);

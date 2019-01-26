@@ -1,6 +1,6 @@
 package com.etonghk.killrate.dao;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -17,5 +17,7 @@ public interface GameIssueDao {
     
     List<GameIssue> selectForGenerateKillrate(KillrateSetting setting);
     
-    String selectIssueByDate(@Param("lottery")String lottery, @Param("date")Date date);
+    String selectIssueByDate(@Param("lottery")String lottery, @Param("date")LocalDateTime date);
+    
+    GameIssue selectIssueByLotteryAndIssue(@Param("lottery")String lottery, @Param("issue")String issue);
 }

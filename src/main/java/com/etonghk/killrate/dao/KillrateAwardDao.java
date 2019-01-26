@@ -1,6 +1,6 @@
 package com.etonghk.killrate.dao;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,11 +18,11 @@ public interface KillrateAwardDao {
     List<KillrateAward> selectForSettingPage(@Param("cond")KillrateAward cond,@Param("page")Page<KillrateAward> page);
     List<KillrateAward> selectForGenerateKillrate(KillrateSetting setting);
     
-    int updateByPK(@Param("record")KillrateAward record, @Param("operateTime") Date operateTime);
+    int updateByPK(@Param("record")KillrateAward record, @Param("operateTime") LocalDateTime operateTime);
     
-    int deleteByPK(@Param("record")KillrateAward record, @Param("operateTime") Date operateTime);
+    int deleteByPK(@Param("record")KillrateAward record, @Param("operateTime") LocalDateTime operateTime);
     
-    public List<KillrateAward> selectForRecord(@Param("lottery") String lottery,@Param("issueDate") Date issueDate,@Param("isPush") Boolean isPush,@Param("page") Page<KillrateAward> page);
+    public List<KillrateAward> selectForRecord(@Param("lottery") String lottery,@Param("issueDate") LocalDateTime issueDate,@Param("isPush") Boolean isPush,@Param("page") Page<KillrateAward> page);
     
     public KillrateAward selectForCalNumber(@Param("lottery") String lottery,@Param("issue") String issue);
     

@@ -3,8 +3,8 @@ package com.etonghk.killrate.service.killrateaward;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,9 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.cache.key.RedisKey;
-import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;
@@ -65,7 +65,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		if(StringUtils.isNotBlank(setting.getIssue()) && setting.getStartTime() != null && setting.getEndTime() != null) {
 			throw new ServiceException("杀率区间段与杀率奖期不可同时输入");
 		}
-		setting.setOperateTime(new Date());
+		setting.setOperateTime(LocalDateTime.now());
 		List<GameIssue> matchGameIssues = gameIssueDao.selectForGenerateKillrate(setting);
 		if(matchGameIssues == null || matchGameIssues.size() == 0){
 			throw new ServiceException("找不到符合的奖期资料!");
@@ -111,7 +111,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 */
 	@Override
 	public int updateKillrateAward(KillrateAward record, Account account) {
-		Date operateTime = new Date();
+		LocalDateTime operateTime = LocalDateTime.now();
 		KillrateAward dataForLog = killrateAwardDao.selectByPrimaryKey(record.getId());
 		int result = killrateAwardDao.updateByPK(record, operateTime);
 		if(result > 0) {
@@ -133,7 +133,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 */
 	@Override
 	public int deleteKillrateAward(KillrateAward record, Account account) {
-		Date operateTime = new Date();
+		LocalDateTime operateTime = LocalDateTime.now();
 		KillrateAward dataForLog = killrateAwardDao.selectByPrimaryKey(record.getId());
 		
 		int result = killrateAwardDao.deleteByPK(record, operateTime);
@@ -151,7 +151,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	}
 
 	@Override
-	public Page<KillrateAward> selectForRecord(String lottery, Date issueDate, Boolean isPush, Page<KillrateAward> page) {
+	public Page<KillrateAward> selectForRecord(String lottery, LocalDateTime issueDate, Boolean isPush, Page<KillrateAward> page) {
 		List<KillrateAward> result = killrateAwardDao.selectForRecord(lottery, issueDate, isPush, page);
 		page.setRecords(result);
 		
@@ -222,7 +222,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		award.setAwardNumber(awardNumber);
 		award.setAwardMoney(data.get(awardNumber));
 		award.setBetMoney(total);
-		award.setAwardTime(new Date());
+		award.setAwardTime(LocalDateTime.now());
 		
 		int result = killrateAwardDao.updateForAward(award);
 		if(result == 0) {

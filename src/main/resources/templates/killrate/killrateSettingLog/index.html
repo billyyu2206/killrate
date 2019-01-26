@@ -30,9 +30,9 @@
 					<div class="form-group form-inline col-md-6">
 						<div class="col-md-4 custom-label">设定时间:</div>
 					  	<div class="col-md-8">
-						    <input class="form-control mr-3" type="text" th:value="${#dates.format(cond.startTime, 'yyyy-MM-dd HH:mm:ss')}" id="startTime" name='startTime' readonly>
+						    <input class="form-control mr-3" type="text" th:value="${#temporals.format(cond.startTime, 'yyyy-MM-dd HH:mm:ss')}" id="startTime" name='startTime' readonly>
 						    -
-						    <input class="form-control ml-3" type="text" th:value="${#dates.format(cond.endTime, 'yyyy-MM-dd HH:mm:ss')}" id="endTime" name='endTime' readonly>
+						    <input class="form-control ml-3" type="text" th:value="${#temporals.format(cond.endTime, 'yyyy-MM-dd HH:mm:ss')}" id="endTime" name='endTime' readonly>
 					  	</div>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 					<tr th:unless="${#lists.isEmpty(list)}" class="indexData" th:each="item : ${list}" th:id="'dataTr' + ${item.id}">
 						<td>[[${item.id}]]</td>
 						<td>[[${item.lottery}]]</td>
-						<td>[[${#dates.format(item.updateTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+						<td>[[${#temporals.format(item.updateTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
 						<td>[[${item.updateUser}]]</td>
 						<th:block th:switch="${item.operateType}">
 						    <td th:case="0">

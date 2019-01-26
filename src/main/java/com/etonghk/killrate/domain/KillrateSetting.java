@@ -1,23 +1,25 @@
 package com.etonghk.killrate.domain;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class KillrateSetting {
+@SuppressWarnings("serial")
+public class KillrateSetting implements Serializable{
     private Integer id;
 
     private String lottery;
 
     private String issue;
 
-    private Date timeStart;
+    private LocalDateTime timeStart;
 
-    private Date timeEnd;
+    private LocalDateTime timeEnd;
 
     private String killrate;
 
     private String updateUser;
 
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     public Integer getId() {
         return id;
@@ -43,22 +45,6 @@ public class KillrateSetting {
         this.issue = issue == null ? null : issue.trim();
     }
 
-    public Date getTimeStart() {
-        return timeStart;
-    }
-
-    public void setTimeStart(Date timeStart) {
-        this.timeStart = timeStart;
-    }
-
-    public Date getTimeEnd() {
-        return timeEnd;
-    }
-
-    public void setTimeEnd(Date timeEnd) {
-        this.timeEnd = timeEnd;
-    }
-
     public String getKillrate() {
         return killrate;
     }
@@ -75,11 +61,27 @@ public class KillrateSetting {
         this.updateUser = updateUser == null ? null : updateUser.trim();
     }
 
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
+
+	public LocalDateTime getTimeStart() {
+		return timeStart;
+	}
+
+	public void setTimeStart(LocalDateTime timeStart) {
+		this.timeStart = timeStart;
+	}
+
+	public LocalDateTime getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(LocalDateTime timeEnd) {
+		this.timeEnd = timeEnd;
+	}
 }

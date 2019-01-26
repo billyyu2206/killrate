@@ -3,7 +3,7 @@
  */
 package com.etonghk.killrate.controller.dto.request;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,19 +14,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class KillrateRecordRequest {
 
 	@DateTimeFormat (pattern="YYYY-MM-dd")
-	private Date issueDate;
+	private LocalDateTime issueDate;
 	
 	private String lottery;
 	
 	private Boolean isKillRate;
-
-	public Date getIssueDate() {
-		return issueDate;
-	}
-
-	public void setIssueDate(Date issueDate) {
-		this.issueDate = issueDate;
-	}
 
 	public String getLottery() {
 		return lottery;
@@ -42,5 +34,13 @@ public class KillrateRecordRequest {
 
 	public void setIsKillRate(Boolean isKillRate) {
 		this.isKillRate = isKillRate;
+	}
+
+	public LocalDateTime getIssueDate() {
+		return issueDate;
+	}
+
+	public void setIssueDate(LocalDateTime issueDate) {
+		this.issueDate = issueDate;
 	}
 }

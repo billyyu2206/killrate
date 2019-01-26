@@ -29,7 +29,7 @@
 						<tr th:unless="${#lists.isEmpty(accList)}" class="indexData" th:each="item : ${accList}" th:id="'dataTr' + ${item.id}">
 							<td width="20%">[[${item.account}]]</td>
 							<td width="20%">[[${item.name}]]</td>
-							<td width="20%">[[${#dates.format(item.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+							<td width="20%">[[${#temporals.format(item.lastLoginTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
 							<td width="20%">[[${item.lastLoginIp}]]</td>
 						</tr>
 					</tbody>

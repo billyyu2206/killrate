@@ -3,7 +3,7 @@
  */
 package com.etonghk.killrate.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +27,11 @@ public class GameIssueController {
 	
 	@RequestMapping("/job/batchInsert")
 	@ResponseBody
-	public ApiResult<String> batchInsertIssueAfterDay(@RequestParam(value = "date", required=false)Date date,
+	public ApiResult<String> batchInsertIssueAfterDay(@RequestParam(value = "date", required=false)LocalDateTime date,
 			@RequestParam(value = "afterDay", defaultValue = "3")Integer afterDay) {
 		
 		if(date==null) {
-			date = new Date();
+			date = LocalDateTime.now();
 		}
 		
 		gameIssueService.batchInsert(date, afterDay);
@@ -42,7 +42,7 @@ public class GameIssueController {
 	
 	@RequestMapping("job/selectOpenIssue")
 	@ResponseBody
-	public ApiResult<String> getIssueByDate(@RequestParam("lottery")String lottery,@RequestParam("date")Date date){
+	public ApiResult<String> getIssueByDate(@RequestParam("lottery")String lottery,@RequestParam("date")LocalDateTime date){
 		
 		String lotteryIssue = gameIssueService.getIssueByDate(lottery, date);
 		

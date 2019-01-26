@@ -1,6 +1,6 @@
 package com.etonghk.killrate.service.killratenumber;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.etonghk.killrate.controller.dto.response.AwardNumberResponse;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;
+import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.exception.ServiceException;
 
@@ -34,12 +35,15 @@ public class KillRateNumberServiceImpl implements KillRateNumberService {
 		KillrateAward killrateAward = killrateAwardDao.selectForCalNumber(lottery, issue);
 		
 		if(killrateAward==null) {
-			
+			GameIssue lotteryIssue = gameIssueDao.selectIssueByLotteryAndIssue(lottery, issue);
+			if(lotteryIssue.getIssueEndTime().isAfter(LocalDateTime.now())) {
+				
+			}
 		}else{
 			response.setAwardNumber(killrateAward.getAwardNumber());
 			response.setIssue(issue);
 			response.setLottery(lottery);
-			response.setOpenTime(new Date());
+			response.setOpenTime(LocalDateTime.now());
 		}
 		
 		return response;

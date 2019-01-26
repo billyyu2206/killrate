@@ -3,7 +3,7 @@
  */
 package com.etonghk.killrate.service.gameIssus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Peter.Hong
@@ -16,7 +16,7 @@ public interface GameIssueService {
 	 * @param date
 	 * @param afterDay 
 	 */
-	public void batchInsert(Date date ,int afterDay);
+	public void batchInsert(LocalDateTime date ,int afterDay);
 	
 	/**
 	 *	查詢此時間段的獎期
@@ -24,5 +24,5 @@ public interface GameIssueService {
 	 * @param date
 	 * @return
 	 */
-	public String getIssueByDate(String lottery,Date date);
+	public String getIssueByDate(String lottery,LocalDateTime date);
 }

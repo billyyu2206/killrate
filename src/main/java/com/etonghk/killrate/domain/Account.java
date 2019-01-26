@@ -1,8 +1,9 @@
 package com.etonghk.killrate.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+@SuppressWarnings("serial")
 public class Account implements Serializable{
     private Integer id;
 
@@ -12,9 +13,9 @@ public class Account implements Serializable{
 
     private String name;
 
-    private Date createTime;
+    private LocalDateTime createTime;
 
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime;
 
     private String lastLoginIp;
 
@@ -50,22 +51,6 @@ public class Account implements Serializable{
         this.name = name == null ? null : name.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
     public String getLastLoginIp() {
         return lastLoginIp;
     }
@@ -73,4 +58,20 @@ public class Account implements Serializable{
     public void setLastLoginIp(String lastLoginIp) {
         this.lastLoginIp = lastLoginIp == null ? null : lastLoginIp.trim();
     }
+
+	public LocalDateTime getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
+	}
+
+	public LocalDateTime getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(LocalDateTime lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
 }

@@ -1,8 +1,10 @@
 package com.etonghk.killrate.domain;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class GameIssue {
+@SuppressWarnings("serial")
+public class GameIssue implements Serializable{
     private Integer id;
 
     private String lottery;
@@ -11,13 +13,13 @@ public class GameIssue {
 
     private String fullIssue;
 
-    private Date issueStartTime;
+    private LocalDateTime issueStartTime;
 
-    private Date issueEndTime;
+    private LocalDateTime issueEndTime;
     
-    private Date issueOpenTime;
+    private LocalDateTime issueOpenTime;
 
-    private Date issueDate;
+    private LocalDateTime issueDate;
 
     private String playId;
 
@@ -53,30 +55,6 @@ public class GameIssue {
         this.fullIssue = fullIssue == null ? null : fullIssue.trim();
     }
 
-    public Date getIssueStartTime() {
-        return issueStartTime;
-    }
-
-    public void setIssueStartTime(Date issueStartTime) {
-        this.issueStartTime = issueStartTime;
-    }
-
-    public Date getIssueEndTime() {
-        return issueEndTime;
-    }
-
-    public void setIssueEndTime(Date issueEndTime) {
-        this.issueEndTime = issueEndTime;
-    }
-
-    public Date getIssueDate() {
-        return issueDate;
-    }
-
-    public void setIssueDate(Date issueDate) {
-        this.issueDate = issueDate;
-    }
-
     public String getPlayId() {
         return playId;
     }
@@ -85,12 +63,48 @@ public class GameIssue {
         this.playId = playId == null ? null : playId.trim();
     }
 
-	public Date getIssueOpenTime() {
+	public LocalDateTime getIssueStartTime() {
+		return issueStartTime;
+	}
+
+	public void setIssueStartTime(LocalDateTime issueStartTime) {
+		this.issueStartTime = issueStartTime;
+	}
+
+	public LocalDateTime getIssueEndTime() {
+		return issueEndTime;
+	}
+
+	public void setIssueEndTime(LocalDateTime issueEndTime) {
+		this.issueEndTime = issueEndTime;
+	}
+
+	public LocalDateTime getIssueOpenTime() {
 		return issueOpenTime;
 	}
 
-	public void setIssueOpenTime(Date issueOpenTime) {
+	public void setIssueOpenTime(LocalDateTime issueOpenTime) {
 		this.issueOpenTime = issueOpenTime;
+	}
+
+	public LocalDateTime getIssueDate() {
+		return issueDate;
+	}
+
+	public void setIssueDate(LocalDateTime issueDate) {
+		this.issueDate = issueDate;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GameIssue [id=" + id + ", lottery=" + lottery + ", issue="
+				+ issue + ", fullIssue=" + fullIssue + ", issueStartTime="
+				+ issueStartTime + ", issueEndTime=" + issueEndTime
+				+ ", issueOpenTime=" + issueOpenTime + ", issueDate="
+				+ issueDate + ", playId=" + playId + "]";
 	}
     
     

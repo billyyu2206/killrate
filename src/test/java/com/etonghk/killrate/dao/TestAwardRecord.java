@@ -4,8 +4,8 @@
 package com.etonghk.killrate.dao;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.Test;
@@ -30,11 +30,10 @@ public class TestAwardRecord {
 	
 	@Test
 	public void testSelect() throws ParseException {
-		@SuppressWarnings("rawtypes")
-		Page page = new Page();
+		Page<KillrateAward> page = new Page<>();
 		page.setPage(0);
-		String gameId = "vipssc";
-		Date issueDate = new SimpleDateFormat("yyyy-MM-dd").parse("2019-01-17");
+		String gameId = "t1s60";
+		LocalDateTime issueDate = LocalDateTime.parse("2019-01-17 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		Boolean isPush = false;
 		List<KillrateAward> list =  killrateAwardDao.selectForRecord(gameId, issueDate, isPush, page);
 		System.out.println(list.get(0).getIssue());

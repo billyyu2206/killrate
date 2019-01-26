@@ -1,9 +1,12 @@
 package com.etonghk.killrate.domain;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class KillrateSettingLog {
-    private Integer id;
+@SuppressWarnings("serial")
+public class KillrateSettingLog implements Serializable{
+    
+	private Integer id;
 
     private String lottery;
 
@@ -13,7 +16,7 @@ public class KillrateSettingLog {
 
     private String updateUser;
 
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     public Integer getId() {
         return id;
@@ -55,11 +58,12 @@ public class KillrateSettingLog {
         this.updateUser = updateUser == null ? null : updateUser.trim();
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public LocalDateTime getUpdateTime() {
+		return updateTime;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setUpdateTime(LocalDateTime updateTime) {
+		this.updateTime = updateTime;
+	}
+
 }

@@ -2,7 +2,7 @@ package com.etonghk.killrate.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 
@@ -20,9 +20,9 @@ public class KillrateAward implements Serializable{
 
     private String awardNumber;
 
-    private Date awardTime;
+    private LocalDateTime awardTime;
     
-    private Date issueEndTime;
+    private LocalDateTime issueEndTime;
 
     private Integer isPush;
     
@@ -64,14 +64,6 @@ public class KillrateAward implements Serializable{
         this.awardNumber = awardNumber;
     }
 
-    public Date getAwardTime() {
-        return awardTime;
-    }
-
-    public void setAwardTime(Date awardTime) {
-        this.awardTime = awardTime;
-    }
-
     public Integer getIsPush() {
         return isPush;
     }
@@ -79,14 +71,6 @@ public class KillrateAward implements Serializable{
     public void setIsPush(Integer isPush) {
         this.isPush = isPush;
     }
-
-	public Date getIssueEndTime() {
-		return issueEndTime;
-	}
-
-	public void setIssueEndTime(Date issueEndTime) {
-		this.issueEndTime = issueEndTime;
-	}
 
 	public Integer getKillrate() {
 		return killrate;
@@ -110,6 +94,22 @@ public class KillrateAward implements Serializable{
 
 	public void setBetMoney(BigDecimal betMoney) {
 		this.betMoney = betMoney;
+	}
+
+	public LocalDateTime getAwardTime() {
+		return awardTime;
+	}
+
+	public void setAwardTime(LocalDateTime awardTime) {
+		this.awardTime = awardTime;
+	}
+
+	public LocalDateTime getIssueEndTime() {
+		return issueEndTime;
+	}
+
+	public void setIssueEndTime(LocalDateTime issueEndTime) {
+		this.issueEndTime = issueEndTime;
 	}
 	
 }

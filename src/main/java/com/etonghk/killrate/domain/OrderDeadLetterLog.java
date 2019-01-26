@@ -1,6 +1,10 @@
 package com.etonghk.killrate.domain;
 
-public class OrderDeadLetterLog {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class OrderDeadLetterLog implements Serializable{
+	
     private Integer id;
 
     private String lottery;

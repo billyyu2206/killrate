@@ -1,6 +1,6 @@
 package com.etonghk.killrate.controller.dto.request;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Billy.Yu
@@ -10,8 +10,8 @@ public class KillrateSettingLogRequest {
 	private String lottery;
     private Integer operateType;
     private String updateUser;
-    private Date startTime;
-    private Date endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String sort = "desc";
 	public String getLottery() {
 		return lottery;
@@ -31,23 +31,23 @@ public class KillrateSettingLogRequest {
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
-	public Date getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-	public Date getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
 	public String getSort() {
 		return sort;
 	}
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
+	}
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
 	}
 	
 }

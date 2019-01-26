@@ -1,6 +1,8 @@
 package com.etonghk.killrate.controller.convert;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +12,7 @@ import org.springframework.core.convert.converter.Converter;
  * @author Ami.Tsai
  * @date 2019年1月17日
  */
-public class StringToDateConverter implements Converter<String, Date> {
+public class StringToDateConverter implements Converter<String, LocalDateTime> {
 
 	private static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
 	private static final String shortDateFormat = "yyyy-MM-dd";
@@ -18,12 +20,13 @@ public class StringToDateConverter implements Converter<String, Date> {
 	private static final String shortDateFormat2 = "yyyy/MM/dd";
 
 	@Override
-	public Date convert(String source) {
+	public LocalDateTime convert(String source) {
 		if (StringUtils.isBlank(source)) {
 			return null;
 		}
 		source = source.trim();
 		try {
+			Date dtDate = null;
 			SimpleDateFormat formatter;
 			if (source.contains("-")) {
 				if (source.contains(":")) {
@@ -31,20 +34,20 @@ public class StringToDateConverter implements Converter<String, Date> {
 				} else {
 					formatter = new SimpleDateFormat(shortDateFormat);
 				}
-				Date dtDate = formatter.parse(source);
-				return dtDate;
+				dtDate = formatter.parse(source);
 			} else if (source.contains("/")) {
 				if (source.contains(":")) {
 					formatter = new SimpleDateFormat(dateFormat2);
 				} else {
 					formatter = new SimpleDateFormat(shortDateFormat2);
 				}
-				Date dtDate = formatter.parse(source);
-				return dtDate;
+				dtDate = formatter.parse(source);
 			}
+			return dtDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+			
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("parser %s to Date fail", source));
 		}
-		throw new RuntimeException(String.format("parser %s to Date fail", source));
+
 	}
 }

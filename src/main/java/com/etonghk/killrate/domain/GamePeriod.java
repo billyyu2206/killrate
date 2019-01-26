@@ -3,13 +3,16 @@
  */
 package com.etonghk.killrate.domain;
 
+import java.io.Serializable;
+
 /**
  * 獎期設定
  * 
  * @author Peter.Hong
  * @date 2019年1月23日
  */
-public class GamePeriod {
+@SuppressWarnings("serial")
+public class GamePeriod implements Serializable{
 	
 	private Integer id;
 	

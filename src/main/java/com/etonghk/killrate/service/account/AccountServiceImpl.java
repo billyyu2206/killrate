@@ -1,6 +1,6 @@
 package com.etonghk.killrate.service.account;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void creat(Account account) {
 		account.setPassword(getMd5(account.getPassword()));
-		account.setCreateTime(new Date());
+		account.setCreateTime(LocalDateTime.now());
 		accountDao.insert(account);
 	}
 
@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
 			throw new RuntimeException("帳號密碼錯誤");
 		}
 		acc.setLastLoginIp(ip);
-		acc.setLastLoginTime(new Date());
+		acc.setLastLoginTime(LocalDateTime.now());
 		accountDao.updateLogin(acc);
 		return acc;
 	}

@@ -1,12 +1,12 @@
 package com.etonghk.killrate.issue.test;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,47 +27,45 @@ public class TestIssue {
 	@Autowired
 	private GameIssueService gameIssueService;
 	
-//	@Test
+	@Test
 	public void testInsertIssue() {
 		String lottery = "tls90";
-		Calendar c = Calendar.getInstance();
-		
-		c.set(2019, 0, 23, 0, 0, 0);
-		c.set(Calendar.MILLISECOND, 0);
-		System.out.println(c.getTime());
-		Date dateStart = c.getTime();
+		LocalDateTime startTime = LocalDateTime.now().with(LocalTime.MIN);
 		List<GameIssue> data = new ArrayList<GameIssue>();
 		GameIssue issue = null;
 		// 90 960 10and40
-		for(int i = 1; i <= 960; i++) {
+		int periodSeconds = 90;
+		int openSeconds =  10;
+		LocalDateTime issueTime = startTime;
+		for(int i = 0; i <960; i++) {
 			issue = new GameIssue();
 			issue.setPlayId("ssc");
 			issue.setLottery(lottery);
-			issue.setIssueDate(dateStart);
-			issue.setIssue(StringUtils.leftPad(i+"", 3, "0"));
-			issue.setFullIssue("" + c.get(Calendar.YEAR) + "0" + (c.get(Calendar.MONTH) + 1) + c.get(Calendar.DAY_OF_MONTH) + issue.getIssue());
-			issue.setIssueStartTime(c.getTime());
-			c.add(Calendar.SECOND, 90);
-			issue.setIssueEndTime(c.getTime());
-			issue.setIssueOpenTime(DateUtils.addSeconds(c.getTime(), 10));
+			issue.setIssueDate(issueTime);
+			issue.setIssue(StringUtils.leftPad(i+"", 4, "0"));
+			String dateStr= startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			issue.setFullIssue(dateStr+"-"+ issue.getIssue());
+			issue.setIssueStartTime(startTime);
+			LocalDateTime endTime = startTime.plusSeconds(periodSeconds);
+			issue.setIssueEndTime(endTime);
+			issue.setIssueOpenTime(endTime.plusSeconds(openSeconds));
 			data.add(issue);
+			startTime = endTime;
+			System.out.println(issue);
 		}
-		System.out.println(data);
 		gameIssueDao.batchInsert(data, lottery);
 		System.out.println("test end");
 	}
 	
 	@Test
 	public void testBatch() {
-		gameIssueService.batchInsert(new Date(),0);
+		gameIssueService.batchInsert(LocalDateTime.now(),0);
 	}
 	
 	@Test
 	public void testGetIssuByDate() {
 		String lottery = "t1s60";
-		Date date = new Date();
-		String issue = gameIssueService.getIssueByDate(lottery, date);
-		
+		String issue = gameIssueService.getIssueByDate(lottery, LocalDateTime.now());
 		System.out.println(issue);
 	}
 	

@@ -3,13 +3,13 @@
  */
 package com.etonghk.killrate.service.gameIssus;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,16 +33,12 @@ public class GameIssueServiceImpl implements GameIssueService{
 	private GamePeriodDao gamePeriodDao;
 	
 	@Override
-	public void batchInsert(Date date,int afterDay) {
+	public void batchInsert(LocalDateTime date,int afterDay) {
 		
 		List<GamePeriod> gamelist = gamePeriodDao.getGamePeriodsList();
 		
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		
-		int day = calendar.get(Calendar.DATE);
-		int year = calendar.get(Calendar.YEAR);
-		
+		LocalDateTime startTime = LocalDateTime.now().with(LocalTime.MIN);
+		LocalDateTime issueTime = startTime;
 		for (GamePeriod gamePeriod : gamelist) {
 		
 			String lottery = gamePeriod.getLottery();
@@ -51,8 +47,6 @@ public class GameIssueServiceImpl implements GameIssueService{
 			int periodSeconds = gamePeriod.getPeriodSeconds();
 			
 			// 產X天後獎期
-			calendar.set(year, 0, day+afterDay, 0, 0, 0);
-			calendar.set(Calendar.MILLISECOND, 0);
 			List<GameIssue> gameIssueList = new ArrayList<GameIssue>();
 			GameIssue issue = null;
 			
@@ -60,14 +54,16 @@ public class GameIssueServiceImpl implements GameIssueService{
 				issue = new GameIssue();
 				issue.setPlayId(KillrateConstant.allGameTypeMap.get(lottery));
 				issue.setLottery(lottery);
-				issue.setIssueDate(calendar.getTime());
+				issue.setIssueDate(issueTime);
 				issue.setIssue(StringUtils.leftPad(i+"", 4, "0"));
-				issue.setFullIssue("" + calendar.get(Calendar.YEAR) + "0" + (calendar.get(Calendar.MONTH) + 1) + calendar.get(Calendar.DAY_OF_MONTH)+"-"+ issue.getIssue());
-				issue.setIssueStartTime(calendar.getTime());
-				calendar.add(Calendar.SECOND, periodSeconds);
-				issue.setIssueEndTime(calendar.getTime());
-				issue.setIssueOpenTime(DateUtils.addSeconds(calendar.getTime(), openSeconds));
+				String dateStr= startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				issue.setFullIssue(dateStr+"-"+ issue.getIssue());
+				issue.setIssueStartTime(issueTime);
+				LocalDateTime endTime = startTime.plusSeconds(periodSeconds);
+				issue.setIssueEndTime(endTime);
+				issue.setIssueOpenTime(endTime.plusSeconds(openSeconds));				
 				gameIssueList.add(issue);
+				startTime = endTime;
 			}
 			gameIssueDao.batchInsert(gameIssueList, gamePeriod.getLottery());
 		}
@@ -75,7 +71,7 @@ public class GameIssueServiceImpl implements GameIssueService{
 	}
 	
 	@Override
-	public String getIssueByDate(String lottery, Date date) {
+	public String getIssueByDate(String lottery, LocalDateTime date) {
 		return gameIssueDao.selectIssueByDate(lottery, date);
 	}
 
