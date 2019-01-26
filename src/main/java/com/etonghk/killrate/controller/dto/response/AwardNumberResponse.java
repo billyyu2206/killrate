@@ -15,8 +15,6 @@ public class AwardNumberResponse implements Serializable{
 	
 	private LocalDateTime openTime;
 	
-	private String code;
-	
 	public String getLottery() {
 		return lottery;
 	}

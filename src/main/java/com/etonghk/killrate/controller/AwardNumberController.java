@@ -28,14 +28,8 @@ public class AwardNumberController {
 	
 	@PostMapping("getNumber")
 	public ApiResult<AwardNumberResponse> getAwardNumber(@RequestParam String lottery,@RequestParam String issue) {
-
-		ApiResult<AwardNumberResponse> result = new ApiResult<>();
-		AwardNumberResponse awardNumberResponse = killRateNumberService.getKillRateAward(lottery, issue);
-		
-		result.setData(awardNumberResponse);
-		result.setCode(ApiResult.SUCCESS_CODE);
-		result.setMsg("SUCCESS");
-		return result;
+		ApiResult<AwardNumberResponse> awardNumberResult = killRateNumberService.getKillRateAward(lottery, issue);
+		return awardNumberResult;
 	}
 	
 	@PostMapping("clearKillRate")

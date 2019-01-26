@@ -2,12 +2,15 @@ package com.etonghk.killrate.service.killratenumber;
 
 import java.time.LocalDateTime;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.response.AwardNumberResponse;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;
+import com.etonghk.killrate.dao.KillrateSettingDao;
 import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.exception.ServiceException;
@@ -20,6 +23,9 @@ import com.etonghk.killrate.exception.ServiceException;
 public class KillRateNumberServiceImpl implements KillRateNumberService {
 
 	@Autowired
+	private KillrateSettingDao killrateSettingDao;
+	
+	@Autowired
 	private KillrateAwardDao killrateAwardDao;
 	
 	@Autowired
@@ -29,24 +35,32 @@ public class KillRateNumberServiceImpl implements KillRateNumberService {
 	 * @see com.etonghk.killrate.service.killratenumber.KillRateNumberService#getKillRateAward(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public AwardNumberResponse getKillRateAward(String lottery, String issue) throws ServiceException{
-		
-		AwardNumberResponse response = new AwardNumberResponse();
+	public ApiResult<AwardNumberResponse> getKillRateAward(String lottery, String issue) throws ServiceException{
+		ApiResult<AwardNumberResponse> result = new ApiResult<>();
+		result.setCode(ApiResult.FAILD_CODE);		
 		KillrateAward killrateAward = killrateAwardDao.selectForCalNumber(lottery, issue);
-		
 		if(killrateAward==null) {
-			GameIssue lotteryIssue = gameIssueDao.selectIssueByLotteryAndIssue(lottery, issue);
-			if(lotteryIssue.getIssueEndTime().isAfter(LocalDateTime.now())) {
-				
-			}
+			result.setMsg("本期无杀率设定");
 		}else{
-			response.setAwardNumber(killrateAward.getAwardNumber());
-			response.setIssue(issue);
-			response.setLottery(lottery);
-			response.setOpenTime(LocalDateTime.now());
+			if(StringUtils.isEmpty(killrateAward.getAwardNumber())) {
+				GameIssue lotteryIssue = gameIssueDao.selectIssueByLotteryAndIssue(lottery, issue);
+				if(lotteryIssue.getIssueEndTime().isAfter(LocalDateTime.now())) {
+					result.setMsg("奖期时间尚未截止,不可提早取号");
+				}else{
+					result.setMsg("奖号尚未开出");
+				}
+			}else {
+				AwardNumberResponse response = new AwardNumberResponse();
+				response.setAwardNumber(killrateAward.getAwardNumber());
+				response.setIssue(issue);
+				response.setLottery(lottery);
+				response.setOpenTime(LocalDateTime.now());
+				result.setData(response);
+				result.setCode(ApiResult.SUCCESS_CODE);		
+				result.setMsg(ApiResult.SUCCESS_MSG);	
+			}
 		}
-		
-		return response;
+		return result;
 	}
 
 }

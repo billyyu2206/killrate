@@ -1,5 +1,6 @@
 package com.etonghk.killrate.service.killratenumber;
 
+import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.response.AwardNumberResponse;
 import com.etonghk.killrate.exception.ServiceException;
 
@@ -9,5 +10,5 @@ import com.etonghk.killrate.exception.ServiceException;
  */
 public interface KillRateNumberService {
 	
-	AwardNumberResponse getKillRateAward(String lottery,String issue) throws ServiceException;
+	ApiResult<AwardNumberResponse> getKillRateAward(String lottery,String issue) throws ServiceException;
 }
