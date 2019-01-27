@@ -25,7 +25,7 @@ public class GameIssueController {
 	@Autowired
 	private GameIssueService gameIssueService;
 	
-	@RequestMapping("/job/batchInsert")
+	@RequestMapping("batchInsert")
 	@ResponseBody
 	public ApiResult<String> batchInsertIssueAfterDay(@RequestParam(value = "date", required=false)LocalDateTime date,
 			@RequestParam(value = "afterDay", defaultValue = "3")Integer afterDay) {
@@ -40,7 +40,7 @@ public class GameIssueController {
 	}
 	
 	
-	@RequestMapping("job/selectOpenIssue")
+	@RequestMapping("selectOpenIssue")
 	@ResponseBody
 	public ApiResult<String> getIssueByDate(@RequestParam("lottery")String lottery,@RequestParam("date")LocalDateTime date){
 		
