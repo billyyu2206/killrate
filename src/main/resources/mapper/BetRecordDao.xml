@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etonghk.killrate.dao.BetRecordDao">
+  <resultMap id="BaseResultMap" type="com.etonghk.killrate.domain.BetRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="billno" jdbcType="VARCHAR" property="billno" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="lottery" jdbcType="VARCHAR" property="lottery" />
+    <result column="issue" jdbcType="VARCHAR" property="issue" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="compress" jdbcType="BIT" property="compress" />
+    <result column="nums" jdbcType="INTEGER" property="nums" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="multiple" jdbcType="INTEGER" property="multiple" />
+    <result column="code" jdbcType="INTEGER" property="code" />
+    <result column="point" jdbcType="DECIMAL" property="point" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="stop_time" jdbcType="TIMESTAMP" property="stopTime" />
+    <result column="open_time" jdbcType="TIMESTAMP" property="openTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="open_code" jdbcType="VARCHAR" property="openCode" />
+    <result column="win_money" jdbcType="DECIMAL" property="winMoney" />
+    <result column="clear_time" jdbcType="TIMESTAMP" property="clearTime" />
+    <result column="reference" jdbcType="VARCHAR" property="reference" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.etonghk.killrate.domain.BetRecord">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, billno, account_id, type, lottery, issue, method, compress, nums, model, multiple, 
+    code, point, money, order_time, stop_time, open_time, status, open_code, win_money, 
+    clear_time, reference
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <insert id="insertPurseRec">
+    insert into purse_rec_${lottery}_${date} (id, billno, account_id, 
+      type, lottery, issue, 
+      method, compress, nums, 
+      model, multiple, code, 
+      point, money, order_time, 
+      stop_time, open_time, status, 
+      open_code, win_money, clear_time, 
+      reference, content)
+    values (#{order.id,jdbcType=INTEGER}, #{order.billno,jdbcType=VARCHAR}, #{order.accountId,jdbcType=INTEGER}, 
+      #{order.type,jdbcType=TINYINT}, #{order.lottery,jdbcType=VARCHAR}, #{order.issue,jdbcType=VARCHAR}, 
+      #{order.method,jdbcType=VARCHAR}, #{order.compress,jdbcType=BIT}, #{order.nums,jdbcType=INTEGER}, 
+      #{order.model,jdbcType=VARCHAR}, #{order.multiple,jdbcType=INTEGER}, #{order.code,jdbcType=INTEGER}, 
+      #{order.point,jdbcType=DECIMAL}, #{order.money,jdbcType=DECIMAL}, #{order.orderTime,jdbcType=TIMESTAMP}, 
+      #{order.stopTime,jdbcType=TIMESTAMP}, #{order.openTime,jdbcType=TIMESTAMP}, #{order.status,jdbcType=TINYINT}, 
+      #{order.openCode,jdbcType=VARCHAR}, #{order.winMoney,jdbcType=DECIMAL}, #{order.clearTime,jdbcType=TIMESTAMP}, 
+      #{order.reference,jdbcType=VARCHAR}, #{order.content,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <select id="checkTableExist" resultType="java.lang.Integer">
+  	select count(1) from information_schema.tables
+	where table_schema = 'krdb' 
+    and table_name = 'purse_rec_${lottery}_${date}'
+	limit 1
+  </select>
+  
+  <update id="createPurseTable">
+	create table purse_rec_${lottery}_${date}(
+		id int AUTO_INCREMENT,
+		billno varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+	  	account_id int(11) NOT NULL,
+	  	type tinyint(2) NOT NULL,
+	  	lottery varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+	  	issue varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+	  	method varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+	  	content mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+	  	compress tinyint(1) NOT NULL,
+	  	nums int(11) NOT NULL,
+	  	model varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+	  	multiple int(11) NOT NULL,
+	  	code int(11) NOT NULL,
+	  	point decimal(3, 1) NOT NULL,
+	  	money decimal(16, 5) NOT NULL,
+	  	order_time datetime(0) NOT NULL,
+	  	stop_time datetime(0) NOT NULL,
+	  	open_time datetime(0) NOT NULL,
+	  	status tinyint(2) NOT NULL,
+	  	open_code varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+	  	win_money decimal(16, 5) NOT NULL,
+	  	clear_time datetime(0) NOT NULL,
+	  	reference varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+	PRIMARY KEY (id) USING BTREE,
+	UNIQUE INDEX unique_001(billno) USING BTREE
+	)
+  </update>
+</mapper>
