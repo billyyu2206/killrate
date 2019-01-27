@@ -81,4 +81,18 @@
     where #{date} BETWEEN issue_end_time and issue_open_time
   </select>
   
+  <select id="selectIssueByLotteryAndIssue" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from game_issue_${lottery}
+    where full_issue = #{issue}
+  </select>
+  
+  <select id="selectIssueByLotteryAndDate" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_issue_${lottery}
+    where issue_date = #{date,jdbcType=DATE}
+  </select>
+  
 </mapper>

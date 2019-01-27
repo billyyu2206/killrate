@@ -20,4 +20,6 @@ public interface GameIssueDao {
     String selectIssueByDate(@Param("lottery")String lottery, @Param("date")LocalDateTime date);
     
     GameIssue selectIssueByLotteryAndIssue(@Param("lottery")String lottery, @Param("issue")String issue);
+
+    List<GameIssue> selectIssueByLotteryAndDate(@Param("lottery")String lottery,@Param("date")LocalDateTime date);
 }

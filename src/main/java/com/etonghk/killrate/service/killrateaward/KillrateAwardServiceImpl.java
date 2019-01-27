@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etonghk.killrate.awardnmber.config.SSCConfig;
 import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.cache.key.RedisKey;
@@ -185,6 +186,13 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		String tempStr = gson.toJson(redisData);
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
 		Map<String, BigDecimal> data = gson.fromJson(tempStr, type);
+		
+		for (String number : SSCConfig.allNumberList) {
+			if(data.get(number)==null) {
+				data.put(number, BigDecimal.ZERO);
+			}
+		}
+		
 		BigDecimal total = data.get(KillrateConstant.TOTAL_BET);
 		data.remove(KillrateConstant.TOTAL_BET);
 		data = CommonUtils.sortByValueAsc(data);

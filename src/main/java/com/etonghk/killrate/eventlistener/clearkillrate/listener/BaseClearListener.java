@@ -57,6 +57,10 @@ public class BaseClearListener {
 		String issue = vo.getIssue();
 		String lotteryIssueKey = RedisKey.getLotteryIssueKey(lottery, issue);
 		Map<String,BigDecimal> awardResult = awardNumber.get(lotteryIssueKey);
+		
+		if(awardResult==null) {
+			return;
+		}
 		//將該獎期資料存入redis
 		clearKillRateService.pushClearRateToRedis(awardResult, lotteryIssueKey);
 		//移除資料

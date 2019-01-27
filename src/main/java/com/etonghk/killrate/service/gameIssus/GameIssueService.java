@@ -4,6 +4,9 @@
 package com.etonghk.killrate.service.gameIssus;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.etonghk.killrate.domain.GameIssue;
 
 /**
  * @author Peter.Hong
@@ -25,4 +28,6 @@ public interface GameIssueService {
 	 * @return
 	 */
 	public String getIssueByDate(String lottery,LocalDateTime date);
+	
+	public List<GameIssue> selectIssueByLotteryAndDate(String lottery,LocalDateTime date);
 }

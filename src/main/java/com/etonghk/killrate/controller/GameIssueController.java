@@ -6,10 +6,10 @@ package com.etonghk.killrate.controller;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.service.gameIssus.GameIssueService;
@@ -18,15 +18,14 @@ import com.etonghk.killrate.service.gameIssus.GameIssueService;
  * @author Peter.Hong
  * @date 2019年1月23日
  */
-@Controller
+@RestController
 @RequestMapping("gameIssus")
 public class GameIssueController {
 
 	@Autowired
 	private GameIssueService gameIssueService;
 	
-	@RequestMapping("batchInsert")
-	@ResponseBody
+	@PostMapping("batchInsert")
 	public ApiResult<String> batchInsertIssueAfterDay(@RequestParam(value = "date", required=false)LocalDateTime date,
 			@RequestParam(value = "afterDay", defaultValue = "3")Integer afterDay) {
 		
@@ -40,11 +39,12 @@ public class GameIssueController {
 	}
 	
 	
-	@RequestMapping("selectOpenIssue")
-	@ResponseBody
+	@PostMapping("selectOpenIssue")
 	public ApiResult<String> getIssueByDate(@RequestParam("lottery")String lottery,@RequestParam("date")LocalDateTime date){
 		
 		String lotteryIssue = gameIssueService.getIssueByDate(lottery, date);
+		
+//		List<GameIssue> list = gameIssueService.selectIssueByLotteryAndDate(lottery, date);
 		
 		return new ApiResult<String>(ApiResult.SUCCESS_CODE,ApiResult.SUCCESS_MSG,lotteryIssue);
 	}

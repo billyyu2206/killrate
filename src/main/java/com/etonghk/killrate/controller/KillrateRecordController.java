@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.controller.dto.request.KillrateRecordRequest;
 import com.etonghk.killrate.dao.page.Page;
 import com.etonghk.killrate.domain.KillrateAward;
@@ -33,7 +34,7 @@ public class KillrateRecordController {
 	
 	private static List<String> gameList = new ArrayList<String>();
 	static {
-		gameList.add("vipssc");
+		KillrateConstant.allGameMap.forEach((k,v)->gameList.add(k));
 	}
 	
 	@RequestMapping()

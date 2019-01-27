@@ -24,7 +24,7 @@ public class SSCConfig {
 	public static final Map<String, String> SSC2KuaDu = new HashMap<String, String>();
 	public static final Map<String, List<Integer[]>> SSCLongHuDou = new HashMap<String, List<Integer[]>>();
 	public static final Map<String, List<Integer[]>> SSC5HG = new HashMap<String, List<Integer[]>>(); // 和值大小单双
-	public static final List<String> allDataList = new ArrayList<String>();
+	public static final List<String> allNumberList = new ArrayList<String>();
 
 	public static final String[] sscItemSource = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 	
@@ -176,7 +176,7 @@ public class SSCConfig {
 				for (int k2 = 0; k2 <= 9; ++k2) {
 					for (int l2 = 0; l2 <= 9; ++l2) {
 						for (int m2 = 0; m2 <= 9; ++m2) {
-							SSCConfig.allDataList.add("" + i2 + j2 + k2 + l2 + m2);
+							SSCConfig.allNumberList.add("" + i2 + j2 + k2 + l2 + m2);
 						}
 					}
 				}
