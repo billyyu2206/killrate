@@ -8,11 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * 
@@ -24,48 +20,25 @@ public class RedisCache implements Cache{
 
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
-	
-	private Gson gson = new Gson();
 
 	@Override
 	public void putObj(String key, Object value) {
-		redisTemplate.opsForValue().set(key, gson.toJson(value));
+		redisTemplate.opsForValue().set(key, value);
 	}
 
 	@Override
 	public void putObj(String key, Object value, int liveTime, TimeUnit unit) {
-		redisTemplate.opsForValue().set(key, gson.toJson(value), liveTime, unit);
+		redisTemplate.opsForValue().set(key, value, liveTime, unit);
 	}
 
 	@Override
-	public <T> T getObj(String key, Class<T> cls) {
-		String json = get(key);
-		return gson.fromJson(json, cls);
-	}
-
-	@Override
-	public <T> T getCollectionObj(String key, TypeToken<T> typeToken) {
-		String json = get(key);
-		return gson.fromJson(json, typeToken.getType());
+	public Object getObj(String key) {
+		return redisTemplate.opsForValue().get(key);
 	}
 
 	@Override
 	public void del(String key) {
 		redisTemplate.delete(key);
-	}
-
-	@Override
-	public void set(String key, String value) {
-		redisTemplate.opsForValue().set(key, value);
-	}
-
-	@Override
-	public void set(String key, String value, int liveTime, TimeUnit unit) {
-		redisTemplate.opsForValue().set(key, value, liveTime, unit);
-	}
-
-	private String get(final String key) {
-		return gson.toJson(redisTemplate.opsForValue().get(key));
 	}
 
 	@Override
@@ -86,23 +59,9 @@ public class RedisCache implements Cache{
 		this.redisTemplate = redisTemplate;
 	}
 
-	public Gson getGson() {
-		return gson;
-	}
-
-	public void setGson(Gson gson) {
-		this.gson = gson;
-	}
-
 	@Override
 	public Long incr(String key) {
 		return redisTemplate.opsForValue().increment(key);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public RedisSerializer<String> getRedisKeySerializer() {
-		return (RedisSerializer<String>) redisTemplate.getKeySerializer();
 	}
 
 	/* (non-Javadoc)

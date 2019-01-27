@@ -2,7 +2,6 @@ package com.etonghk.killrate.service.killrateaward;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,10 +27,13 @@ import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.domain.KillrateSettingLog;
 import com.etonghk.killrate.exception.ServiceException;
 import com.etonghk.killrate.utils.CommonUtils;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Service
 public class KillrateAwardServiceImpl implements KillrateAwardService{
+	
+	Gson gson = new Gson();
 	
 	@Autowired
 	private KillrateAwardDao killrateAwardDao;
@@ -180,9 +182,9 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		
 		String redisKey = RedisKey.getLotteryIssueKey(lottery, issue);
 		Map<Object, Object> redisData = redisCache.hgetAll(redisKey);
-		String tempStr = redisCache.getGson().toJson(redisData);
+		String tempStr = gson.toJson(redisData);
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
-		Map<String, BigDecimal> data = redisCache.getGson().fromJson(tempStr, type);
+		Map<String, BigDecimal> data = gson.fromJson(tempStr, type);
 		BigDecimal total = data.get(KillrateConstant.TOTAL_BET);
 		data.remove(KillrateConstant.TOTAL_BET);
 		data = CommonUtils.sortByValueAsc(data);

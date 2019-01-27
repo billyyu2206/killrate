@@ -100,7 +100,7 @@ public class KillrateSettingController {
 	
 	@RequestMapping("/switch")
 	public String switchPage(Model model) {
-		String switchValue = cache.getObj(SWITCH_KEY, String.class);
+		String switchValue = (String) cache.getObj(SWITCH_KEY);
 		if(StringUtils.isBlank(switchValue)) {
 			switchValue = "0";
 		}
@@ -112,7 +112,7 @@ public class KillrateSettingController {
 	@RequestMapping("/changeSwitch")
 	public ApiResult<Void> delete(String switchValue) {
 		ApiResult<Void> result = new ApiResult<Void>();
-		cache.set(SWITCH_KEY, switchValue);
+		cache.putObj(SWITCH_KEY, switchValue);
 		result.setCode(ApiResult.SUCCESS_CODE);
 		result.setMsg(ApiResult.SUCCESS_MSG);
 		return result;

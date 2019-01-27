@@ -6,9 +6,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.serializer.RedisSerializer;
-
-import com.google.gson.reflect.TypeToken;
 
 /**
  * Cache 基礎類別
@@ -19,15 +16,9 @@ public interface Cache {
 	
 	void del(String key);
 
-	void set(String key,String value);
-	
 	void putObj(String key, Object value);
 	
-	<T> T getObj(String key, Class<T> cls);
-	
-	<T> T getCollectionObj(String key, TypeToken<T> type);
-	
-	void set(String key,String value,int liveTime,TimeUnit unit);
+	Object getObj(String key);
 	
 	void putObj(String key, Object value,int liveTime,TimeUnit unit);
 	
@@ -37,12 +28,8 @@ public interface Cache {
 	
 	Long incr(String key);
 	
-	RedisSerializer<String> getRedisKeySerializer();
-	
 	List<?> excutePipeline(RedisCallback<?> pipelineCallback);
 	
-	Map<Object, Object> hgetAll(String key);
-
 	void hset(String key,Object field,Object value);
 
 	/**
@@ -51,5 +38,11 @@ public interface Cache {
 	 * @return
 	 */
 	Boolean setLock(String key, Object value);
+
+	/**
+	 * @param key
+	 * @return
+	 */
+	Map<Object, Object> hgetAll(String key);
 	
 }
