@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.etonghk.killrate.controller.helper.ApiUriHelper;
+
 @Configuration
 public class LoginInterceptor implements HandlerInterceptor {
 
@@ -21,16 +23,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 	static {
 		allowUrls.add("/loginAcc");
 		allowUrls.add("/");
-		allowUrls.add("/account/create");
-		allowUrls.add("/account/createAccount");
-		allowUrls.add("/betRecord/send");
-		allowUrls.add("/gameIssus/batchInsert");
-		allowUrls.add("/cache/reset");
-		allowUrls.add("/gameIssus/selectOpenIssue");
-		allowUrls.add("/killrateSetting/switch");
-		allowUrls.add("/killrateSetting/changeSwitch");
-		allowUrls.add("/awardNumber/clearKillRate");
-		allowUrls.add("/awardNumber/getNumber");
 	}
 	
 	@Override
@@ -39,10 +31,17 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String requestUrl = request.getRequestURI();
 		
+		
+		
+		
 		for(String url : allowUrls) {
 			if(requestUrl.endsWith(url)) {
 				return true;
 			}
+		}
+		
+		if(ApiUriHelper.checkIsApiUri(requestUrl)) {
+			return true;
 		}
 		
 		if (session.getAttribute(session.getId()) != null) {

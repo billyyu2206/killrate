@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -233,11 +234,10 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 
 	private String getSettingLogContent(KillrateSetting setting, List<KillrateAward> insertList) {
 		StringBuilder result = new StringBuilder();
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		if(setting.getStartTime() != null && setting.getEndTime() != null) {
-			result.append("杀率区间段: ").append(formatter.format(setting.getStartTime())).append(" ~ ")
-				.append(formatter.format(setting.getEndTime())).append("<br/>");
+			result.append("杀率区间段: ").append(setting.getStartTime().format(formatter)).append(" ~ ")
+				.append(setting.getStartTime().format(formatter)).append("<br/>");
 		}
 		
 		if(setting.getStartTime() != null && setting.getEndTime() != null) {
