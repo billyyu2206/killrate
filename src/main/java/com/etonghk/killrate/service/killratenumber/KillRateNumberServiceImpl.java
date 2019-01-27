@@ -10,7 +10,6 @@ import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.response.AwardNumberResponse;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;
-import com.etonghk.killrate.dao.KillrateSettingDao;
 import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.exception.ServiceException;
@@ -21,9 +20,6 @@ import com.etonghk.killrate.exception.ServiceException;
  */
 @Service
 public class KillRateNumberServiceImpl implements KillRateNumberService {
-
-	@Autowired
-	private KillrateSettingDao killrateSettingDao;
 	
 	@Autowired
 	private KillrateAwardDao killrateAwardDao;
