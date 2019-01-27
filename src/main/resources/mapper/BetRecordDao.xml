@@ -28,6 +28,35 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.etonghk.killrate.domain.BetRecord">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+  
+  <resultMap id="OrderResultMap" type="com.jack.entity.GameLotteryOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="billno" jdbcType="VARCHAR" property="billno" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="lottery" jdbcType="VARCHAR" property="lottery" />
+    <result column="issue" jdbcType="VARCHAR" property="issue" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="compress" jdbcType="BIT" property="compress" />
+    <result column="nums" jdbcType="INTEGER" property="nums" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="multiple" jdbcType="INTEGER" property="multiple" />
+    <result column="code" jdbcType="INTEGER" property="code" />
+    <result column="point" jdbcType="DECIMAL" property="point" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="stop_time" jdbcType="TIMESTAMP" property="stopTime" />
+    <result column="open_time" jdbcType="TIMESTAMP" property="openTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="open_code" jdbcType="VARCHAR" property="openCode" />
+    <result column="win_money" jdbcType="DECIMAL" property="winMoney" />
+    <result column="clear_time" jdbcType="TIMESTAMP" property="clearTime" />
+    <result column="reference" jdbcType="VARCHAR" property="reference" />
+  </resultMap>
+  <resultMap extends="OrderResultMap" id="OrderResultMapWithBLOBs" type="com.jack.entity.GameLotteryOrder">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  
   <sql id="Base_Column_List">
     id, billno, account_id, type, lottery, issue, method, compress, nums, model, multiple, 
     code, point, money, order_time, stop_time, open_time, status, open_code, win_money, 
@@ -91,4 +120,13 @@
 	UNIQUE INDEX unique_001(billno) USING BTREE
 	)
   </update>
+  
+  <select id="selectPurseByLotteryAndIssue" resultMap="OrderResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from purse_rec_${lottery}_${date}
+    where issue = #{issue,jdbcType=INTEGER}
+  </select>
 </mapper>

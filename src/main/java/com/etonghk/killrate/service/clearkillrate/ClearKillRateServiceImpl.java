@@ -80,7 +80,7 @@ public class ClearKillRateServiceImpl implements ClearKillRateService{
 			Boolean isLock= cache.setLock(lockKey, "0");
 			//因為殺率是多台計算,設計分布式鎖,統一由一台進行開獎
 			if(isLock) {
-				killrateAwardService.calAwardNumber(lottery, issue, false);
+				killrateAwardService.calAwardNumber(lottery, issue);
 			}
 			cache.del(lockKey);
 			cache.del(clearFinishNumKey);

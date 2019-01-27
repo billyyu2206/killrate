@@ -19,5 +19,5 @@ public interface KillrateAwardService {
 
 	public Page<KillrateAward> selectForRecord(String lottery, LocalDateTime issueDate, Boolean isPush, Page<KillrateAward> page);
 	
-	public KillrateAward calAwardNumber(String lottery, String issue, Boolean isTask);
+	public KillrateAward calAwardNumber(String lottery, String issue);
 }

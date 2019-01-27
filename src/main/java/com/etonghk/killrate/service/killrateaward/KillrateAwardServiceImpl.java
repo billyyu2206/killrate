@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.cache.key.RedisKey;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
+import com.etonghk.killrate.dao.BetRecordDao;
 import com.etonghk.killrate.dao.GameIssueDao;
 import com.etonghk.killrate.dao.KillrateAwardDao;
 import com.etonghk.killrate.dao.KillrateSettingLogDao;
@@ -27,9 +29,11 @@ import com.etonghk.killrate.domain.GameIssue;
 import com.etonghk.killrate.domain.KillrateAward;
 import com.etonghk.killrate.domain.KillrateSettingLog;
 import com.etonghk.killrate.exception.ServiceException;
+import com.etonghk.killrate.service.ordercalculate.OrderCalculateService;
 import com.etonghk.killrate.utils.CommonUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jack.entity.GameLotteryOrder;
 
 @Service
 public class KillrateAwardServiceImpl implements KillrateAwardService{
@@ -43,10 +47,17 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	private GameIssueDao gameIssueDao;
 	
 	@Autowired
+	private BetRecordDao betRecordDao;
+	
+	@Autowired
 	private KillrateSettingLogDao killrateSettingLogDao;
 	
 	@Autowired
 	private RedisCache redisCache;
+	
+	@Autowired
+	private OrderCalculateService orderCalculateService;
+	
 	/**
 	 * 	取得殺率設定獎期
 	 * 	@param KillrateAward.lottery
@@ -167,19 +178,16 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	 * 	@param KillrateAward.id
 	 */
 	@Override
-	public KillrateAward calAwardNumber(String lottery, String issue, Boolean isTask) {
+	public KillrateAward calAwardNumber(String lottery, String issue) {
 		KillrateAward award = killrateAwardDao.selectForCalNumber(lottery, issue);
 		if(award == null) {
 			// 沒有設定的殺率獎期
 			return null;
 		}else if(StringUtils.isNotBlank(award.getAwardNumber())) {
-			// 如果已經有獎號了
-			if(isTask) {
-				return award;
-			}else {
-				// TODO 要再確認如果不是 task的請求如何處理
-			}
+			return award;
 		}
+		List<GameLotteryOrder> purseData = betRecordDao.selectPurseByLotteryAndIssue(lottery, issue, issue.substring(0, 8));
+		
 		
 		String redisKey = RedisKey.getLotteryIssueKey(lottery, issue);
 		Map<Object, Object> redisData = redisCache.hgetAll(redisKey);
@@ -187,9 +195,17 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
 		Map<String, BigDecimal> data = gson.fromJson(tempStr, type);
 		
-		for (String number : SSCConfig.allNumberList) {
-			if(data.get(number)==null) {
-				data.put(number, BigDecimal.ZERO);
+		// 決定開獎號碼時再把追號注單內容算入
+		if(purseData != null && purseData.size() > 0) {
+			for(GameLotteryOrder purseOrder : purseData) {
+				Map<String,BigDecimal> temp = orderCalculateService.doCalOrder(purseOrder);
+				for(String number : temp.keySet()) {
+					if(data.containsKey(number)) {
+						data.put(number, data.get(number).add(temp.get(number)));
+					}else {
+						data.put(number, temp.get(number));
+					}
+				}
 			}
 		}
 		
@@ -198,7 +214,6 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		data = CommonUtils.sortByValueAsc(data);
 		BigDecimal targetRate = new BigDecimal(award.getKillrate());
 		
-		// FIXME 確認樣本最小要多少
 		int listMinSize = 1000;
 		List<String> awardList = new ArrayList<String>();
 		Map<String, List<String>> substituteMap = new LinkedHashMap<String, List<String>>();// 未達設定殺率號碼
@@ -237,8 +252,12 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		
 		int result = killrateAwardDao.updateForAward(award);
 		if(result == 0) {
-			// TODO throw Exception
+			award = killrateAwardDao.selectByPrimaryKey(award.getId());
 		}
+		
+		redisKey = RedisKey.getLotteryIssueResultKey(lottery, issue);
+		data.put(KillrateConstant.TOTAL_BET, total);
+		redisCache.putObj(redisKey, data, 3, TimeUnit.DAYS);
 		return award;
 	}
 
