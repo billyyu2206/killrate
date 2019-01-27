@@ -1,5 +1,6 @@
 package com.etonghk.killrate.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.etonghk.killrate.domain.GameIssue;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class RedisCacheTest {
@@ -23,11 +26,11 @@ public class RedisCacheTest {
 	private RedisCache cache;
 	
 	@SuppressWarnings("unused")
-	@Test
+//	@Test
 	public void tesCachePipeline() {
 		long a1 = System.currentTimeMillis();
 		//取出key序列化元件
-		RedisSerializer<String> redisSerializer = cache.getRedisKeySerializer();
+		RedisSerializer<String> redisSerializer = cache.getRedisTemplate().getStringSerializer();
 		//要處理的key
 		byte[] key = redisSerializer.serialize("vipssc:201901191001");
 		//裝載號碼及金額資料
@@ -54,11 +57,36 @@ public class RedisCacheTest {
 		long a2 = System.currentTimeMillis();
 		System.out.println((a2-a1)/1000);
 		System.out.println(123);
-//		Map<Object, Object> tesmp = cache.hgetAll("vipssc:201901191001");
-//		String temp = cache.getGson().toJson(tesmp);
-//		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
-//		Map<String, BigDecimal> test = cache.getGson().fromJson(temp, type);
-//		System.out.println(test);
 	}
 	
+	@Test
+	public void testPutObj() {
+		GameIssue issue = new GameIssue();
+		List<GameIssue> issues = new ArrayList<GameIssue>();
+		issues.add(issue);
+		issue.setFullIssue("1234");
+		cache.putObj("aa", issues);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGteObj() {
+		List<GameIssue> issues = (List<GameIssue>) cache.getObj("aa");
+		System.out.println(issues);
+	}
+	
+	@Test
+	public void testHset() {
+		GameIssue issue = new GameIssue();
+		List<GameIssue> issues = new ArrayList<GameIssue>();
+		issues.add(issue);
+		issue.setFullIssue("1234");
+		cache.hset("aaa", "111", issues);
+	}
+	
+	@Test
+	public void testHgetAll() {
+		Map<Object, Object> issues = cache.hgetAll("aaa");
+		System.out.println(issues);
+	}
 }

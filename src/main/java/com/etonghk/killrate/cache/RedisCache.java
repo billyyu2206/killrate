@@ -5,10 +5,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+
+import com.etonghk.killrate.cache.key.RedisKey;
 
 /**
  * 
@@ -91,4 +95,8 @@ public class RedisCache implements Cache{
 		return redisTemplate.opsForValue().setIfAbsent(key, value);
 	}
 	
+	@PostConstruct
+	public void initServerCount() {
+		this.incr(RedisKey.getServerCount());
+	}
 }
