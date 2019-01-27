@@ -46,6 +46,8 @@ public class BaseClearListener {
 				BigDecimal value = entry.getValue();
 				if(issueAward.containsKey(number)) {
 					issueAward.put(number,value.add(issueAward.get(number)));
+				}else {
+					issueAward.put(number, value);
 				}
 			});
 		}

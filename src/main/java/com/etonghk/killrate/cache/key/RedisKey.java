@@ -20,6 +20,9 @@ public class RedisKey {
 		return lottery+"-"+issue+"-lock";
 	}
 	
+	public static String getLotteryIssueResultKey(String lottery,String issue) {
+		return lottery+":"+issue+"-result";
+	}
 	/**
 	 * 判斷該獎期是否結算完成key
 	 * @param gameId
