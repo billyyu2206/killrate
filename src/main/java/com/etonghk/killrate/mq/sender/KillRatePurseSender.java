@@ -6,15 +6,15 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.etonghk.killrate.mq.config.KillRateBetMqConfig;
+import com.etonghk.killrate.mq.config.KillRatePurseMqConfig;
 import com.jack.entity.GameLotteryOrder;
 
 /**
- * @author Ami.Tsai
- * @date 2019年1月18日
+ * @author Billy.Yu
+ * @date 2019年1月27日
  */
 @Component
-public class KillRateBetSender {
+public class KillRatePurseSender {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -26,8 +26,8 @@ public class KillRateBetSender {
      * @param order
      */
     public void senderGameLotteryOrder(GameLotteryOrder order) {
-    	logger.info("bet sender==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
-    	rabbitTemplate.convertAndSend(KillRateBetMqConfig.KILL_RATE_BET_QUEUE, order);
+    	logger.info("purse sender==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
+    	rabbitTemplate.convertAndSend(KillRatePurseMqConfig.KILL_RATE_PURSE_QUEUE, order);
     }
     
 	

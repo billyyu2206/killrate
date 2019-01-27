@@ -62,7 +62,7 @@ public class KillRateBetReceiver {
     }
 	
 	/**
-	 * 注單計算consumer,計算完畢存在本身內存
+	 * 注單計算consumer死信
 	 * @param order
 	 * @throws IOException 
 	 */
@@ -74,6 +74,7 @@ public class KillRateBetReceiver {
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}catch (Exception ex) {
 			logger.error("receiver dead error: ", ex);
+			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}
 		
     }
