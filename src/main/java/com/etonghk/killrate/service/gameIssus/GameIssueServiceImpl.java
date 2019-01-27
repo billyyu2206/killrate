@@ -56,7 +56,7 @@ public class GameIssueServiceImpl implements GameIssueService{
 				issue.setLottery(lottery);
 				issue.setIssueDate(issueTime);
 				issue.setIssue(StringUtils.leftPad(i+"", 4, "0"));
-				String dateStr= startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				String dateStr= startTime.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 				issue.setFullIssue(dateStr+"-"+ issue.getIssue());
 				issue.setIssueStartTime(issueTime);
 				LocalDateTime endTime = startTime.plusSeconds(periodSeconds);
