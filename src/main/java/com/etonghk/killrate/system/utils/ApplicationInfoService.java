@@ -6,22 +6,23 @@ import java.net.UnknownHostException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Ami.Tsai
  * @date 2019年1月28日
  */
-@Component
-public class ApplicationInfoUtil {
-	
-	public static Environment environment; 
+@Service
+public class ApplicationInfoService{
 
-	private static String ip;
+	@Autowired
+	private Environment environment;
 	
-	private static String port;
+	private String ip;
 	
-	public static String getIp() throws UnknownHostException {
+	private String port;
+	
+	public String getIp() throws UnknownHostException {
 		if(StringUtils.isEmpty(ip)) {
 			InetAddress ipAddress = InetAddress.getLocalHost();			
 			ip = ipAddress.getHostAddress();
@@ -29,16 +30,11 @@ public class ApplicationInfoUtil {
 		return ip;
 	}
 	
-	public static String getPort() {
+	public String getPort() {
 		if(StringUtils.isEmpty(port)) {
 			port = environment.getProperty("server.port");
 		}
 		return port;
 	}
 
-	@Autowired
-	public void setEnvironment(Environment environment) {
-		ApplicationInfoUtil.environment = environment;
-	}
-	
 }

@@ -28,6 +28,9 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
 	@Autowired
 	private RedisCache cache;
 	
+	@Autowired
+	private RedisHashField redisHashField;
+	
 	private final Logger log = LoggerFactory.getLogger(GracefulShutdown.class);
     private volatile Connector connector;
     private final int waitTime = 30;
@@ -47,7 +50,7 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
                 if (!threadPoolExecutor.awaitTermination(waitTime, TimeUnit.SECONDS)) {
                     log.warn("Tomcat thread pool did not shut down gracefully within " + waitTime + " seconds. Proceeding with forceful shutdown");
                 }
-                cache.hdel(RedisKey.getServerCount(), RedisHashField.getServerIpPortField());
+                cache.hdel(RedisKey.getServerCount(), redisHashField.getServerIpPortField());
             } catch (InterruptedException | UnknownHostException ex) {
                 Thread.currentThread().interrupt();
             }

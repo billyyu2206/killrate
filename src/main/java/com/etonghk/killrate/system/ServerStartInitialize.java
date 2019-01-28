@@ -21,9 +21,12 @@ public class ServerStartInitialize {
 	@Autowired
 	private RedisCache cache;
 	
+	@Autowired
+	private RedisHashField redisHashField;
+	
 	//註冊服務
 	@PostConstruct
 	public void initServerSize() throws UnknownHostException {
-		cache.hset(RedisKey.getServerCount(), RedisHashField.getServerIpPortField(), 1);
+		cache.hset(RedisKey.getServerCount(), redisHashField.getServerIpPortField(), 1);
 	}
 }

@@ -1,4 +1,4 @@
-package com.etonghk.killrate.service.awardsample;
+package com.etonghk.killrate.awardsample;
 
 import java.util.Map;
 
