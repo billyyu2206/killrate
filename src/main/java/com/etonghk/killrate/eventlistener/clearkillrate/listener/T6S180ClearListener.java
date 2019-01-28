@@ -57,5 +57,10 @@ public class T6S180ClearListener extends BaseClearListener implements ClearKillR
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}
 	}
+	
+	@Override
+	protected String getLottery() {
+		return "t6s180";
+	}
 
 }

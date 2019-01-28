@@ -58,4 +58,9 @@ public class T6S120ClearListener extends BaseClearListener implements ClearKillR
 		}
 	}
 	
+	@Override
+	protected String getLottery() {
+		return "t6s120";
+	}
+	
 }

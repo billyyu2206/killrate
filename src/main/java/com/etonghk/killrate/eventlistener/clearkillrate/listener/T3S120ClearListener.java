@@ -57,5 +57,10 @@ public class T3S120ClearListener extends BaseClearListener implements ClearKillR
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}
 	}
+	
+	@Override
+	protected String getLottery() {
+		return "t3s120";
+	}
 
 }

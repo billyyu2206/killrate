@@ -57,4 +57,9 @@ public class T1S90bClearListener extends BaseClearListener implements ClearKillR
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}
 	}
+	
+	@Override
+	protected String getLottery() {
+		return "t1s90c";
+	}
 }

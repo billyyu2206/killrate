@@ -58,4 +58,8 @@ public class T3S90ClearListener extends BaseClearListener implements ClearKillRa
 		}
 	}
 	
+	@Override
+	protected String getLottery() {
+		return "t3s90";
+	}
 }

@@ -58,4 +58,8 @@ public class T1S90dClearListener extends BaseClearListener implements ClearKillR
 		}
 	}
 
+	@Override
+	protected String getLottery() {
+		return "t1s90d";
+	}
 }

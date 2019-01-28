@@ -57,4 +57,9 @@ public class T1S60ClearListener extends BaseClearListener implements ClearKillRa
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}
 	}
+	
+	@Override
+	protected String getLottery() {
+		return "t1s60";
+	}
 }

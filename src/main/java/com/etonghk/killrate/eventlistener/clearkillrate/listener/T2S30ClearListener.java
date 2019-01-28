@@ -57,5 +57,10 @@ public class T2S30ClearListener extends BaseClearListener implements ClearKillRa
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}
 	}
+	
+	@Override
+	protected String getLottery() {
+		return "t2s30";
+	}
 
 }
