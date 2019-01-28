@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@ExceptionHandler(value= {Exception.class})
-	public String test(Exception ex, HttpServletRequest req, HttpServletResponse resp, Model model) throws IOException{
+	public String handle(Exception ex, HttpServletRequest req, HttpServletResponse resp, Model model) throws IOException{
 		
 		String errMsg = "";
 		if (ex instanceof ServiceException) {

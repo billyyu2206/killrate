@@ -376,7 +376,7 @@ public class AwardNumberGenerateUtils {
 		// 整理那些位數有被投注
 		String betPos = ""; 
 		for(int i = 1; i <= 5; i++) {
-			if(!"-".equals(betItems[i - 1][0])) { // FIXME 暫時先假定未投注的位數會傳"-"過來
+			if(!"-".equals(betItems[i - 1][0])) {
 				betPos += i;
 			}
 		}
