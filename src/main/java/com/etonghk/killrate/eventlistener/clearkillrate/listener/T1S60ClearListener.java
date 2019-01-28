@@ -42,4 +42,9 @@ public class T1S60ClearListener extends BaseClearListener implements ClearKillRa
 	public void clearResult(ClearKillRateVo vo) {
 		pushAwardNumberToRedis(vo);
 	}
+	
+	@Override
+	protected String getLottery() {
+		return "t1s60";
+	}
 }

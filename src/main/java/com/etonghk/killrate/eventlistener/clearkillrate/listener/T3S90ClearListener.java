@@ -43,4 +43,8 @@ public class T3S90ClearListener extends BaseClearListener implements ClearKillRa
 		pushAwardNumberToRedis(vo);
 	}
 	
+	@Override
+	protected String getLottery() {
+		return "t3s90";
+	}
 }

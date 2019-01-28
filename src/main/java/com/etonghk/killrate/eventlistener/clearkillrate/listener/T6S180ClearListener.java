@@ -42,5 +42,10 @@ public class T6S180ClearListener extends BaseClearListener implements ClearKillR
 	public void clearResult(ClearKillRateVo vo) {
 		pushAwardNumberToRedis(vo);
 	}
+	
+	@Override
+	protected String getLottery() {
+		return "t6s180";
+	}
 
 }
