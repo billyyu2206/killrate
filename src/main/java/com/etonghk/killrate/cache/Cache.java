@@ -48,5 +48,11 @@ public interface Cache {
 	 * @return
 	 */
 	Map<Object, Object> hgetAll(String key);
+
+	/**
+	 * @param key
+	 * @return
+	 */
+	Long hsize(String key);
 	
 }

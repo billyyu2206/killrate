@@ -106,4 +106,9 @@ public class RedisCache implements Cache{
 	public Long hdel(String key, Object field) {
 		return redisTemplate.opsForHash().delete(key, field);
 	}
+	
+	@Override
+	public Long hsize(String key) {
+		return redisTemplate.opsForHash().size(key);
+	}
 }

@@ -73,7 +73,7 @@ public class ClearKillRateServiceImpl implements ClearKillRateService{
 	public void clearFinishCalKillNumber(String lottery, String issue) {
 		String clearFinishNumKey = RedisKey.getLotteryIssueClearFinishKey(lottery, issue);
 		String serverCountKey = RedisKey.getServerCount();
-		Integer serverCount = (Integer) cache.getObj(serverCountKey);
+		Long serverCount = cache.hsize(serverCountKey);
 		Integer lotteryIssueClearCount = (Integer) cache.getObj(clearFinishNumKey);
 		if(lotteryIssueClearCount>=serverCount) {
 			String lockKey = RedisKey.getLotteryIssueLockKey(lottery, issue);
