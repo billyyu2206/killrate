@@ -37,21 +37,21 @@
 						</div>
 					</div>
 				</form>
-				<table class="table table-striped"  align="center" valign="center">
-				  <thead  align="center" valign="center">
-				    <tr>
-				      <th scope="col">期数</th>
-				      <th scope="col">是否开启杀率</th>
-				      <th scope="col">杀率号码</th>
-				      <th scope="col">投注金额</th>
-				      <th scope="col">中奖金额</th>
-				      <th scope="col">设定杀率比率</th>
-				      <th scope="col">实际杀率比率</th>
+				<table class="table table-striped" style="text-align: center;">
+				  <thead>
+				    <tr >
+				      <th class="text-center">期数</th>
+				      <th class="text-center">是否开启杀率</th>
+				      <th class="text-center">杀率号码</th>
+				      <th class="text-center">投注金额</th>
+				      <th class="text-center">中奖金额</th>
+				      <th class="text-center">设定杀率比率</th>
+				      <th class="text-center">实际杀率比率</th>
 				    </tr>
 				  </thead>
-    			  <tbody id="sortable"  align="center" valign="center">
+    			  <tbody id="sortable">
 					<tr th:if="${#lists.isEmpty(killAwardList)}" class="indexData">
-						<td colspan="7" style="text-align: center;">尚无数据</td>
+						<td colspan="7">尚无数据</td>
 					</tr>
 					<tr th:if="${not #lists.isEmpty(killAwardList)}" class="indexData" th:each="item : ${killAwardList}">
 					<td th:text="${item.issue}"></td>
@@ -59,8 +59,8 @@
 					<td th:text="${item.awardNumber}"></td>
 					<td th:text="${item.betMoney}"></td>
 					<td th:text="${item.awardMoney}"></td>
-					<td th:text="${item.awardMoney} ?${item.awardMoney}+'%'" ></td>
-					<td th:text="${item.awardNumber} ? ${item.awardNumber}/${item.betMoney} + '%'"></td>
+					<td th:text="${item.killrate} ?${item.killrate}+'%'" ></td>
+					<td th:text="${item.awardMoney}? ${item.awardMoney}/${item.betMoney}+'%'">%</td>
 					</tr>
 				</tbody>
 				</table>

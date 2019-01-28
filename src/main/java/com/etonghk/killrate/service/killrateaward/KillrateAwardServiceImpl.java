@@ -209,6 +209,12 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 			}
 		}
 		
+		for (String number : SSCConfig.allNumberList) {
+			if(!data.containsKey(number)) {
+				data.put(number, BigDecimal.ZERO);
+			}
+		}
+		
 		BigDecimal total = data.get(KillrateConstant.TOTAL_BET);
 		data.remove(KillrateConstant.TOTAL_BET);
 		data = CommonUtils.sortByValueAsc(data);
