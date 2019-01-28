@@ -28,10 +28,14 @@ public interface Cache {
 	
 	Long incr(String key);
 	
+	Long decrby(String key);
+	
 	List<?> excutePipeline(RedisCallback<?> pipelineCallback);
 	
 	void hset(String key,Object field,Object value);
-
+	
+	Long hdel(String key,Object field);
+	
 	/**
 	 * @param key
 	 * @param value
