@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class KillRatePurseMqConfig {
 
-	public static final String KILL_RATE_PURSE_QUEUE = "KILL_RATE_PURSE_QUEUE_BILLY";
-	public static final String KILL_RATE_PURSE_QUEUE_DEAD = "KILL_RATE_PURSE_QUEUE_DEAD_BILLY";
+	public static final String KILL_RATE_PURSE_QUEUE = "KILL_RATE_PURSE_QUEUE";
+	public static final String KILL_RATE_PURSE_QUEUE_DEAD = "KILL_RATE_PURSE_QUEUE_DEAD";
 	
 	@Bean(name= {KILL_RATE_PURSE_QUEUE})
 	public Queue killRateBetQueue() {

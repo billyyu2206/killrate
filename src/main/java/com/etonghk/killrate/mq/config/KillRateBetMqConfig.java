@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class KillRateBetMqConfig {
 
-	public static final String KILL_RATE_BET_QUEUE="KILL_RATE_BET_QUEUE_BILLY";
-	public static final String KILL_RATE_BET_QUEUE_DEAD="KILL_RATE_BET_QUEUE_DEAD_BILLY";
+	public static final String KILL_RATE_BET_QUEUE="KILL_RATE_BET_QUEUE";
+	public static final String KILL_RATE_BET_QUEUE_DEAD="KILL_RATE_BET_QUEUE_DEAD";
 	
 	@Bean(name= {KILL_RATE_BET_QUEUE})
 	public Queue killRateBetQueue() {

@@ -34,13 +34,13 @@ public class MemoryRefreshReceiver {
 	private ResetMemoryService resetMemoryService; 
 	
 	@Bean
-	public Queue cacheRefreshQueue() {
+	public Queue memoryRefreshQueue() {
         return new AnonymousQueue();
     }
 	
 	@Bean
-    public Binding bindingCacheRefresh(@Qualifier(MemoryRefreshMqConfig.MEMORY_REFRESH_EXCHANGE) FanoutExchange fanoutExchange, Queue cacheRefreshQueue) {
-        return BindingBuilder.bind(cacheRefreshQueue).to(fanoutExchange);
+    public Binding bindingCacheRefresh(@Qualifier(MemoryRefreshMqConfig.MEMORY_REFRESH_EXCHANGE) FanoutExchange fanoutExchange, Queue memoryRefreshQueue) {
+        return BindingBuilder.bind(memoryRefreshQueue).to(fanoutExchange);
     }
 	
 	@RabbitListener(queues= "#{memoryRefreshQueue.name}")
