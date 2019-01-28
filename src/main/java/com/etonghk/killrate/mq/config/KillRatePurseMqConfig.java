@@ -15,15 +15,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class KillRatePurseMqConfig {
 
-	public static final String KILL_RATE_PURSE_QUEUE="KILL_RATE_PURSE_QUEUE";
-	public static final String KILL_RATE_PURSE_QUEUE_DEAD="KILL_RATE_PURSE_QUEUE_DEAD";
+	public static final String KILL_RATE_PURSE_QUEUE = "KILL_RATE_PURSE_QUEUE";
+	public static final String KILL_RATE_PURSE_QUEUE_DEAD = "KILL_RATE_PURSE_QUEUE_DEAD";
 	
 	@Bean(name= {KILL_RATE_PURSE_QUEUE})
 	public Queue killRateBetQueue() {
 		Map<String, Object> args = new HashMap<String, Object>();
 		args.put("x-dead-letter-exchange", "");
 		args.put("x-dead-letter-routing-key", KILL_RATE_PURSE_QUEUE_DEAD);
-		return new Queue(KILL_RATE_PURSE_QUEUE_DEAD, true, false, false, args);
+		return new Queue(KILL_RATE_PURSE_QUEUE, true, false, false, args);
 	}
 
 	
