@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ClearRateMqConfig {
 
-	public static final String CLEAR_RATE_EXCHANGE="CLEAR_RATE_EXCHANGE";
+	public static final String CLEAR_RATE_EXCHANGE="CLEAR_RATE_EXCHANGE_BILLY";
 	
 	@Bean(name= {CLEAR_RATE_EXCHANGE})
 	public FanoutExchange clearRateExchange() {

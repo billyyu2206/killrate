@@ -5,14 +5,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-
-import com.etonghk.killrate.cache.key.RedisKey;
 
 /**
  * 
@@ -94,9 +90,25 @@ public class RedisCache implements Cache{
 	public Boolean setLock(String key,Object value) {
 		return redisTemplate.opsForValue().setIfAbsent(key, value);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.etonghk.killrate.cache.Cache#decrby(java.lang.String, long)
+	 */
+	@Override
+	public Long decrby(String key) {
+		return redisTemplate.opsForValue().decrement(key);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.etonghk.killrate.cache.Cache#hdel(java.lang.String, java.lang.Object)
+	 */
+	@Override
+	public Long hdel(String key, Object field) {
+		return redisTemplate.opsForHash().delete(key, field);
+	}
 	
-	@PostConstruct
-	public void initServerCount() {
-		this.incr(RedisKey.getServerCount());
+	@Override
+	public Long hsize(String key) {
+		return redisTemplate.opsForHash().size(key);
 	}
 }

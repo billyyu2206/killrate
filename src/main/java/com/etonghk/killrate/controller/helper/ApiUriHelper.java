@@ -19,6 +19,7 @@ public class ApiUriHelper {
 		excludeSessionUrls.add("/killrateSetting/changeSwitch");
 		excludeSessionWildcardUrl.add("/awardNumber/*");
 		excludeSessionWildcardUrl.add("/gameIssus/*");
+		excludeSessionWildcardUrl.add("/actuator/*");		
 	}
 
 	public static Boolean checkIsApiUri(String uri) {

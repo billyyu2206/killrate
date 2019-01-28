@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.etonghk.killrate.awardsample.AwardSampleCacheService;
 import com.etonghk.killrate.domain.AwardSample;
 import com.etonghk.killrate.service.awardsample.AwardSampleService;
 
