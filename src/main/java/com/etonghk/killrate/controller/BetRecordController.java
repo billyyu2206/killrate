@@ -39,8 +39,7 @@ public class BetRecordController {
 	}
 	
 	@RequestMapping("/createPurseTable")
-	@ResponseBody
-	public ApiResult<Void> batchInsertIssueAfterDay(@RequestParam(value = "date", required=false)LocalDateTime date,
+	public ApiResult<Void> createPurseTable(@RequestParam(value = "date", required=false)LocalDateTime date,
 			@RequestParam(value = "afterDay", defaultValue = "3")Integer afterDay) {
 		ApiResult<Void> result = new ApiResult<Void>();
 		if(date==null) {
