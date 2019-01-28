@@ -21,7 +21,7 @@ import groovy.transform.Synchronized;
  * @author Ami.Tsai
  * @date 2019年1月23日
  */
-public class BaseClearListener {
+public abstract class BaseClearListener {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -60,6 +60,11 @@ public class BaseClearListener {
 		String lotteryIssueKey = RedisKey.getLotteryIssueKey(lottery, issue);
 		Map<String,BigDecimal> awardResult = awardNumber.get(lotteryIssueKey);
 		
+		// 判斷彩種是否與listener相同
+		if(!getLottery().equals(lottery)) {
+			return;
+		}
+		
 		if(awardResult==null) {
 			//進行該獎期分區完成通知
 			clearKillRateService.doClearRateFinishMark(lottery, issue);
@@ -75,5 +80,7 @@ public class BaseClearListener {
 			clearKillRateService.clearFinishCalKillNumber(lottery, issue);
 		}
 	}
+	
+	protected abstract String getLottery();
 	
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.etonghk.killrate.controller.dto.ApiResult;
@@ -39,8 +38,7 @@ public class BetRecordController {
 	}
 	
 	@RequestMapping("/createPurseTable")
-	@ResponseBody
-	public ApiResult<Void> batchInsertIssueAfterDay(@RequestParam(value = "date", required=false)LocalDateTime date,
+	public ApiResult<Void> createPurseTable(@RequestParam(value = "date", required=false)LocalDateTime date,
 			@RequestParam(value = "afterDay", defaultValue = "3")Integer afterDay) {
 		ApiResult<Void> result = new ApiResult<Void>();
 		if(date==null) {

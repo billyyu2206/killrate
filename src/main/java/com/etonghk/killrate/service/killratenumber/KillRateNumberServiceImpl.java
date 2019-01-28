@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.response.AwardNumberResponse;
 import com.etonghk.killrate.dao.GameIssueDao;
@@ -27,13 +28,22 @@ public class KillRateNumberServiceImpl implements KillRateNumberService {
 	@Autowired
 	private GameIssueDao gameIssueDao;
 	
-	/* (non-Javadoc)
-	 * @see com.etonghk.killrate.service.killratenumber.KillRateNumberService#getKillRateAward(java.lang.String, java.lang.String)
-	 */
+	@Autowired
+	private RedisCache redisCache;
+	
+	private static final String SWITCH_KEY = "killrateSwitch";
+	
 	@Override
 	public ApiResult<AwardNumberResponse> getKillRateAward(String lottery, String issue) throws ServiceException{
 		ApiResult<AwardNumberResponse> result = new ApiResult<>();
-		result.setCode(ApiResult.FAILD_CODE);		
+		result.setCode(ApiResult.FAILD_CODE);
+		
+		String switchValue = (String) redisCache.getObj(SWITCH_KEY);
+		if("1".equals(switchValue)){ // 殺率總開關是 "關"
+			result.setMsg("目前杀率系统关闭");
+			return result;
+		}
+				
 		KillrateAward killrateAward = killrateAwardDao.selectForCalNumber(lottery, issue);
 		if(killrateAward==null) {
 			result.setMsg("本期无杀率设定");

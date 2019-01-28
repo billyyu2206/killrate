@@ -127,6 +127,6 @@
     ,
     <include refid="Blob_Column_List" />
     from purse_rec_${lottery}_${date}
-    where issue = #{issue,jdbcType=INTEGER}
+    where issue = #{issue,jdbcType=VARCHAR}
   </select>
 </mapper>

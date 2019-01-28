@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.dao.BetRecordDao;
+import com.etonghk.killrate.service.awardnmber.constant.KillrateConstant;
 
 /**
  * @author Billy.Yu
