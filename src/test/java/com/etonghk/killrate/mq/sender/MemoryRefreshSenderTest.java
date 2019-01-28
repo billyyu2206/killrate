@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.etonghk.killrate.vo.CacheRefreshVo;
+import com.etonghk.killrate.vo.MemoryRefreshVo;
 
 /**
  * @author Billy.Yu
@@ -14,14 +14,14 @@ import com.etonghk.killrate.vo.CacheRefreshVo;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class CacheRefreshKillRateSenderTest {
+public class MemoryRefreshSenderTest {
 
 	@Autowired
-	private CacheRefreshSender sender;
+	private MemoryRefreshSender sender;
 	
 	@Test
-	public void cacheRefreshTest() {
-		sender.sendCacheRefresh(new CacheRefreshVo("test cache send"));
+	public void memoryRefreshTest() {
+		sender.sendMemoryRefresh(new MemoryRefreshVo("test memory send"));
 	}
 	
 }

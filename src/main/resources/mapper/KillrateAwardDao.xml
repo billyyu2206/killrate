@@ -142,4 +142,14 @@
 		and is_push = 0
 		and award_number = ''
 	</update>
+	
+	<select id="selectForRefreshCache" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from killrate_award
+		<![CDATA[ 
+	    where issue_end_time >= sysdate() - INTERVAL 10 MINUTE
+		and issue_end_time <= sysdate() + INTERVAL 50 MINUTE
+		]]>
+	</select>
 </mapper>

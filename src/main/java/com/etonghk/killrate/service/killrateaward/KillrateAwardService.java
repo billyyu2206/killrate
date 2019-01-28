@@ -1,6 +1,7 @@
 package com.etonghk.killrate.service.killrateaward;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.page.Page;
@@ -20,4 +21,6 @@ public interface KillrateAwardService {
 	public Page<KillrateAward> selectForRecord(String lottery, LocalDateTime issueDate, Boolean isPush, Page<KillrateAward> page);
 	
 	public KillrateAward calAwardNumber(String lottery, String issue);
+	
+	public Map<String, KillrateAward> getRefreshMemoryData();
 }

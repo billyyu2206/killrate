@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
  * @date 2019年1月28日
  */
 @Configuration
-public class CacheRefreshMqConfig {
-	public static final String CACHE_REFRESH_EXCHANGE = "CACHE_REFRESH_EXCHANGE";
+public class MemoryRefreshMqConfig {
+	public static final String MEMORY_REFRESH_EXCHANGE = "MEMORY_REFRESH_EXCHANGE";
 	
-	@Bean(name= {CACHE_REFRESH_EXCHANGE})
-	public FanoutExchange cacheRefreshExchange() {
-        return new FanoutExchange(CACHE_REFRESH_EXCHANGE);
+	@Bean(name= {MEMORY_REFRESH_EXCHANGE})
+	public FanoutExchange memoryRefreshExchange() {
+        return new FanoutExchange(MEMORY_REFRESH_EXCHANGE);
     }
 }

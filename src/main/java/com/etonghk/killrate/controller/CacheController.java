@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.properties.config.IpWhiteListProperties;
-import com.etonghk.killrate.service.awardsample.cache.AwardSampleCache;
+import com.etonghk.killrate.service.awardsample.memory.AwardSampleMemory;
 import com.etonghk.killrate.utils.RequestUtils;
 
 /**
@@ -26,7 +26,7 @@ public class CacheController {
 	IpWhiteListProperties ipWhiteListProperties;
 	
 	@Autowired
-	AwardSampleCache awardSampleCache;
+	AwardSampleMemory awardSampleMemory;
 	
 	@RequestMapping("/reset")
 	@ResponseBody
@@ -34,7 +34,7 @@ public class CacheController {
 		ApiResult<Void> result = new ApiResult<Void>();
 		String ipListStr = ipWhiteListProperties.getConfigValue("ip.white.cache.reset");
 		if(checkIp(request, ipListStr.split(","))) {
-			awardSampleCache.resetCacheData();
+			awardSampleMemory.resetMemoryData();
 			result.setMsg("success");
 			result.setCode(ApiResult.SUCCESS_CODE);
 		}else {

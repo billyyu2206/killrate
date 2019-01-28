@@ -11,12 +11,14 @@ import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.etonghk.killrate.mq.config.CacheRefreshMqConfig;
-import com.etonghk.killrate.vo.CacheRefreshVo;
+import com.etonghk.killrate.mq.config.MemoryRefreshMqConfig;
+import com.etonghk.killrate.service.resetmemory.ResetMemoryService;
+import com.etonghk.killrate.vo.MemoryRefreshVo;
 import com.rabbitmq.client.Channel;
 
 /**
@@ -24,9 +26,12 @@ import com.rabbitmq.client.Channel;
  * @date 2019年1月28日
  */
 @Component
-public class CacheRefreshReceiver {
+public class MemoryRefreshReceiver {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private ResetMemoryService resetMemoryService; 
 	
 	@Bean
 	public Queue cacheRefreshQueue() {
@@ -34,18 +39,17 @@ public class CacheRefreshReceiver {
     }
 	
 	@Bean
-    public Binding bindingCacheRefresh(@Qualifier(CacheRefreshMqConfig.CACHE_REFRESH_EXCHANGE) FanoutExchange fanoutExchange, Queue cacheRefreshQueue) {
+    public Binding bindingCacheRefresh(@Qualifier(MemoryRefreshMqConfig.MEMORY_REFRESH_EXCHANGE) FanoutExchange fanoutExchange, Queue cacheRefreshQueue) {
         return BindingBuilder.bind(cacheRefreshQueue).to(fanoutExchange);
     }
 	
-	@RabbitListener(queues= "#{cacheRefreshQueue.name}")
-	public void receive(CacheRefreshVo cacheRefreshVo, Message message, Channel channel) throws IOException {
+	@RabbitListener(queues= "#{memoryRefreshQueue.name}")
+	public void receive(MemoryRefreshVo memoryRefreshVo, Message message, Channel channel) throws IOException {
 		try {
-			logger.info("cache refresh receiver ==> cacheName={}",cacheRefreshVo.getCacheName());
-			// TODO cacheRefreshService
-			System.out.println("test receive");
+			logger.info("momory refresh receiver ==> momoryName={}", memoryRefreshVo.getMemoryName());
+			resetMemoryService.resetMemory(memoryRefreshVo);
 		}catch (Exception e) {
-			logger.error("cacheRefreshQueue receive error ", e);
+			logger.error("momoryRefreshQueue receive error ", e);
 		}finally {
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}
