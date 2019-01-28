@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
-import com.etonghk.killrate.cache.Cache;
+import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.controller.dto.request.KillrateSetting;
 import com.etonghk.killrate.dao.page.Page;
@@ -30,7 +30,7 @@ public class KillrateSettingController {
 	private KillrateAwardService killrateAwardService;
 	
 	@Autowired
-	private Cache cache;
+	private RedisCache redisCache;
 	
 	private static final String SWITCH_KEY = "killrateSwitch";
 	
@@ -100,7 +100,7 @@ public class KillrateSettingController {
 	
 	@RequestMapping("/switch")
 	public String switchPage(Model model) {
-		String switchValue = (String) cache.getObj(SWITCH_KEY);
+		String switchValue = (String) redisCache.getObj(SWITCH_KEY);
 		if(StringUtils.isBlank(switchValue)) {
 			switchValue = "0";
 		}
@@ -112,7 +112,7 @@ public class KillrateSettingController {
 	@RequestMapping("/changeSwitch")
 	public ApiResult<Void> delete(String switchValue) {
 		ApiResult<Void> result = new ApiResult<Void>();
-		cache.putObj(SWITCH_KEY, switchValue);
+		redisCache.putObj(SWITCH_KEY, switchValue);
 		result.setCode(ApiResult.SUCCESS_CODE);
 		result.setMsg(ApiResult.SUCCESS_MSG);
 		return result;
