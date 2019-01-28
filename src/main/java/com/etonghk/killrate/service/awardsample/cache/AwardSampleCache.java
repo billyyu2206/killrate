@@ -1,0 +1,38 @@
+package com.etonghk.killrate.service.awardsample.cache;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.etonghk.killrate.domain.AwardSample;
+import com.etonghk.killrate.service.awardsample.AwardSampleCacheService;
+
+/**
+ * @author Billy.Yu
+ * @date 2019年1月18日
+ */
+@Component
+public class AwardSampleCache {
+	
+	@Autowired
+	private AwardSampleCacheService awardSampleCacheService;
+	
+	private Map<String , AwardSample> awardSampleMap = new HashMap<String , AwardSample>();
+	
+	public AwardSample getAwardSampleByKey(String key) {
+		if(awardSampleMap == null || awardSampleMap.size() <= 0) {
+			resetCacheData();
+		}
+		return awardSampleMap.get(key);
+	}
+	
+	
+	@PostConstruct
+	public void resetCacheData() {
+		awardSampleMap = awardSampleCacheService.getResetCacheData();
+	}
+}

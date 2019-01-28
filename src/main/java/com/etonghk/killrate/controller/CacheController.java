@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.etonghk.killrate.awardsample.cache.AwardSampleCache;
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.properties.config.IpWhiteListProperties;
+import com.etonghk.killrate.service.awardsample.cache.AwardSampleCache;
 import com.etonghk.killrate.utils.RequestUtils;
 
 /**
