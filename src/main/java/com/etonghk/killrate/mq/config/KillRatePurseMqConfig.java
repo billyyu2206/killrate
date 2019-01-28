@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 殺率獎號計算
+ * 追號注單MQ設定
  * @author Billy.Yu
  * @date 2019年1月27日
  */

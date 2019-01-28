@@ -66,9 +66,6 @@ public class ClearKillRateServiceImpl implements ClearKillRateService{
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.etonghk.killrate.service.clearkillrate.ClearKillRateService#clearFinishCalKillNumber(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void clearFinishCalKillNumber(String lottery, String issue) {
 		String clearFinishNumKey = RedisKey.getLotteryIssueClearFinishKey(lottery, issue);
