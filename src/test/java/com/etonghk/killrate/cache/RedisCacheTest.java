@@ -59,7 +59,7 @@ public class RedisCacheTest {
 		System.out.println(123);
 	}
 	
-	@Test
+	//@Test
 	public void testPutObj() {
 		GameIssue issue = new GameIssue();
 		List<GameIssue> issues = new ArrayList<GameIssue>();
@@ -69,13 +69,13 @@ public class RedisCacheTest {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Test
+//	@Test
 	public void testGteObj() {
 		List<GameIssue> issues = (List<GameIssue>) cache.getObj("aa");
 		System.out.println(issues);
 	}
 	
-	@Test
+	//@Test
 	public void testHset() {
 		GameIssue issue = new GameIssue();
 		List<GameIssue> issues = new ArrayList<GameIssue>();
@@ -84,9 +84,27 @@ public class RedisCacheTest {
 		cache.hset("aaa", "111", issues);
 	}
 	
-	@Test
+	//@Test
 	public void testHgetAll() {
 		Map<Object, Object> issues = cache.hgetAll("aaa");
 		System.out.println(issues);
 	}
+	
+	@Test
+	public void testHmset() {
+		long a1 = System.currentTimeMillis();
+		//裝載號碼及金額資料
+		Map<String,Double> aa = new HashMap<>();
+		for(Integer i=1 ;i<=200000;i++) {
+			aa.put(i.toString(), i*1.0);
+		}
+		aa.put("tot", 10000*1.0);
+		cache.getRedisTemplate().opsForHash().putAll("a1234", aa);
+		
+		long a2 = System.currentTimeMillis();
+		System.out.println((a2-a1));
+		
+	}
+
+	
 }

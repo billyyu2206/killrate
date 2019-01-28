@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etonghk.killrate.awardnmber.config.SSCConfig;
 import com.etonghk.killrate.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.cache.RedisCache;
 import com.etonghk.killrate.cache.key.RedisKey;
@@ -205,6 +206,12 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 						data.put(number, temp.get(number));
 					}
 				}
+			}
+		}
+		
+		for (String number : SSCConfig.allNumberList) {
+			if(!data.containsKey(number)) {
+				data.put(number, BigDecimal.ZERO);
 			}
 		}
 		

@@ -5,6 +5,7 @@ package com.etonghk.killrate.awardnmber.constant;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Billy.Yu
@@ -15,7 +16,7 @@ public class KillrateConstant {
 	
 	public static Map<String, String> allGameMap;
 	static {
-		allGameMap = new HashMap<String, String>();
+		allGameMap = new TreeMap<String, String>();
 		allGameMap.put("t1s60","t1s60");
 		allGameMap.put("t1s90","t1s90");
 		allGameMap.put("t1s30","t1s30");

@@ -59,14 +59,21 @@ public class BaseClearListener {
 		String issue = vo.getIssue();
 		String lotteryIssueKey = RedisKey.getLotteryIssueKey(lottery, issue);
 		Map<String,BigDecimal> awardResult = awardNumber.get(lotteryIssueKey);
-		//將該獎期資料存入redis
-		clearKillRateService.pushClearRateToRedis(awardResult, lotteryIssueKey);
-		//移除資料
-		awardNumber.remove(lotteryIssueKey);
-		//進行該獎期分區完成通知
-		clearKillRateService.doClearRateFinishMark(lottery, issue);
-		//進行殺率開獎流程
-		clearKillRateService.clearFinishCalKillNumber(lottery, issue);
+		
+		if(awardResult==null) {
+			//進行該獎期分區完成通知
+			clearKillRateService.doClearRateFinishMark(lottery, issue);
+			return;
+		}else {
+			//將該獎期資料存入redis
+			clearKillRateService.pushClearRateToRedis(awardResult, lotteryIssueKey);
+			//進行該獎期分區完成通知
+			clearKillRateService.doClearRateFinishMark(lottery, issue);
+			//移除資料
+			awardNumber.remove(lotteryIssueKey);
+			//進行殺率開獎流程
+			clearKillRateService.clearFinishCalKillNumber(lottery, issue);
+		}
 	}
 	
 }
