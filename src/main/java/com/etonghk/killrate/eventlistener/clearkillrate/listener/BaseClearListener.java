@@ -1,10 +1,10 @@
 package com.etonghk.killrate.eventlistener.clearkillrate.listener;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,6 @@ import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
 import com.etonghk.killrate.service.clearkillrate.ClearKillRateService;
 import com.etonghk.killrate.vo.ClearKillRateVo;
 
-import groovy.transform.Synchronized;
-
 /**
  * @author Ami.Tsai
  * @date 2019年1月23日
@@ -25,33 +23,37 @@ public abstract class BaseClearListener {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	protected Map<String,Map<String,BigDecimal>> awardNumber = new HashMap<>();
+	protected Map<String,Map<String,BigDecimal>> awardNumber = new ConcurrentHashMap<>();
 	
-	protected Queue<ClearEvent> resultQueue = new LinkedList<>();
+	protected Queue<ClearEvent> resultQueue = new ConcurrentLinkedQueue<>();
 
 	@Autowired
 	private ClearKillRateService clearKillRateService;
 	
-	@Synchronized
 	protected void clearIssueKillRate() {
 		ClearEvent event = resultQueue.poll();
-		ClearKillRateVo vo = event.getClearKillRateVo();
-		logger.info("receiver==>lottery={},billno={},issue{}",vo.getLottery(),vo.getBillNo(),vo.getIssue());
-		Map<String,BigDecimal> issueAward = vo.getAwardNumber();
-		String lotteryIssueKey = RedisKey.getLotteryIssueKey(vo.getLottery(), vo.getIssue());
-		if(awardNumber.get(lotteryIssueKey)!=null) {
-			Map<String,BigDecimal> issueResult = awardNumber.get(lotteryIssueKey);
-			issueResult.entrySet().forEach(entry->{
-				String number = entry.getKey();
-				BigDecimal value = entry.getValue();
-				if(issueAward.containsKey(number)) {
-					issueAward.put(number,value.add(issueAward.get(number)));
-				}else {
-					issueAward.put(number, value);
-				}
-			});
+		synchronized (awardNumber) {
+			ClearKillRateVo vo = event.getClearKillRateVo();
+			logger.info("receiver==>lottery={},billno={},issue{}",vo.getLottery(),vo.getBillNo(),vo.getIssue());
+		      Map<String,BigDecimal> issueAward = vo.getAwardNumber();
+		      String lotteryIssueKey = RedisKey.getLotteryIssueKey(vo.getLottery(), vo.getIssue());
+		      if(awardNumber.get(lotteryIssueKey)!=null) {
+		        Map<String,BigDecimal> issueResult = awardNumber.get(lotteryIssueKey);
+		        issueResult.entrySet().forEach(entry->{
+		          String number = entry.getKey();
+		          BigDecimal value = entry.getValue();
+		          if(issueAward.containsKey(number)) {
+	//		            logger.info(vo.getLottery()+" issueAward before = {}",issueResult);
+		            issueAward.put(number,value.add(issueAward.get(number)));
+	//		            logger.info(vo.getLottery()+" issueAward after = {}",issueAward);
+		          }else {
+		            issueAward.put(number, value);
+	//		            logger.info(vo.getLottery()+" issueAward else = {}",issueAward);
+		          }
+		        });
+		      }
+		      awardNumber.put(lotteryIssueKey, issueAward);
 		}
-		awardNumber.put(lotteryIssueKey, issueAward);
 	}
 	
 	protected void pushAwardNumberToRedis(ClearKillRateVo vo) {

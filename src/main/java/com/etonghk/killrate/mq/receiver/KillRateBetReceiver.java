@@ -46,7 +46,7 @@ public class KillRateBetReceiver {
 	@RabbitListener(queues = KillRateBetMqConfig.KILL_RATE_BET_QUEUE,concurrency="10")
     public void receive(GameLotteryOrder order, Message message, Channel channel) throws IOException {
     	try {
-			logger.info("receiver==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
+//			logger.info("receiver==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
 			Map<String,BigDecimal> orderResult = orderCalculateService.doCalOrder(order);
 			ClearKillRateVo vo = new ClearKillRateVo();
 			vo.setAwardNumber(orderResult);
@@ -54,7 +54,9 @@ public class KillRateBetReceiver {
 			vo.setLottery(order.getLottery());
 			vo.setBillNo(order.getBillno());
 			applicationContext.publishEvent(new ClearEvent(vo));
+			logger.info("before cal "+vo.getBillNo());
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+			logger.info("ack cal {},{}",vo.getBillNo(),order.getIssue());
 		}catch (Exception ex) {
 			logger.error("receiver error: ", ex);
 			channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);

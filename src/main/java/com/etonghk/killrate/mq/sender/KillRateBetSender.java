@@ -26,7 +26,7 @@ public class KillRateBetSender {
      * @param order
      */
     public void senderGameLotteryOrder(GameLotteryOrder order) {
-    	logger.info("bet sender==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
+//    	logger.info("bet sender==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
     	rabbitTemplate.convertAndSend(KillRateBetMqConfig.KILL_RATE_BET_QUEUE, order);
     }
     
