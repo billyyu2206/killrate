@@ -60,7 +60,7 @@
 					<td th:text="${item.betMoney}"></td>
 					<td th:text="${item.awardMoney}"></td>
 					<td th:text="${item.killrate} ?${item.killrate}+'%'" ></td>
-					<td th:text="${item.awardMoney}? ${item.awardMoney}/${item.betMoney}+'%'">%</td>
+					<td th:text="${item.betMoney}? (${item.betMoney}-${item.awardMoney})/${item.betMoney} * 100+'%'">%</td>
 					</tr>
 				</tbody>
 				</table>

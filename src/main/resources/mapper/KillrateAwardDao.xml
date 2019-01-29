@@ -119,7 +119,7 @@
 		where a.lottery = #{lottery}
 		and a.issue_date = #{issueDate,jdbcType=DATE}
 		<if test='isPush != null and isPush'>
-		and b.is_push = 1
+		and b.killrate is not null
 		</if>
 		order by a.issue_end_time
 	</select>
