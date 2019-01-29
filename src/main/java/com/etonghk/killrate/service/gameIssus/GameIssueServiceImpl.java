@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +80,16 @@ public class GameIssueServiceImpl implements GameIssueService{
 	public List<GameIssue> selectIssueByLotteryAndDate(String lottery, LocalDateTime date) {
 		date = LocalDateTime.of(date.toLocalDate(),LocalTime.MIN);
 		return gameIssueDao.selectIssueByLotteryAndDate(lottery, date);
+	}
+	
+	@Override
+	public Map<String, GameIssue> getRefreshMemoryData() {
+		Map<String, GameIssue> result = new HashMap<String, GameIssue>();
+		List<GameIssue> datas = gameIssueDao.selectForRefreshCache();
+		for(GameIssue gameIssue : datas) {
+			result.put(gameIssue.getLottery() + ":" + gameIssue.getFullIssue(), gameIssue);
+		}
+		return result;
 	}
 
 }
