@@ -17,11 +17,11 @@ public class RedisKey {
 	}
 	
 	public static String getLotteryIssueLockKey(String lottery,String issue) {
-		return lottery+"-"+issue+"-lock";
+		return "lock:"+lottery+":"+issue;
 	}
 	
 	public static String getLotteryIssueResultKey(String lottery,String issue) {
-		return lottery+":"+issue+"-result";
+		return "result:"+lottery+":"+issue;
 	}
 	/**
 	 * 判斷該獎期是否結算完成key
@@ -30,7 +30,7 @@ public class RedisKey {
 	 * @return
 	 */
 	public static String getLotteryIssueClearFinishKey(String lottery,String issue) {
-		return lottery+"-"+issue+"-"+"finish";
+		return "finish:"+lottery+":"+issue;
 	}
 	
 	/**
@@ -41,6 +41,10 @@ public class RedisKey {
 	 */
 	public static String getServerCount() {
 		return "KillRate-Server";
+	}
+	
+	public static String getLotteryIssueClearKey(String lottery,String issue) {
+		return "clear:"+lottery+":"+issue;
 	}
 	
 }

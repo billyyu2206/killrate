@@ -6,15 +6,15 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.etonghk.killrate.mq.config.CacheRefreshMqConfig;
-import com.etonghk.killrate.vo.CacheRefreshVo;
+import com.etonghk.killrate.mq.config.MemoryRefreshMqConfig;
+import com.etonghk.killrate.vo.MemoryRefreshVo;
 
 /**
  * @author Billy.Yu
  * @date 2019年1月28日
  */
 @Component
-public class CacheRefreshSender {
+public class MemoryRefreshSender {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -23,11 +23,11 @@ public class CacheRefreshSender {
     
     /**
      * 發送緩存刷新訊息
-     * @param CacheRefreshVo
+     * @param MemoryRefreshVo
      */
-    public void sendCacheRefresh(CacheRefreshVo cacheRefreshVo) {
-    	logger.info("cache refresh send cacheName={} => ",cacheRefreshVo.getCacheName());
-    	rabbitTemplate.convertAndSend(CacheRefreshMqConfig.CACHE_REFRESH_EXCHANGE, "", cacheRefreshVo);
+    public void sendMemoryRefresh(MemoryRefreshVo memoryRefreshVo) {
+    	logger.info("memory refresh send memoryName={} => ", memoryRefreshVo.getMemoryName());
+    	rabbitTemplate.convertAndSend(MemoryRefreshMqConfig.MEMORY_REFRESH_EXCHANGE, "", memoryRefreshVo);
     }
 	
 }

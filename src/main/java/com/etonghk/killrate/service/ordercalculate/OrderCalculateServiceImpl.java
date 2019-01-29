@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.etonghk.killrate.service.awardnmber.AwardNumber;
 import com.etonghk.killrate.service.awardnmber.AwardNumberFactory;
 import com.etonghk.killrate.service.awardnmber.utils.AwardNumberUtil;
-import com.etonghk.killrate.service.awardsample.cache.AwardSampleCache;
+import com.etonghk.killrate.service.awardsample.memory.AwardSampleMemory;
 import com.jack.entity.GameLotteryOrder;
 import com.jack.pool.DataFactory;
 
@@ -28,7 +28,7 @@ public class OrderCalculateServiceImpl implements OrderCalculateService{
 	private AwardNumberFactory awardNumberFactory;
 	
 	@Autowired
-	private AwardSampleCache awardSampleCache;
+	private AwardSampleMemory awardSampleCache;
 
 	@Autowired
 	private DataFactory dataFactory;

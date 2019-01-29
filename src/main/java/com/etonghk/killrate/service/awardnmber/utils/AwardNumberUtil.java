@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import com.etonghk.killrate.domain.AwardSample;
 import com.etonghk.killrate.service.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.service.awardnmber.ssc.SSCAwardUtils;
-import com.etonghk.killrate.service.awardsample.cache.AwardSampleCache;
+import com.etonghk.killrate.service.awardsample.memory.AwardSampleMemory;
 import com.jack.entity.GameLotteryOrder;
 import com.jack.pool.DataFactory;
 
@@ -27,14 +27,14 @@ public class AwardNumberUtil {
 	 * @return
 	 */
 	public static Map<String, BigDecimal> getCalcAwardMoney(GameLotteryOrder order,
-			Map<String, List<String>> typeByAwardNumber, AwardSampleCache cache, DataFactory dataFactory) {
+			Map<String, List<String>> typeByAwardNumber, AwardSampleMemory memory, DataFactory dataFactory) {
 		// TODO 需call jar拿取中獎金額 下面寫死供測試用
 		Map<String, BigDecimal> result = new HashMap<>();
 
 		for (Entry<String, List<String>> map : typeByAwardNumber.entrySet()) {
 
 			// 從cache中拿取 每一種玩法最小中獎投注方式
-			AwardSample sample = cache.getAwardSampleByKey(KillrateConstant.allGameTypeMap.get(order.getLottery()) + ":" + order.getMethod() + ":" + map.getKey());
+			AwardSample sample = memory.getAwardSampleByKey(KillrateConstant.allGameTypeMap.get(order.getLottery()) + ":" + order.getMethod() + ":" + map.getKey());
 			// 拿投注項目 中獎號碼
 			String awardNumber = sample.getAwardNumber();
 			String betNumber = sample.getBetNumber();

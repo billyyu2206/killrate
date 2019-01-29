@@ -1,4 +1,4 @@
-package com.etonghk.killrate.awardsample;
+package com.etonghk.killrate.service.awardsample;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,17 +15,16 @@ import com.etonghk.killrate.domain.AwardSample;
  * @date 2019年1月18日
  */
 @Service
-public class AwardSampleCacheServiceImpl implements AwardSampleCacheService{
+public class AwardSampleServiceImpl implements AwardSampleService{
 	
 	@Autowired
 	private AwardSampleDao awardSampleDao;
-	
 	
 	/**
 	 * 	抓取塞進cache資料
 	 */
 	@Override
-	public Map<String, AwardSample> getResetCacheData() {
+	public Map<String, AwardSample> getResetMemoryData() {
 		List<AwardSample> datas = awardSampleDao.selectAll();
 		Map<String, AwardSample> result = new HashMap<String, AwardSample>();
 		for(AwardSample data : datas) {
