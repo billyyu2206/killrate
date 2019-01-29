@@ -1,5 +1,7 @@
 package com.etonghk.killrate.mq.sender;
 
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -31,11 +33,11 @@ public class ClearKillRateSender {
      * @param order
      */
     public void sendClearLotteryIssue(ClearKillRateVo clearKillRateVo) {
-    	logger.info("clear lottery={},issue={} => ",clearKillRateVo.getLottery(),clearKillRateVo.getIssue());
     	String clearKey = RedisKey.getLotteryIssueClearKey(clearKillRateVo.getLottery(), clearKillRateVo.getIssue());
     	if(cache.getObj(clearKey)==null) {
+    		logger.info("clear lottery={},issue={} => ",clearKillRateVo.getLottery(),clearKillRateVo.getIssue());
     		rabbitTemplate.convertAndSend(ClearRateMqConfig.CLEAR_RATE_EXCHANGE,"", clearKillRateVo);
-    		cache.putObj(clearKey, "1");
+    		cache.putObj(clearKey, "1",30,TimeUnit.MINUTES);
     	}else {
     		return;
     	}
