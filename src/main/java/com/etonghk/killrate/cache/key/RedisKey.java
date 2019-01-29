@@ -40,7 +40,7 @@ public class RedisKey {
 	 * @return
 	 */
 	public static String getServerCount() {
-		return "KillRate-Server-Peter";
+		return "KillRate-Server";
 	}
 	
 	public static String getLotteryIssueClearKey(String lottery,String issue) {
