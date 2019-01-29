@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.etonghk.killrate.dao.BetRecordDao;
+import com.etonghk.killrate.mq.sender.KillRateBetSender;
+import com.etonghk.killrate.mq.sender.KillRatePurseSender;
 import com.etonghk.killrate.service.awardnmber.constant.KillrateConstant;
+import com.jack.entity.GameLotteryOrder;
 
 /**
  * @author Billy.Yu
@@ -18,7 +21,12 @@ public class BetRecordServiceImpl implements BetRecordService {
 
 	@Autowired
 	private BetRecordDao betRecordDao;
-
+	@Autowired
+	private KillRatePurseSender killRatePurseSender;
+	@Autowired
+	private KillRateBetSender killRateBetSender;
+	
+	
 	@Override
 	public void createPurseTable(LocalDateTime date, int afterDay) {
 
@@ -31,6 +39,15 @@ public class BetRecordServiceImpl implements BetRecordService {
 				}
 			}
 			date = date.plusDays(1);
+		}
+	}
+	
+	@Override
+	public void sendGameLotteryOrder(GameLotteryOrder order) {
+		if(order.getType() == 0) {
+			killRateBetSender.senderGameLotteryOrder(order);
+		}else { // order.getType() == 1 追號
+			killRatePurseSender.senderGameLotteryOrder(order);
 		}
 	}
 

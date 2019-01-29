@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.service.betrecord.BetRecordService;
-import com.etonghk.killrate.service.killratesender.KillrateSenderService;
 import com.jack.entity.GameLotteryOrder;
 
 @RestController
@@ -21,15 +20,12 @@ public class BetRecordController {
 	@Autowired
 	private BetRecordService betRecordService;
 	
-	@Autowired
-	private KillrateSenderService killrateSenderService;
-	
 	@RequestMapping("/send")
 	public ApiResult<Void> betReceive(@RequestBody List<GameLotteryOrder> orders) {
 		ApiResult<Void> result = new ApiResult<Void>();
 
 		orders.forEach(order->{
-			killrateSenderService.sendGameLotteryOrder(order);
+			betRecordService.sendGameLotteryOrder(order);
 		});
 		
 		result.setCode(ApiResult.SUCCESS_CODE);

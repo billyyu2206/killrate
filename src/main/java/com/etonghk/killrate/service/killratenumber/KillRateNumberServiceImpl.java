@@ -45,8 +45,14 @@ public class KillRateNumberServiceImpl implements KillRateNumberService {
 		}
 				
 		KillrateAward killrateAward = killrateAwardDao.selectForCalNumber(lottery, issue);
+		AwardNumberResponse response = new AwardNumberResponse();
+		response.setIssue(issue);
+		response.setLottery(lottery);
+		response.setOpenTime(LocalDateTime.now());
 		if(killrateAward==null) {
 			result.setMsg("本期无杀率设定");
+			response.setAwardNumber("");
+			result.setCode(ApiResult.FAILD_CODE);		
 		}else{
 			if(StringUtils.isEmpty(killrateAward.getAwardNumber())) {
 				GameIssue lotteryIssue = gameIssueDao.selectIssueByLotteryAndIssue(lottery, issue);
@@ -55,17 +61,15 @@ public class KillRateNumberServiceImpl implements KillRateNumberService {
 				}else{
 					result.setMsg("奖号尚未开出");
 				}
+				response.setAwardNumber("");
+				result.setCode(ApiResult.FAILD_CODE);		
 			}else {
-				AwardNumberResponse response = new AwardNumberResponse();
-				response.setAwardNumber(killrateAward.getAwardNumber());
-				response.setIssue(issue);
-				response.setLottery(lottery);
-				response.setOpenTime(LocalDateTime.now());
-				result.setData(response);
+				response.setAwardNumber(killrateAward.getAwardNumber());				
 				result.setCode(ApiResult.SUCCESS_CODE);		
 				result.setMsg(ApiResult.SUCCESS_MSG);	
 			}
 		}
+		result.setData(response);
 		return result;
 	}
 

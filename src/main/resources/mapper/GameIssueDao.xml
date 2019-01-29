@@ -95,4 +95,13 @@
     where issue_date = #{date,jdbcType=DATE}
   </select>
   
+  <select id="selectForRefreshCache" resultMap="BaseResultMap">
+		select 
+			lottery, issue, full_issue, issue_start_time, issue_end_time, issue_open_time, issue_date, play_id
+		from game_issue
+		<![CDATA[ 
+	    where issue_end_time >= sysdate() - INTERVAL 1 HOUR
+		and issue_end_time <= sysdate() + INTERVAL 36 HOUR
+		]]>
+	</select>
 </mapper>

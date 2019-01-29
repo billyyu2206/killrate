@@ -73,7 +73,7 @@
       point, money, order_time, 
       stop_time, open_time, status, 
       open_code, win_money, clear_time, 
-      reference, content)
+      reference, content,create_time)
     values (#{order.id,jdbcType=INTEGER}, #{order.billno,jdbcType=VARCHAR}, #{order.accountId,jdbcType=INTEGER}, 
       #{order.type,jdbcType=TINYINT}, #{order.lottery,jdbcType=VARCHAR}, #{order.issue,jdbcType=VARCHAR}, 
       #{order.method,jdbcType=VARCHAR}, #{order.compress,jdbcType=BIT}, #{order.nums,jdbcType=INTEGER}, 
@@ -81,7 +81,7 @@
       #{order.point,jdbcType=DECIMAL}, #{order.money,jdbcType=DECIMAL}, #{order.orderTime,jdbcType=TIMESTAMP}, 
       #{order.stopTime,jdbcType=TIMESTAMP}, #{order.openTime,jdbcType=TIMESTAMP}, #{order.status,jdbcType=TINYINT}, 
       #{order.openCode,jdbcType=VARCHAR}, #{order.winMoney,jdbcType=DECIMAL}, #{order.clearTime,jdbcType=TIMESTAMP}, 
-      #{order.reference,jdbcType=VARCHAR}, #{order.content,jdbcType=LONGVARCHAR})
+      #{order.reference,jdbcType=VARCHAR}, #{order.content,jdbcType=LONGVARCHAR},NOW())
   </insert>
   
   <select id="checkTableExist" resultType="java.lang.Integer">
@@ -111,6 +111,7 @@
 	  	order_time datetime(0) NOT NULL,
 	  	stop_time datetime(0) NOT NULL,
 	  	open_time datetime(0) NOT NULL,
+	  	create_time datetime(0) NOT NULL,	  	
 	  	status tinyint(2) NOT NULL,
 	  	open_code varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
 	  	win_money decimal(16, 5) NOT NULL,
