@@ -6,35 +6,34 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.etonghk.killrate.controller.dto.ApiResult;
 import com.etonghk.killrate.properties.config.IpWhiteListProperties;
-import com.etonghk.killrate.service.awardsample.memory.AwardSampleMemory;
+import com.etonghk.killrate.service.resetmemory.ResetMemoryService;
 import com.etonghk.killrate.utils.RequestUtils;
+import com.etonghk.killrate.vo.MemoryRefreshVo;
 
 /**
  * @author Billy.Yu
  * @date 2019年1月25日
  */
 @RestController
-@RequestMapping("/cache")
-public class CacheController {
+@RequestMapping("/memory")
+public class MemoryController {
 	
 	@Autowired
 	IpWhiteListProperties ipWhiteListProperties;
 	
 	@Autowired
-	AwardSampleMemory awardSampleMemory;
+	ResetMemoryService resetMemoryService;
 	
 	@RequestMapping("/reset")
-	@ResponseBody
-	public ApiResult<Void> resetCacheData(HttpServletRequest request) {
+	public ApiResult<Void> resetMemoryData(MemoryRefreshVo memoryRefreshVo, HttpServletRequest request) {
 		ApiResult<Void> result = new ApiResult<Void>();
 		String ipListStr = ipWhiteListProperties.getConfigValue("ip.white.cache.reset");
 		if(checkIp(request, ipListStr.split(","))) {
-			awardSampleMemory.resetMemoryData();
+			resetMemoryService.resetRedisMemoryData(memoryRefreshVo);
 			result.setMsg("success");
 			result.setCode(ApiResult.SUCCESS_CODE);
 		}else {

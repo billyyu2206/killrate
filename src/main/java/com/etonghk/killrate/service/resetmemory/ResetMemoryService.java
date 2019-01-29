@@ -11,4 +11,6 @@ import com.etonghk.killrate.vo.MemoryRefreshVo;
  */
 public interface ResetMemoryService {
 	public void resetMemory(MemoryRefreshVo memoryRefreshVo);
+	
+	public void resetRedisMemoryData(MemoryRefreshVo memoryRefreshVo);
 }

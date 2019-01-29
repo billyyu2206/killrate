@@ -12,14 +12,14 @@ public class ApiUriHelper {
 	static List<String> excludeSessionUrls = new ArrayList<>();
 	static List<String> excludeSessionWildcardUrl = new ArrayList<>();
 	static {
-		excludeSessionUrls.add("/betRecord/send");
 		excludeSessionUrls.add("/awardNumber/clearKillRate");
-		excludeSessionUrls.add("/cache/reset");
+		excludeSessionUrls.add("/memory/reset");
 		excludeSessionUrls.add("/killrateSetting/switch");
 		excludeSessionUrls.add("/killrateSetting/changeSwitch");
 		excludeSessionWildcardUrl.add("/awardNumber/*");
 		excludeSessionWildcardUrl.add("/gameIssus/*");
-		excludeSessionWildcardUrl.add("/actuator/*");		
+		excludeSessionWildcardUrl.add("/actuator/*");	
+		excludeSessionWildcardUrl.add("/betRecord/*");
 	}
 
 	public static Boolean checkIsApiUri(String uri) {

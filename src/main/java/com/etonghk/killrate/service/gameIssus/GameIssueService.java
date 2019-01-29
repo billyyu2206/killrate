@@ -5,6 +5,7 @@ package com.etonghk.killrate.service.gameIssus;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import com.etonghk.killrate.domain.GameIssue;
 
@@ -30,4 +31,6 @@ public interface GameIssueService {
 	public String getIssueByDate(String lottery,LocalDateTime date);
 	
 	public List<GameIssue> selectIssueByLotteryAndDate(String lottery,LocalDateTime date);
+	
+	public Map<String, GameIssue> getRefreshMemoryData();
 }
