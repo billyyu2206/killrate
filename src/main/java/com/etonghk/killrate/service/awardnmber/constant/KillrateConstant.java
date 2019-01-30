@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.etonghk.killrate.service.awardnmber.constant;
 
 import java.util.HashMap;
@@ -12,6 +9,9 @@ import java.util.TreeMap;
  * @date 2019年1月16日
  */
 public class KillrateConstant {
+	public static final String SWITCH_KEY = "killrateSwitch";
+	public static final String ORDER_CAL_MODE_KEY = "orderCalMode";
+	
 	public static final String TOTAL_BET = "tot";
 	
 	public static Map<String, String> allGameMap;

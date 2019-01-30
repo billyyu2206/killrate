@@ -16,6 +16,7 @@ public class ApiUriHelper {
 		excludeSessionUrls.add("/memory/reset");
 		excludeSessionUrls.add("/killrateSetting/switch");
 		excludeSessionUrls.add("/killrateSetting/changeSwitch");
+		excludeSessionUrls.add("/killrateSetting/changeOrderCalMode");
 		excludeSessionWildcardUrl.add("/awardNumber/*");
 		excludeSessionWildcardUrl.add("/gameIssus/*");
 		excludeSessionWildcardUrl.add("/actuator/*");	

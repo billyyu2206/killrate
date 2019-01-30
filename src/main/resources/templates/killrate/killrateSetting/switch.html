@@ -4,10 +4,14 @@
     <title>杀率总开关</title>
     <meta charset="utf-8"></meta>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/jquery-ui.css}" rel="stylesheet"/>
     <script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/altDialog.js}" type="text/javascript"></script>
   </head>
   <body>
-    <div>
+    <div class="container">
     	<div class="row">
     		<h3>杀率总开关</h3>
     	</div>
@@ -15,23 +19,75 @@
     		<input type="radio" name="killrateSwitch" value="0" onchange="changeSwitch(this.value)" th:checked="${switchValue == '0'}"/> 开
     		<input type="radio" name="killrateSwitch" value="1" onchange="changeSwitch(this.value)" th:checked="${switchValue == '1'}"/> 关
     	</div>
+    	
+    	<div class="row">
+    		<h3>注单计算模式</h3>
+    	</div>
+    	<div class="row">
+    		<input type="radio" name="orderCalMode" value="0" onchange="changeOrderCal(this.value)" th:checked="${orderCalMode == '0'}"/> 只计算有设定杀率奖期
+    		<input type="radio" name="orderCalMode" value="1" onchange="changeOrderCal(this.value)" th:checked="${orderCalMode == '1'}"/> 全部计算
+    	</div>
 	</div>
   </body>
   
   
   <script type="text/javascript">
   	function changeSwitch(value){
-  		var datas = "switchValue=" + value;
+  		var content = value == 0 ? "关 -> 开" : "开 -> 关";
   		
-		$.ajax({
-			type: "POST",
-			url: "/killrateSetting/changeSwitch",
-			data: datas,
-			success: function(data)
-			{
-				alert(data.msg)
+  		$.altDialog({
+			title : "温馨提示",
+			content : "確定切換杀率总开关  " + content,
+			style:"confirm",
+			done:function() {
+				var datas = "switchValue=" + value;
+		  		
+				$.ajax({
+					type: "POST",
+					url: "/killrateSetting/changeSwitch",
+					data: datas,
+					success: function(data)
+					{
+						alert(data.msg);
+						location.reload();
+					}
+				});
+			},
+			cancel: function(){
+				location.reload();
 			}
 		});
+  		
+  		
+  		
+  	}
+  	
+  	function changeOrderCal(value){
+		var content = value == 0 ? "全部计算 -> 只计算有设定杀率奖期" : "只计算有设定杀率奖期 -> 全部计算";
+  		
+  		$.altDialog({
+			title : "温馨提示",
+			content : "確定切換注单计算模式 \n " + content,
+			style:"confirm",
+			done:function() {
+				var datas = "orderCalMode=" + value;
+		  		
+				$.ajax({
+					type: "POST",
+					url: "/killrateSetting/changeOrderCalMode",
+					data: datas,
+					success: function(data)
+					{
+						alert(data.msg);
+						location.reload();
+					}
+				});
+			},
+			cancel: function(){
+				location.reload();
+			}
+		});
+  		
   	}
   </script>
 </html>

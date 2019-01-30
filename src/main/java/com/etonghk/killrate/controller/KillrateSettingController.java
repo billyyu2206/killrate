@@ -32,7 +32,6 @@ public class KillrateSettingController {
 	@Autowired
 	private RedisCache redisCache;
 	
-	private static final String SWITCH_KEY = "killrateSwitch";
 	
 	@RequestMapping("/index/{lottery}")
 	public String index(@PathVariable String lottery, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -100,19 +99,36 @@ public class KillrateSettingController {
 	
 	@RequestMapping("/switch")
 	public String switchPage(Model model) {
-		String switchValue = (String) redisCache.getObj(SWITCH_KEY);
+		String switchValue = (String) redisCache.getObj(KillrateConstant.SWITCH_KEY);
 		if(StringUtils.isBlank(switchValue)) {
 			switchValue = "0";
 		}
+		
+		String orderCalMode = (String) redisCache.getObj(KillrateConstant.ORDER_CAL_MODE_KEY);
+		if(StringUtils.isBlank(orderCalMode)) {
+			orderCalMode = "0";
+		}
+		
 		model.addAttribute("switchValue", switchValue);
+		model.addAttribute("orderCalMode", orderCalMode);
 		return "/killrate/killrateSetting/switch";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/changeSwitch")
-	public ApiResult<Void> delete(String switchValue) {
+	public ApiResult<Void> changeSwitch(String switchValue) {
 		ApiResult<Void> result = new ApiResult<Void>();
-		redisCache.putObj(SWITCH_KEY, switchValue);
+		redisCache.putObj(KillrateConstant.SWITCH_KEY, switchValue);
+		result.setCode(ApiResult.SUCCESS_CODE);
+		result.setMsg(ApiResult.SUCCESS_MSG);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/changeOrderCalMode")
+	public ApiResult<Void> changeOrderCalMode(String orderCalMode) {
+		ApiResult<Void> result = new ApiResult<Void>();
+		redisCache.putObj(KillrateConstant.ORDER_CAL_MODE_KEY, orderCalMode);
 		result.setCode(ApiResult.SUCCESS_CODE);
 		result.setMsg(ApiResult.SUCCESS_MSG);
 		return result;
