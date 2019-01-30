@@ -64,9 +64,12 @@ public class KillRateNumberServiceImpl implements KillRateNumberService {
 				response.setAwardNumber("");
 				result.setCode(ApiResult.FAILD_CODE);		
 			}else {
-				response.setAwardNumber(killrateAward.getAwardNumber());				
+				response.setAwardNumber(killrateAward.getAwardNumber());		
 				result.setCode(ApiResult.SUCCESS_CODE);		
-				result.setMsg(ApiResult.SUCCESS_MSG);	
+				result.setMsg(ApiResult.SUCCESS_MSG);
+				if(killrateAward.getIsPush().equals(0)) {
+					killrateAwardDao.updateAwardPushStatus(killrateAward.getId());
+				}
 			}
 		}
 		result.setData(response);

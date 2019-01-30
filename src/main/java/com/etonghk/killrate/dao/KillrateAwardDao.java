@@ -29,4 +29,6 @@ public interface KillrateAwardDao {
     int updateForAward(KillrateAward record);
     
     List<KillrateAward> selectForRefreshCache();
+    
+    int updateAwardPushStatus(@Param("id")Integer id);
 }
