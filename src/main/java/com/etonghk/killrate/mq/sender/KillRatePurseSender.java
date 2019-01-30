@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.etonghk.killrate.mq.config.KillRatePurseMqConfig;
+import com.etonghk.killrate.vo.BetOrderQueueVo;
 import com.jack.entity.GameLotteryOrder;
 
 /**
@@ -25,9 +26,10 @@ public class KillRatePurseSender {
      * 寄送Order訂單
      * @param order
      */
-    public void senderGameLotteryOrder(GameLotteryOrder order) {
+    public void senderGameLotteryOrder(BetOrderQueueVo queueVo) {
+    	GameLotteryOrder order = queueVo.getGameLotteryOrder();
     	logger.info("purse sender==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
-    	rabbitTemplate.convertAndSend(KillRatePurseMqConfig.KILL_RATE_PURSE_QUEUE, order);
+    	rabbitTemplate.convertAndSend(KillRatePurseMqConfig.KILL_RATE_PURSE_QUEUE, queueVo);
     }
     
 	

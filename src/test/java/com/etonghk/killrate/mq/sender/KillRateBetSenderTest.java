@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.etonghk.killrate.vo.BetOrderQueueVo;
 import com.jack.entity.GameLotteryOrder;
 
 /**
@@ -28,7 +29,10 @@ public class KillRateBetSenderTest {
 		order.setIssue("20190201-1000");
 		order.setMethod("wxzhixfs");
 		order.setContent("123,0,0,0,0");
-		killRateBetSender.senderGameLotteryOrder(order);
+		
+		BetOrderQueueVo vo = new BetOrderQueueVo();
+		vo.setGameLotteryOrder(order);
+		killRateBetSender.senderGameLotteryOrder(vo);
 	}
 	
 }

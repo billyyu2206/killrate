@@ -31,7 +31,7 @@ public class KillRatePurseReceiver {
 	 * @param order
 	 * @throws IOException 
 	 */
-	@RabbitListener(queues = KillRatePurseMqConfig.KILL_RATE_PURSE_QUEUE,concurrency="3")
+	@RabbitListener(queues=KillRatePurseMqConfig.KILL_RATE_PURSE_QUEUE, concurrency="5")
     public void receive(GameLotteryOrder order, Message message, Channel channel) throws IOException {
     	try {
 			logger.info("purse receiver==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
@@ -48,7 +48,7 @@ public class KillRatePurseReceiver {
 	 * @param order
 	 * @throws IOException 
 	 */
-	@RabbitListener(queues = KillRatePurseMqConfig.KILL_RATE_PURSE_QUEUE_DEAD, concurrency="1")
+	@RabbitListener(queues=KillRatePurseMqConfig.KILL_RATE_PURSE_QUEUE_DEAD, concurrency="3")
     public void receiveDead(GameLotteryOrder order, Message message, Channel channel) throws IOException {
 		try {
 			logger.info("purse receiver dead==>lottery={},billno={},issue{}", order.getLottery(),order.getBillno(),order.getIssue());

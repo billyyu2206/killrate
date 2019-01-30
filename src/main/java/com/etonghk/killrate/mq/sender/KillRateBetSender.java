@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.etonghk.killrate.mq.config.KillRateBetMqConfig;
+import com.etonghk.killrate.vo.BetOrderQueueVo;
 import com.jack.entity.GameLotteryOrder;
 
 /**
@@ -25,9 +26,20 @@ public class KillRateBetSender {
      * 寄送Order訂單
      * @param order
      */
-    public void senderGameLotteryOrder(GameLotteryOrder order) {
+    public void senderGameLotteryOrder(BetOrderQueueVo queueVo) {
+    	GameLotteryOrder order = queueVo.getGameLotteryOrder();
     	logger.info("bet sender==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
-    	rabbitTemplate.convertAndSend(KillRateBetMqConfig.KILL_RATE_BET_QUEUE, order);
+    	rabbitTemplate.convertAndSend(KillRateBetMqConfig.KILL_RATE_BET_QUEUE, queueVo);
+    }
+    
+    /**
+     * 寄送Order訂單直接進死信
+     * @param order
+     */
+    public void senderGameLotteryOrderDead(BetOrderQueueVo queueVo) {
+    	GameLotteryOrder order = queueVo.getGameLotteryOrder();
+    	logger.info("bet dead sender==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
+    	rabbitTemplate.convertAndSend(KillRateBetMqConfig.KILL_RATE_BET_QUEUE_DEAD, queueVo);
     }
     
 	

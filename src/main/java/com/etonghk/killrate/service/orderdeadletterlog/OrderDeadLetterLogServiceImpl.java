@@ -19,13 +19,14 @@ public class OrderDeadLetterLogServiceImpl implements OrderDeadLetterLogService{
 	
 	
 	@Override
-	public void insertOrder(GameLotteryOrder order) {
+	public void insertOrder(GameLotteryOrder order, String message) {
 		OrderDeadLetterLog orderDeadLetterLog = new OrderDeadLetterLog();
 		orderDeadLetterLog.setLottery(order.getLottery());
 		orderDeadLetterLog.setBillNo(order.getBillno());
 		orderDeadLetterLog.setIssue(order.getIssue());
 		orderDeadLetterLog.setMethod(order.getMethod());
 		orderDeadLetterLog.setContent(order.getContent());
+		orderDeadLetterLog.setMessage(message);
 		orderDeadLetterLogDao.insert(orderDeadLetterLog);
 	}
 

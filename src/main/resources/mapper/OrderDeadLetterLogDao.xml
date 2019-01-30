@@ -7,12 +7,13 @@
     <result column="issue" jdbcType="VARCHAR" property="issue" />
     <result column="bill_no" jdbcType="VARCHAR" property="billNo" />
     <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.etonghk.killrate.domain.OrderDeadLetterLog">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, lottery, issue, bill_no, method
+    id, lottery, issue, bill_no, method, message
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -27,8 +28,9 @@
   </select>
   <insert id="insert" parameterType="com.etonghk.killrate.domain.OrderDeadLetterLog">
     insert into order_dead_letter_log (id, lottery, issue, 
-      bill_no, content, method)
+      bill_no, content, method, message)
     values (#{id,jdbcType=INTEGER}, #{lottery,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
-      #{billNo,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{method,jdbcType=VARCHAR})
+      #{billNo,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{method,jdbcType=VARCHAR}
+      , #{message,jdbcType=VARCHAR})
   </insert>
 </mapper>

@@ -16,6 +16,7 @@ import com.etonghk.killrate.eventlistener.clearkillrate.event.ClearEvent;
 import com.etonghk.killrate.mq.config.KillRateBetMqConfig;
 import com.etonghk.killrate.service.ordercalculate.OrderCalculateService;
 import com.etonghk.killrate.service.orderdeadletterlog.OrderDeadLetterLogService;
+import com.etonghk.killrate.vo.BetOrderQueueVo;
 import com.etonghk.killrate.vo.ClearKillRateVo;
 import com.jack.entity.GameLotteryOrder;
 import com.rabbitmq.client.Channel;
@@ -43,10 +44,11 @@ public class KillRateBetReceiver {
 	 * @param order
 	 * @throws IOException 
 	 */
-	@RabbitListener(queues = KillRateBetMqConfig.KILL_RATE_BET_QUEUE,concurrency="10")
-    public void receive(GameLotteryOrder order, Message message, Channel channel) throws IOException {
+	@RabbitListener(queues=KillRateBetMqConfig.KILL_RATE_BET_QUEUE, concurrency="10")
+    public void receive(BetOrderQueueVo queueVo, Message message, Channel channel) throws IOException {
     	try {
-//			logger.info("receiver==>lottery={},billno={},issue{}",order.getLottery(),order.getBillno(),order.getIssue());
+    		GameLotteryOrder order = queueVo.getGameLotteryOrder();
+			logger.info("receiver==>lottery={},billno={},issue={}", order.getLottery(), order.getBillno(), order.getIssue());
 			Map<String,BigDecimal> orderResult = orderCalculateService.doCalOrder(order);
 			ClearKillRateVo vo = new ClearKillRateVo();
 			vo.setAwardNumber(orderResult);
@@ -68,11 +70,12 @@ public class KillRateBetReceiver {
 	 * @param order
 	 * @throws IOException 
 	 */
-	@RabbitListener(queues = KillRateBetMqConfig.KILL_RATE_BET_QUEUE_DEAD, concurrency="3")
-    public void receiveDead(GameLotteryOrder order, Message message, Channel channel) throws IOException {
+	@RabbitListener(queues=KillRateBetMqConfig.KILL_RATE_BET_QUEUE_DEAD, concurrency="3")
+    public void receiveDead(BetOrderQueueVo queueVo, Message message, Channel channel) throws IOException {
 		try {
-			logger.info("receiver dead==>lottery={},billno={},issue{}", order.getLottery(),order.getBillno(),order.getIssue());
-			orderDeadLetterLogService.insertOrder(order);
+			GameLotteryOrder order = queueVo.getGameLotteryOrder();
+			logger.info("receiver dead==>lottery={},billno={},issue={},message={}", order.getLottery(), order.getBillno(), order.getIssue(), queueVo.getMessage());
+			orderDeadLetterLogService.insertOrder(order, queueVo.getMessage());
 			channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 		}catch (Exception ex) {
 			logger.error("receiver dead error: ", ex);

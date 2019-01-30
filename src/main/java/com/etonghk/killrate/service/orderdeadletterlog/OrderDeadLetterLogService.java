@@ -10,5 +10,5 @@ import com.jack.entity.GameLotteryOrder;
  * @date 2019年1月25日
  */
 public interface OrderDeadLetterLogService {
-	public void insertOrder(GameLotteryOrder order);
+	public void insertOrder(GameLotteryOrder order, String message);
 }

@@ -17,6 +17,7 @@ public class OrderDeadLetterLog implements Serializable{
     
     private String method;
 
+    private String message;
     public Integer getId() {
         return id;
     }
@@ -64,4 +65,13 @@ public class OrderDeadLetterLog implements Serializable{
 	public void setMethod(String method) {
 		this.method = method;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

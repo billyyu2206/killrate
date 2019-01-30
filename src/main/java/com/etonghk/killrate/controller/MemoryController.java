@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,8 @@ import com.etonghk.killrate.vo.MemoryRefreshVo;
 @RequestMapping("/memory")
 public class MemoryController {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	IpWhiteListProperties ipWhiteListProperties;
 	
@@ -33,6 +37,7 @@ public class MemoryController {
 		ApiResult<Void> result = new ApiResult<Void>();
 		String ipListStr = ipWhiteListProperties.getConfigValue("ip.white.cache.reset");
 		if(checkIp(request, ipListStr.split(","))) {
+			logger.info("reset memory memoryName{}", memoryRefreshVo.getMemoryName());
 			resetMemoryService.resetRedisMemoryData(memoryRefreshVo);
 			result.setMsg("success");
 			result.setCode(ApiResult.SUCCESS_CODE);

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.etonghk.killrate.mq.sender.KillRateBetSender;
 import com.etonghk.killrate.service.awardnmber.AwardNumber;
 import com.etonghk.killrate.service.awardnmber.AwardNumberFactory;
+import com.etonghk.killrate.vo.BetOrderQueueVo;
 import com.jack.entity.GameLotteryOrder;
 
 /**
@@ -52,8 +53,10 @@ public class TestAwardNumberBasic {
 	 */
 	@Test
 	public void testOrderSender() {
+		BetOrderQueueVo vo = new BetOrderQueueVo();
+		vo.setGameLotteryOrder(order);
 		for(int i=1;i<=100;i++) {
-			killRateBetSender.senderGameLotteryOrder(order);			
+			killRateBetSender.senderGameLotteryOrder(vo);			
 		}
 	}
 }
