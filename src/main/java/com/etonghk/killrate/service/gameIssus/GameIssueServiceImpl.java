@@ -72,14 +72,8 @@ public class GameIssueServiceImpl implements GameIssueService{
 	}
 	
 	@Override
-	public String getIssueByDate(String lottery, LocalDateTime date) {
-		return gameIssueDao.selectIssueByDate(lottery, date);
-	}
-	
-	@Override
-	public List<GameIssue> selectIssueByLotteryAndDate(String lottery, LocalDateTime date) {
-		date = LocalDateTime.of(date.toLocalDate(),LocalTime.MIN);
-		return gameIssueDao.selectIssueByLotteryAndDate(lottery, date);
+	public List<String> getIssueByDate(String lottery, LocalDateTime date) {
+		return gameIssueDao.selectNotOpenIssueByDateAndIssue(lottery, date);
 	}
 	
 	@Override

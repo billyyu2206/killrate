@@ -28,9 +28,7 @@ public interface GameIssueService {
 	 * @param date
 	 * @return
 	 */
-	public String getIssueByDate(String lottery,LocalDateTime date);
-	
-	public List<GameIssue> selectIssueByLotteryAndDate(String lottery,LocalDateTime date);
+	public List<String> getIssueByDate(String lottery,LocalDateTime date);
 	
 	public Map<String, GameIssue> getRefreshMemoryData();
 }

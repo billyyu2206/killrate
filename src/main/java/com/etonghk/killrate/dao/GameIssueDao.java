@@ -17,7 +17,7 @@ public interface GameIssueDao {
     
     List<GameIssue> selectForGenerateKillrate(KillrateSetting setting);
     
-    String selectIssueByDate(@Param("lottery")String lottery, @Param("date")LocalDateTime date);
+    List<String> selectNotOpenIssueByDateAndIssue(@Param("lottery")String lottery, @Param("date")LocalDateTime date);
     
     GameIssue selectIssueByLotteryAndIssue(@Param("lottery")String lottery, @Param("issue")String issue);
 

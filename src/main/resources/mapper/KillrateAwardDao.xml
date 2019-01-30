@@ -13,10 +13,11 @@
 		<result column="killrate" jdbcType="INTEGER" property="killrate" />
 		<result column="award_money" jdbcType="DECIMAL" property="awardMoney" />
 		<result column="bet_money" jdbcType="DECIMAL" property="betMoney" />
+		<result column="open_status" jdbcType="INTEGER" property="openStatus" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		id, lottery, issue, award_number, award_time, issue_end_time, is_push, killrate, award_money, bet_money
+		id, lottery, issue, award_number, award_time, issue_end_time, is_push, killrate, award_money, bet_money,open_status
 	</sql>
 
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -114,7 +115,7 @@
 	</delete>
 	
 	<select id="selectForRecord" resultMap="BaseResultMap">
-		select a.full_issue as issue , b.lottery, b.is_push, b.award_number,b.award_money,b.bet_money,b.killrate from game_issue_${lottery} a
+		select a.full_issue as issue , b.lottery, b.is_push, b.award_number,b.award_money,b.bet_money,b.killrate,b.open_status from game_issue_${lottery} a
 		left join killrate_award b on a.lottery = b.lottery and a.full_issue = b.issue
 		where a.lottery = #{lottery}
 		and a.issue_date = #{issueDate,jdbcType=DATE}
@@ -137,10 +138,11 @@
 		award_number = #{awardNumber},
 		award_time =  #{awardTime,jdbcType=TIMESTAMP},
 		award_money =  #{awardMoney},
-		bet_money =  #{betMoney}
+		bet_money =  #{betMoney},
+		open_status = #{openStatus}
 		where id = #{id}
 		and is_push = 0
-		and award_number = ''
+		and open_status = 0
 	</update>
 	
 	<select id="selectForRefreshCache" resultMap="BaseResultMap">
@@ -152,4 +154,10 @@
 		and issue_end_time <= sysdate() + INTERVAL 50 MINUTE
 		]]>
 	</select>
+	
+	<update id="updateAwardPushStatus">
+		update killrate_award
+		set is_push = 1
+		where id = #{id}
+	</update>
 </mapper>

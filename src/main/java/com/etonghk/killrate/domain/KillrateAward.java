@@ -31,6 +31,11 @@ public class KillrateAward implements Serializable{
     private BigDecimal awardMoney;
     
     private BigDecimal betMoney;
+    
+    /**
+     * 0:未開 1:正常開獎 2:異常開獎
+     */
+    private Integer openStatus;
 
     public Integer getId() {
         return id;
@@ -110,6 +115,14 @@ public class KillrateAward implements Serializable{
 
 	public void setIssueEndTime(LocalDateTime issueEndTime) {
 		this.issueEndTime = issueEndTime;
+	}
+
+	public Integer getOpenStatus() {
+		return openStatus;
+	}
+
+	public void setOpenStatus(Integer openStatus) {
+		this.openStatus = openStatus;
 	}
 	
 }

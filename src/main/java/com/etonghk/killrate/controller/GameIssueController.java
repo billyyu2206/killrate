@@ -4,6 +4,7 @@
 package com.etonghk.killrate.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,13 +41,11 @@ public class GameIssueController {
 	
 	
 	@PostMapping("selectOpenIssue")
-	public ApiResult<String> getIssueByDate(@RequestParam("lottery")String lottery,@RequestParam("date")LocalDateTime date){
+	public ApiResult<List<String>> getIssueByDate(@RequestParam("lottery")String lottery,@RequestParam("date")LocalDateTime date){
 		
-		String lotteryIssue = gameIssueService.getIssueByDate(lottery, date);
+		List<String> lotteryIssue = gameIssueService.getIssueByDate(lottery, date);
 		
-//		List<GameIssue> list = gameIssueService.selectIssueByLotteryAndDate(lottery, date);
-		
-		return new ApiResult<String>(ApiResult.SUCCESS_CODE,ApiResult.SUCCESS_MSG,lotteryIssue);
+		return new ApiResult<List<String>>(ApiResult.SUCCESS_CODE,ApiResult.SUCCESS_MSG,lotteryIssue);
 	}
 	
 }

@@ -32,12 +32,15 @@ import com.etonghk.killrate.service.awardnmber.config.SSCConfig;
 import com.etonghk.killrate.service.awardnmber.constant.KillrateConstant;
 import com.etonghk.killrate.service.ordercalculate.OrderCalculateService;
 import com.etonghk.killrate.utils.CommonUtils;
+import com.etonghk.killrate.utils.StringUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jack.entity.GameLotteryOrder;
 
 @Service
 public class KillrateAwardServiceImpl implements KillrateAwardService{
+	
+//	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	Gson gson = new Gson();
 	
@@ -175,7 +178,7 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 	}
 
 	/**
-	 * 	删除殺率奖期設定
+	 * 	結算金額
 	 * 	@param KillrateAward.id
 	 */
 	@Override
@@ -187,15 +190,15 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		}else if(StringUtils.isNotBlank(award.getAwardNumber())) {
 			return award;
 		}
-		List<GameLotteryOrder> purseData = betRecordDao.selectPurseByLotteryAndIssue(lottery, issue, issue.substring(0, 8));
 		
+		List<GameLotteryOrder> purseData = betRecordDao.selectPurseByLotteryAndIssue(lottery, issue, issue.substring(0, 8));
 		
 		String redisKey = RedisKey.getLotteryIssueKey(lottery, issue);
 		Map<Object, Object> redisData = redisCache.hgetAll(redisKey);
 		String tempStr = gson.toJson(redisData);
 		Type type = new TypeToken<Map<String, BigDecimal>>(){}.getType();
 		Map<String, BigDecimal> data = gson.fromJson(tempStr, type);
-		
+
 		// 決定開獎號碼時再把追號注單內容算入
 		if(purseData != null && purseData.size() > 0) {
 			for(GameLotteryOrder purseOrder : purseData) {
@@ -224,21 +227,29 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		int listMinSize = 1000;
 		List<String> awardList = new ArrayList<String>();
 		Map<String, List<String>> substituteMap = new LinkedHashMap<String, List<String>>();// 未達設定殺率號碼
-		for(Map.Entry<String, BigDecimal> entry : data.entrySet()) {
-			BigDecimal numberMoney = entry.getValue();
-			BigDecimal rate = total.subtract(numberMoney).divide(total, 2, BigDecimal.ROUND_DOWN).multiply(BigDecimal.valueOf(100));
-			if(rate.compareTo(targetRate) >= 0) {
-				awardList.add(entry.getKey());
-			}else if(rate.compareTo(BigDecimal.ZERO) >= 0) {
-				List<String> temp = null;
-				if(substituteMap.containsKey(rate.toString())) {
-					temp = substituteMap.get(rate.toString());
-				}else {
-					temp = new ArrayList<String>();
+		Integer openStatus = 0;
+		
+		if(total!=null && !BigDecimal.ZERO.equals(total)) { // 正常流程
+			for(Map.Entry<String, BigDecimal> entry : data.entrySet()) {
+				BigDecimal numberMoney = entry.getValue();
+				BigDecimal rate = total.subtract(numberMoney).divide(total, 2, BigDecimal.ROUND_DOWN).multiply(BigDecimal.valueOf(100));
+				if(rate.compareTo(targetRate) >= 0) {
+					awardList.add(entry.getKey());
+				}else if(rate.compareTo(BigDecimal.ZERO) >= 0) {
+					List<String> temp = null;
+					if(substituteMap.containsKey(rate.toString())) {
+						temp = substituteMap.get(rate.toString());
+					}else {
+						temp = new ArrayList<String>();
+					}
+					temp.add(entry.getKey());
+					substituteMap.put(rate.toString(), temp);
 				}
-				temp.add(entry.getKey());
-				substituteMap.put(rate.toString(), temp);
 			}
+			openStatus = 1;
+		} else { // tot為null或0 隨機開出號碼
+			data.forEach((k,v)->awardList.add(k));
+			openStatus = 2;
 		}
 		
 		if(awardList.size() < listMinSize) {
@@ -252,11 +263,11 @@ public class KillrateAwardServiceImpl implements KillrateAwardService{
 		
 		int chooseIndex = (int) Math.floor(awardList.size() * Math.random());
 		String awardNumber = awardList.get(chooseIndex);
-		award.setAwardNumber(awardNumber);
+		award.setAwardNumber(StringUtil.join(awardNumber, ","));
 		award.setAwardMoney(data.get(awardNumber));
 		award.setBetMoney(total);
 		award.setAwardTime(LocalDateTime.now());
-		
+		award.setOpenStatus(openStatus);
 		int result = killrateAwardDao.updateForAward(award);
 		if(result == 0) {
 			award = killrateAwardDao.selectByPrimaryKey(award.getId());

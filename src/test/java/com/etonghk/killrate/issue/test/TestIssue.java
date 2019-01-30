@@ -9,6 +9,8 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,6 +22,8 @@ import com.etonghk.killrate.service.gameIssus.GameIssueService;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class TestIssue {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private GameIssueDao gameIssueDao;
@@ -65,8 +69,9 @@ public class TestIssue {
 	@Test
 	public void testGetIssuByDate() {
 		String lottery = "t1s60";
-		String issue = gameIssueService.getIssueByDate(lottery, LocalDateTime.now());
-		System.out.println(issue);
+		List<String> issue = gameIssueService.getIssueByDate(lottery, LocalDateTime.now());
+		issue.forEach(num->System.out.println(num));
+		logger.info("issue {}",issue);
 	}
 	
 	

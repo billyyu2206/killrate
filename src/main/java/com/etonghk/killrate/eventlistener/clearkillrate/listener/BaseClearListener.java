@@ -43,12 +43,9 @@ public abstract class BaseClearListener {
 		          String number = entry.getKey();
 		          BigDecimal value = entry.getValue();
 		          if(issueAward.containsKey(number)) {
-	//		            logger.info(vo.getLottery()+" issueAward before = {}",issueResult);
 		            issueAward.put(number,value.add(issueAward.get(number)));
-	//		            logger.info(vo.getLottery()+" issueAward after = {}",issueAward);
 		          }else {
 		            issueAward.put(number, value);
-	//		            logger.info(vo.getLottery()+" issueAward else = {}",issueAward);
 		          }
 		        });
 		      }
@@ -67,20 +64,16 @@ public abstract class BaseClearListener {
 			return;
 		}
 		
-		if(awardResult==null) {
-			//進行該獎期分區完成通知
-			clearKillRateService.doClearRateFinishMark(lottery, issue);
-			return;
-		}else {
+		if(awardResult != null) {
 			//將該獎期資料存入redis
 			clearKillRateService.pushClearRateToRedis(awardResult, lotteryIssueKey);
-			//進行該獎期分區完成通知
-			clearKillRateService.doClearRateFinishMark(lottery, issue);
-			//移除資料
-			awardNumber.remove(lotteryIssueKey);
-			//進行殺率開獎流程
-			clearKillRateService.clearFinishCalKillNumber(lottery, issue);
 		}
+		//進行該獎期分區完成通知
+		clearKillRateService.doClearRateFinishMark(lottery, issue);
+		//移除資料
+		awardNumber.remove(lotteryIssueKey);
+		//進行殺率開獎流程
+		clearKillRateService.clearFinishCalKillNumber(lottery, issue);
 	}
 	
 	protected abstract String getLottery();

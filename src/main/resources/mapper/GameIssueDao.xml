@@ -75,10 +75,11 @@
     order by issue_end_time
   </select>
   
-  <select id="selectIssueByDate" resultType="String">
-    select full_issue
-    from game_issue_${lottery}
-    where #{date} BETWEEN issue_end_time and issue_open_time
+  <select id="selectNotOpenIssueByDateAndIssue" resultType="String">
+	select a.issue from killrate_award a
+	join game_issue_${lottery} b on a.lottery=b.lottery and a.issue = b.full_issue
+	where a.open_status = 0
+	and b.issue_end_time BETWEEN date_sub(#{date},interval 1 day) and #{date}
   </select>
   
   <select id="selectIssueByLotteryAndIssue" resultMap="BaseResultMap">
@@ -96,12 +97,12 @@
   </select>
   
   <select id="selectForRefreshCache" resultMap="BaseResultMap">
-		select 
-			lottery, issue, full_issue, issue_start_time, issue_end_time, issue_open_time, issue_date, play_id
-		from game_issue
-		<![CDATA[ 
-	    where issue_end_time >= sysdate() - INTERVAL 1 HOUR
-		and issue_end_time <= sysdate() + INTERVAL 36 HOUR
-		]]>
-	</select>
+	select 
+		lottery, issue, full_issue, issue_start_time, issue_end_time, issue_open_time, issue_date, play_id
+	from game_issue
+	<![CDATA[ 
+    where issue_end_time >= sysdate() - INTERVAL 1 HOUR
+	and issue_end_time <= sysdate() + INTERVAL 36 HOUR
+	]]>
+  </select>
 </mapper>
